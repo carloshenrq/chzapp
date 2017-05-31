@@ -117,7 +117,10 @@ class Session extends Component
             unset($this->CHZApp_SessionCreated, $this->CHZApp_SessionTimeout);
             $this->recreate();
             $this->init();
+            return;
         }
+
+        parent::init();
     }
 
     /**

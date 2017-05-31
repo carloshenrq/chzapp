@@ -43,9 +43,53 @@ use \Psr\Http\Message\ResponseInterface;
  */
 abstract class Controller extends Component
 {
+	/**
+	 * Array com todas as rotas customizadas.
+	 * @var array
+	 */
+	private $customRoutes;
+
+	/**
+	 * Array com todas as restrições de rotas. Também se aplicam as rotas customizadas.
+	 * @var array
+	 */
+	public $restrictionRoutes;
+
 	public function __construct(Application $application, $get, $post, $files)
 	{
+		$this->customRoutes = [];
+		$this->restrictionRoutes = [];
+
 		parent::__construct($application);
+	}
+
+	/**
+	 * Adiciona uma nova rota ao controller.
+	 *
+	 * @param string $route
+	 * @param callback $callback
+	 */
+	protected function addRoute($route, $callback)
+	{
+		if(!is_callable($callback))
+			return;
+
+		$this->customRoutes[$route] = $callback;
+	}
+
+	/**
+	 * Adiciona uma nova rota ao controller.
+	 *
+	 * @param string $route
+	 * @param callback $callback
+	 */
+	protected function addRouteRestriction($route, $callback)
+	{
+
+		if(!is_callable($callback))
+			return;
+
+		$this->restrictionRoutes[$route] = $callback;
 	}
 
 	/**
@@ -56,10 +100,48 @@ abstract class Controller extends Component
 	 *
 	 * @return ResponseInterface
 	 */
-	public function callRoute($route, ResponseInterface $response)
+	final public function callRoute($route, ResponseInterface $response)
 	{
-		// @Todo:: Adicionar chamada e resolução de rota.
-		return $response;
+		if(!$this->canCallRoute($route))
+			return $response->withStatus(404);
+
+		// Verifica se é uma rota customizada, se for, faz a chamada
+		// E retorna.
+		if(isset($this->customRoutes[$route]))
+		{
+			$closure = \Closure::bind($this->customRoutes[$route], $this);
+			return $closure($response);
+		}
+
+		// Se não houver travas ou restrições, então, retorna a resposta
+		// corretamente da rota.
+		return $this->{$route}($response);
+	}
+
+	/**
+	 * Verifica se a rota pode ser chamada.
+	 *
+	 * @param string $route Rota a ser invocada
+	 *
+	 * @return bool Verdadeiro se puder.
+	 */
+	private function canCallRoute($route)
+	{
+		// Verifica se uma rota customizada já existe, se não existir
+		// Procura por um método fixo da classe.
+		// -> Caso exista, faz teste de restrição de rotas.
+		if(isset($this->customRoutes[$route]) || method_exists($this, $route))
+		{
+			// Se não houver restrições de rota, retorna verdadeiro...
+			if(!isset($this->restrictionRoutes[$route]))
+				return true;
+
+			$closure = \Closure::bind($this->restrictionRoutes[$route], $this);
+			return $closure();
+		}
+
+		// Se não existir nada, não tem o porque de acessar.
+		return false;
 	}
 
 	/**
@@ -101,12 +183,25 @@ abstract class Controller extends Component
         // Adicionado método de ação ao action.
         $action .= '_' . $method;
 
+        $app = Application::getInstance();
+
         // Cria a instância do controller para realizar a chamada.
-        $obj = new $controller(Application::getInstance(),
+        $obj = new $controller($app,
         	$get, $post, $files);
 
+       	// Faz a chmada de rota
         $response = $obj->callRoute( $action, $response );
 
+        // Verifica o retorno e devolve as informações
+        // Para o gerenciador de erro, caso a página não seja encontrada.
+        if($response->getStatusCode() !== 200)
+        {
+        	$response->withStatus(200);
+        	return $app->notFoundHandler($request->withAttribute('message', 'Caminho solicitado não foi encontrado.'),
+        		$response);
+        }
+
+        // Devolve a interface de respostas.
 		return $response;
 	}
 }

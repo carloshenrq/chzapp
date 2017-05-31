@@ -49,15 +49,6 @@ abstract class Middleware extends Component
     public function __construct(Application $application)
     {
         parent::__construct($application);
-        $this->init();
-    }
-
-    /**
-     * Inicializador para o middleware.
-     */
-    protected function init()
-    {
-        return;
     }
 
     /**

@@ -55,6 +55,17 @@ abstract class Component
     public function __construct(Application $application)
     {
         $this->application = $application;
+
+        // Após instânciar tudo e definir... chama o inicializador.
+        $this->init();
+    }
+
+    /**
+     * Inicializador para os componentes.
+     */
+    protected function init()
+    {
+        return;
     }
 
     /**
