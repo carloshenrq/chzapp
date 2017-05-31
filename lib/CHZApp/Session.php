@@ -67,7 +67,7 @@ class Session extends Component
      */
     public function __construct(Application $application, $timeout = 300)
     {
-        parent::_construct($application);
+        parent::__construct($application);
 
         // Remove o limitador de cache para sessões.
         session_cache_limiter(false);
