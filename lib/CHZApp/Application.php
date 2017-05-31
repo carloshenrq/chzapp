@@ -43,6 +43,8 @@ use \Slim\App;
  */
 abstract class Application extends App
 {
+    private static $instance;
+
     /**
      * Dados para controle e gerenciamento de sessão.
      *
@@ -56,6 +58,13 @@ abstract class Application extends App
      * @var SmartyView
      */
     private $smartyView;
+
+    /**
+     * Cliente para requisições externas.
+     *
+     * @var HttpClient
+     */
+    private $httpClient;
 
     /**
      * Construtor para a classe de aplicação
@@ -74,9 +83,26 @@ abstract class Application extends App
             ]
         ]);
 
+        // Define a instância.
+        self::$instance = $this;
+
         // Inicializa informações de sessão.
         $this->session = new Session($this, $sessionTimeout);
         $this->smartyView = new SmartyView($this, $templateDir, $templateCache);
+        $this->httpClient = new HttpClient($this);
+
+        // Adição dos middlewares padrões.
+        $this->add(new Router($this));
+    }
+
+    /**
+     * Obtém o objeto que gerência as chamadas de http externo.
+     *
+     * @return HttpClient
+     */
+    public function getHttpClient()
+    {
+        return $this->httpClient;
     }
 
     /**
@@ -107,5 +133,15 @@ abstract class Application extends App
     public function setSession(Session $session)
     {
         $this->session = $session;
+    }
+
+    /**
+     * Instância global da aplicção.
+     *
+     * @return Application
+     */
+    public static function getInstance()
+    {
+        return self::$instance;
     }
 }
