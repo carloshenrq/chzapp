@@ -35,31 +35,31 @@ namespace CHZApp;
 
 abstract class ConfigComponent extends Component
 {
-	/**
-	 * Configurações para o componente.
-	 * 
-	 * @var array
-	 */
-	protected $configs;
+    /**
+     * Configurações para o componente.
+     * 
+     * @var array
+     */
+    protected $configs;
 
-	/**
-	 * Construtor para componentes de configuração.
-	 *
-	 * @param Application $application
-	 * @param array $configs
-	 */
-	public function __construct(Application $application, $configs = array())
-	{
-		parent::__construct($application);
+    /**
+     * Construtor para componentes de configuração.
+     *
+     * @param Application $application
+     * @param array $configs
+     */
+    public function __construct(Application $application, $configs = array())
+    {
+        parent::__construct($application);
 
-		$this->parseConfigs($configs);
-	}
+        $this->parseConfigs($configs);
+    }
 
 
-	/**
-	 * Carrega e aplica as configurações padrões para o componente.
-	 *
-	 * @param array $configs
-	 */
-	abstract protected function parseConfigs($configs = array());
+    /**
+     * Carrega e aplica as configurações padrões para o componente.
+     *
+     * @param array $configs
+     */
+    abstract protected function parseConfigs($configs = array());
 }

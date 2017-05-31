@@ -43,94 +43,94 @@ use \Swift_Message;
  */
 class Mailer extends ConfigComponent
 {
-	/**
-	 * Realiza o envio do e-mail com os dados informados.
-	 *
-	 * @param string $subject Assunto do e-mail
-	 * @param string $template Arquivo que será renderizado para o envio
-	 * @param string $data Dados para trocar durante o render.
-	 * @param array $to Destinatário da mensagem.
-	 * @param string $type Tipo de mensagem. HTML ou TEXT
-	 */
-	public function send($subject, $to, $template, $data = array(), $type = 'text/html')
-	{
-		return $this->createMailer()->send($this->createMessage(
-			$subject,
-			$to,
-			$template,
-			$data,
-			$type
-		));
-	}
+    /**
+     * Realiza o envio do e-mail com os dados informados.
+     *
+     * @param string $subject Assunto do e-mail
+     * @param string $template Arquivo que será renderizado para o envio
+     * @param string $data Dados para trocar durante o render.
+     * @param array $to Destinatário da mensagem.
+     * @param string $type Tipo de mensagem. HTML ou TEXT
+     */
+    public function send($subject, $to, $template, $data = array(), $type = 'text/html')
+    {
+        return $this->createMailer()->send($this->createMessage(
+            $subject,
+            $to,
+            $template,
+            $data,
+            $type
+        ));
+    }
 
 
-	/**
-	 * Cria a mensagem para ser enviada.
-	 *
-	 * @param string $subject Assunto do e-mail
-	 * @param string $template Arquivo que será renderizado para o envio
-	 * @param string $data Dados para trocar durante o render.
-	 * @param array $to Destinatário da mensagem.
-	 * @param string $type Tipo de mensagem. HTML ou TEXT
-	 */
-	private function createMessage($subject, $to, $template, $data = array(), $type = 'text/html')
-	{
-		// Cria o objeto da mensagem para envio.
-		$message = Swift_Message::newInstance($subject)
-									->setFrom([$this->configs['from'] => $this->configs['name']])
-									->setTo($to);
+    /**
+     * Cria a mensagem para ser enviada.
+     *
+     * @param string $subject Assunto do e-mail
+     * @param string $template Arquivo que será renderizado para o envio
+     * @param string $data Dados para trocar durante o render.
+     * @param array $to Destinatário da mensagem.
+     * @param string $type Tipo de mensagem. HTML ou TEXT
+     */
+    private function createMessage($subject, $to, $template, $data = array(), $type = 'text/html')
+    {
+        // Cria o objeto da mensagem para envio.
+        $message = Swift_Message::newInstance($subject)
+                                    ->setFrom([$this->configs['from'] => $this->configs['name']])
+                                    ->setTo($to);
 
-		// Renderiza os dados da mensagem para envio.
-		$body = $this->getApplication()
-					->getSmartyView()
-					->render($template, $data);
+        // Renderiza os dados da mensagem para envio.
+        $body = $this->getApplication()
+                    ->getSmartyView()
+                    ->render($template, $data);
 
-		// Define os dados da mensagem com o conteúdo.
-		$message->setBody($body, $type);
+        // Define os dados da mensagem com o conteúdo.
+        $message->setBody($body, $type);
 
-		// Retorna a mensagem pronta para o envio.
-		return $message;
-	}
+        // Retorna a mensagem pronta para o envio.
+        return $message;
+    }
 
-	/**
-	 * Cria o mailer para enviar o e-mail.
-	 *
-	 * @return \Swift_Mailer
-	 */
-	private function createMailer()
-	{
-		return Swift_Mailer::newInstance($this->createTransport());
-	}
+    /**
+     * Cria o mailer para enviar o e-mail.
+     *
+     * @return \Swift_Mailer
+     */
+    private function createMailer()
+    {
+        return Swift_Mailer::newInstance($this->createTransport());
+    }
 
-	/**
-	 * Cria o transporte para enviar o e-mail usando o Swift_Mailer
-	 *
-	 * @return \Swift_SmtpTransport
-	 */
-	private function createTransport()
-	{
-		return Swift_SmtpTransport::newInstance(
-			$this->configs['host'],
-			$this->configs['port'],
-			$this->configs['encrypt']
-		)->setUsername($this->configs['user'])
-		->setPassword($this->configs['pass']);
-	}
+    /**
+     * Cria o transporte para enviar o e-mail usando o Swift_Mailer
+     *
+     * @return \Swift_SmtpTransport
+     */
+    private function createTransport()
+    {
+        return Swift_SmtpTransport::newInstance(
+            $this->configs['host'],
+            $this->configs['port'],
+            $this->configs['encrypt']
+        )->setUsername($this->configs['user'])
+        ->setPassword($this->configs['pass']);
+    }
 
-	/**
-	 * @see ConfigComponent::parseConfigs()
-	 */
-	protected function parseConfigs($configs = array())
-	{
-		$this->configs = array_merge([
-			'host'		=> null,
-			'port'		=> null,
-			'encrypt'	=> null,
-			'user'		=> null,
-			'pass'		=> null,
-			'from'		=> null,
-			'name'		=> null
-		], $configs);
-	}
+    /**
+     * @see ConfigComponent::parseConfigs()
+     */
+    protected function parseConfigs($configs = array())
+    {
+        $this->configs = array_merge([
+            'host'      => null,
+            'port'      => null,
+            'encrypt'   => null,
+            'user'      => null,
+            'pass'      => null,
+            'from'      => null,
+            'name'      => null
+        ], $configs);
+    }
 }
 
