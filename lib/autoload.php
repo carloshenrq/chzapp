@@ -50,4 +50,4 @@ spl_autoload_register(function($class) {
             return;
         }
     }
-}, true, $prepend);
+}, true, false);

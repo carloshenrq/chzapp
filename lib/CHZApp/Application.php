@@ -51,12 +51,21 @@ abstract class Application extends App
     private $session;
 
     /**
+     * Obtém informação do viewer para a aplicação.
+     *
+     * @var SmartyView
+     */
+    private $smartyView;
+
+    /**
      * Construtor para a classe de aplicação
      *
      * @param bool $developerMode Identifica se a classe usará modo desenvolvedor
      */
-    public function __construct($developerMode = false,
-        $sessionTimeout = 300)
+    public function __construct($developerMode,
+        $sessionTimeout,
+        $templateDir,
+        $templateCache)
     {
         // Inicializa a classe pai com os dados oficiais.
         parent::__construct([
@@ -67,6 +76,17 @@ abstract class Application extends App
 
         // Inicializa informações de sessão.
         $this->session = new Session($this, $sessionTimeout);
+        $this->smartyView = new SmartyView($this, $templateDir, $templateCache);
+    }
+
+    /**
+     * Obtém informações de visualização para o smarty.
+     *
+     * @return SmartyView
+     */
+    public function getSmartyView()
+    {
+        return $this->smartyView;
     }
 
     /**
