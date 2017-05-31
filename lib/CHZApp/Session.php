@@ -36,7 +36,7 @@ namespace CHZApp;
 /**
  * Classe para gerenciamento de sessões.
  */
-class Session extends Component
+class Session extends ConfigComponent
 {
     /**
      * Algoritmo de criptografia.
@@ -57,17 +57,12 @@ class Session extends Component
     private $cryptIv;
 
     /**
-     * Timeout para limpar a sessão e criar tudo novamente.
-     * @var int
-     */
-    private $timeout;
-
-    /**
      * @see Component::__construct()
      */
-    public function __construct(Application $application, $timeout = 300)
+    public function __construct(Application $application, $configs = array())
     {
-        parent::__construct($application);
+        // Faz a chamada do construtor herdado.
+        parent::__construct($application, $configs);
 
         // Remove o limitador de cache para sessões.
         session_cache_limiter(false);
@@ -84,14 +79,18 @@ class Session extends Component
         if($sessionStatus == \PHP_SESSION_NONE)
             session_start();
 
-        // Define o tempo de inicio de timeout para a função.
-        $this->timeout = max(0, $timeout);
-
-        // Tempo minimo de duração é de 1 minuto.
-        if($this->timeout > 0) $this->timeout = min(60, $this->timeout);
-
         // Inicializa informações de sessão.
         $this->init();
+    }
+
+    /**
+     * @see ConfigComponent::parseConfigs()
+     */
+    protected function parseConfigs($configs = array())
+    {
+        $this->configs = array_merge([
+            'timeout' => 300,
+        ], $configs);
     }
 
     /**
@@ -107,8 +106,8 @@ class Session extends Component
             $this->CHZApp_SessionCreated = $sessionCreated;
 
             // Caso necessário, define o timeout para 
-            if($this->timeout > 0)
-                $this->CHZApp_SessionTimeout = $sessionCreated + $this->timeout;
+            if($this->configs['timeout'] > 0)
+                $this->CHZApp_SessionTimeout = $sessionCreated + $this->configs['timeout'];
         }
         else if(isset($this->CHZApp_SessionTimeout) && floatval($this->CHZApp_SessionTimeout) < microtime(true))
         {

@@ -67,14 +67,21 @@ abstract class Application extends App
     private $httpClient;
 
     /**
+     * Cliente para envio de e-mails.
+     * 
+     * @var Mailer
+     */
+    private $mailer;
+
+    /**
      * Construtor para a classe de aplicação
      *
      * @param bool $developerMode Identifica se a classe usará modo desenvolvedor
      */
-    public function __construct($developerMode,
-        $sessionTimeout,
-        $templateDir,
-        $templateCache)
+    public function __construct($developerMode = false,
+        $sessionConfigs = array(),
+        $smartyConfigs = array(),
+        $mailerConfigs = array())
     {
         // Inicializa a classe pai com os dados oficiais.
         parent::__construct([
@@ -87,12 +94,23 @@ abstract class Application extends App
         self::$instance = $this;
 
         // Inicializa informações de sessão.
-        $this->session = new Session($this, $sessionTimeout);
-        $this->smartyView = new SmartyView($this, $templateDir, $templateCache);
+        $this->session = new Session($this, $sessionConfigs);
+        $this->smartyView = new SmartyView($this, $smartyConfigs);
         $this->httpClient = new HttpClient($this);
+        $this->mailer = new Mailer($this, $mailerConfigs);
 
         // Adição dos middlewares padrões.
         $this->add(new Router($this));
+    }
+
+    /**
+     * Objeto responsável pelo envio dos e-mails.
+     *
+     * @return Mailer
+     */
+    public function getMailer()
+    {
+        return $this->mailer;
     }
 
     /**

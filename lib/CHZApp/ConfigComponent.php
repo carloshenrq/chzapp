@@ -33,67 +33,33 @@
 
 namespace CHZApp;
 
-use \Smarty;
-
-/**
- * Classe para tratamento dos templates para o Smarty.
- */
-class SmartyView extends ConfigComponent
+abstract class ConfigComponent extends Component
 {
-    /**
-     * Objeto instânciado para smarty.
-     * @var \Smarty
-     */
-    private $smarty;
+	/**
+	 * Configurações para o componente.
+	 * 
+	 * @var array
+	 */
+	protected $configs;
 
-    /**
-     * Define dados iniciais e configuração para o leitor dos templates.
-     *
-     * @param Application $application
-     * @param array $configs
-     */
-    public function __construct(Application $application, $configs = array())
-    {
-        parent::__construct($application, $configs);
+	/**
+	 * Construtor para componentes de configuração.
+	 *
+	 * @param Application $application
+	 * @param array $configs
+	 */
+	public function __construct(Application $application, $configs = array())
+	{
+		parent::__construct($application);
 
-        $this->smarty = new Smarty;
-        $this->smarty->setTemplateDir($this->configs['templateDir']);
-        $this->smarty->setCaching($this->configs['cache']);
-    }
+		$this->parseConfigs($configs);
+	}
 
-    /**
-     * @see ConfigComponent::parseConfigs()
-     */
-    protected function parseConfigs($configs = array())
-    {
-        $this->configs = array_merge([
-            'templateDir'   => './',
-            'cache'         => \Smarty::CACHING_OFF
-        ], $configs);
-    }
 
-    /**
-     * Renderiza o template smarty em os dados fornecidos.
-     *
-     * @param string $template Arquivo de template que será renderizado
-     * @param string $data Dados que irão para o arquivo template.
-     *
-     * @return string Dados renderizados.
-     */
-    public function render($template, $data = [])
-    {
-        $this->getSmarty()->assign($data);
-        return $this->getSmarty()->fetch($template);
-    }
-
-    /**
-     * Obtém o objeto para smarty.
-     *
-     * @return \Smarty
-     */
-    public function getSmarty()
-    {
-        return $this->smarty;
-    }
+	/**
+	 * Carrega e aplica as configurações padrões para o componente.
+	 *
+	 * @param array $configs
+	 */
+	abstract protected function parseConfigs($configs = array());
 }
-

@@ -53,13 +53,49 @@ abstract class Controller extends Component
      * Array com todas as restrições de rotas. Também se aplicam as rotas customizadas.
      * @var array
      */
-    public $restrictionRoutes;
+    private $restrictionRoutes;
 
+    /**
+     * Array com o conteúdo de $_GET
+     * @var array
+     */
+    protected $get;
+
+    /**
+     * Array com o conteúdo de $_POST
+     * @var array
+     */
+    protected $post;
+
+    /**
+     * Array com o conteúdo de $_FILES.
+     * @var array
+     */
+    protected $files;
+
+    /**
+     * Construtor para a classe de controller.
+     * Recebe os posts, get e arquivos.
+     *
+     * @param Application $application
+     * @param array $get
+     * @param array $post
+     * @param array $files
+     */
     public function __construct(Application $application, $get, $post, $files)
     {
+        // Inicializa as variaveis de rotas customizadas e 
+        // restrições de rota.
         $this->customRoutes = [];
         $this->restrictionRoutes = [];
 
+        // Inicializa os atributos da classe para informações de POST, GET e FILES
+        // Pode ser acessado pelas rotas.
+        $this->get = $get;
+        $this->post = $post;
+        $this->files = $files;
+
+        // Chama o construtor de componentes.
         parent::__construct($application);
     }
 
