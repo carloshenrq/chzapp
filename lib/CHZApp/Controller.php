@@ -36,6 +36,11 @@ namespace CHZApp;
 use \Psr\Http\Message\ServerRequestInterface;
 use \Psr\Http\Message\ResponseInterface;
 
+/**
+ * Classe padrão para os controllers da aplicação.
+ *
+ * @abstract
+ */
 abstract class Controller extends Component
 {
 	public function __construct(Application $application, $get, $post, $files)
