@@ -36,24 +36,27 @@ namespace CHZApp;
 use \Psr\Http\Message\ServerRequestInterface;
 use \Psr\Http\Message\ResponseInterface;
 
+/**
+ * Classe para tudo para a classe controller.
+ */
 class Router extends Middleware
 {
-	/**
-	 * @see Middleware::__invoke()
-	 */
-	public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $next)
-	{
-		// Dados para rota que será chamada.
+    /**
+     * @see Middleware::__invoke()
+     */
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $next)
+    {
+        // Dados para rota que será chamada.
         $path = $request->getUri()->getPath();
         if($path != '/') $path = '/' . $path;
 
         // Define o router padrão para a requisição.
-		$this->getApplication()->any($path, [
-			'\\CHZApp\\Controller', 'router'
-		]);
+        $this->getApplication()->any($path, [
+            '\\CHZApp\\Controller', 'router'
+        ]);
 
-		// Retorna para a execução seguinte.
-		return $next($request, $response);
-	}
+        // Retorna para a execução seguinte.
+        return $next($request, $response);
+    }
 
 }

@@ -40,21 +40,21 @@ use \GuzzleHttp\Client;
  */
 class HttpClient extends Component
 {
-	/**
-	 * Cria o cliente de conexão com o URL informado para realizar
-	 * chamadas.
-	 *
-	 * @param string $url Caminho que será chamado.
-	 * @param bool $verify Caso for HTTPS verificar o certificado.
-	 * @param array $options Opções do client guzzle.
-	 *
-	 * @return \GuzzleHttp\Client
-	 */
-	private function createClient($url, $verify = false, $options = [])
-	{
-		return new Client(array_merge([
-			'base_uri'		=> $url,
-			'verify'		=> $verify
-		], $options));
-	}
+    /**
+     * Cria o cliente de conexão com o URL informado para realizar
+     * chamadas.
+     *
+     * @param string $url Caminho que será chamado.
+     * @param bool $verify Caso for HTTPS verificar o certificado.
+     * @param array $options Opções do client guzzle.
+     *
+     * @return \GuzzleHttp\Client
+     */
+    private function createClient($url, $verify = false, $options = [])
+    {
+        return new Client(array_merge([
+            'base_uri'      => $url,
+            'verify'        => $verify
+        ], $options));
+    }
 }

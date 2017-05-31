@@ -40,36 +40,36 @@ use \Smarty;
  */
 class SmartyView extends Component
 {
-	/**
-	 * Objeto instânciado para smarty.
-	 * @var \Smarty
-	 */
-	private $smarty;
+    /**
+     * Objeto instânciado para smarty.
+     * @var \Smarty
+     */
+    private $smarty;
 
-	/**
-	 * Define dados iniciais e configuração para o leitor dos templates.
-	 *
-	 * @param Application $application
-	 * @param string $templateDir
-	 * @param string $cache
-	 */
-	public function __construct(Application $application, $templateDir, $cache = Smarty::CACHING_OFF)
-	{
-		parent::__construct($application);
+    /**
+     * Define dados iniciais e configuração para o leitor dos templates.
+     *
+     * @param Application $application
+     * @param string $templateDir
+     * @param string $cache
+     */
+    public function __construct(Application $application, $templateDir, $cache = \Smarty::CACHING_OFF)
+    {
+        parent::__construct($application);
 
-		$this->smarty = new Smarty;
-		$this->smarty->setTemplateDir($templateDir);
-		$this->smarty->setCaching($cache);
-	}
+        $this->smarty = new Smarty;
+        $this->smarty->setTemplateDir($templateDir);
+        $this->smarty->setCaching($cache);
+    }
 
-	/**
-	 * Obtém o objeto para smarty.
-	 *
-	 * @return \Smarty
-	 */
-	public function getSmarty()
-	{
-		return $this->smarty;
-	}
+    /**
+     * Obtém o objeto para smarty.
+     *
+     * @return \Smarty
+     */
+    public function getSmarty()
+    {
+        return $this->smarty;
+    }
 }
 
