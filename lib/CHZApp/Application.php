@@ -77,6 +77,9 @@ abstract class Application extends App
      * Construtor para a classe de aplicação
      *
      * @param bool $developerMode Identifica se a classe usará modo desenvolvedor
+     * @param array $sessionConfigs Configurações de sessão. Ao enviar NULL não será definido.
+     * @param array $smartyConfigs Configurações do smarty. Ao enviar NULL não será definido.
+     * @param array $mailerConfigs Configurações do mailer. Ao enviar NULL não será definido.
      */
     public function __construct($developerMode = false,
         $sessionConfigs = array(),
@@ -94,10 +97,16 @@ abstract class Application extends App
         self::$instance = $this;
 
         // Inicializa informações de sessão.
-        $this->session = new Session($this, $sessionConfigs);
-        $this->smartyView = new SmartyView($this, $smartyConfigs);
+        if(!is_null($sessionConfigs))
+            $this->session = new Session($this, $sessionConfigs);
+        
+        if(!is_null($smartyConfigs))
+            $this->smartyView = new SmartyView($this, $smartyConfigs);
+
         $this->httpClient = new HttpClient($this);
-        $this->mailer = new Mailer($this, $mailerConfigs);
+
+        if(!is_null($mailerConfigs))
+            $this->mailer = new Mailer($this, $mailerConfigs);
 
         // Adição dos middlewares padrões.
         $this->add(new Router($this));
@@ -114,6 +123,16 @@ abstract class Application extends App
     }
 
     /**
+     * Define o componente de mailer para a aplicação.
+     *
+     * @param Mailer $mailer
+     */
+    public function setMailer(Mailer $mailer)
+    {
+        $this->mailer = $mailer;
+    }
+
+    /**
      * Obtém o objeto que gerência as chamadas de http externo.
      *
      * @return HttpClient
@@ -124,6 +143,16 @@ abstract class Application extends App
     }
 
     /**
+     * Define o componente de HttpClient para a aplicação.
+     *
+     * @param HttpClient $httpClient
+     */
+    public function setHttpClient(HttpClient $httpClient)
+    {
+        $this->httpClient = $httpClient;
+    }
+
+    /**
      * Obtém informações de visualização para o smarty.
      *
      * @return SmartyView
@@ -131,6 +160,16 @@ abstract class Application extends App
     public function getSmartyView()
     {
         return $this->smartyView;
+    }
+
+    /**
+     * Define o uso do SmartyView para a aplicação.
+     *
+     * @param SmartyView $smartyView
+     */
+    public function setSmartyView(SmartyView $smartyView)
+    {
+        $this->smartyView = $smartyView;
     }
 
     /**
