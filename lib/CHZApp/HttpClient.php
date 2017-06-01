@@ -41,6 +41,36 @@ use \GuzzleHttp\Client;
 class HttpClient extends Component
 {
     /**
+     * Realiza a verificação de componente do reCaptcha solicitado.
+     *
+     * @param string $challengeResponse Retorno do desafio em tela preenchido pelo usuário.
+     * @param string $secretKey Chave secreta para comunicação direta com o google.
+     *
+     * @return bool Verdadeiro caso os dados estejam validos.
+     */
+    public function verifyRecaptcha($challengeResponse, $secretKey)
+    {
+        // Obtém a resposta da google quanto a chave informada
+        // e o desafio realizado.
+        $googleResponse = $this->createClient()
+                                ->post('https://www.google.com/recaptcha/api/siteverify', [
+                                    'form_params'   => [
+                                        'secret'    => $secretKey,
+                                        'response'  => $challengeResponse
+                                    ]
+                                ])
+                                ->getBody()
+                                ->getContents();
+        // Retorna os dados em json
+        $googleJson = json_decode($googleResponse);
+
+        // Caso haja sucesso na validação dos dados, 
+        // Então retornará 1. (Dando verdadeiro no retorno)
+        return ($googleJson->success == 1);
+    }
+
+
+    /**
      * Cria o cliente de conexão com o URL informado para realizar
      * chamadas.
      *
@@ -50,7 +80,7 @@ class HttpClient extends Component
      *
      * @return \GuzzleHttp\Client
      */
-    private function createClient($url, $verify = false, $options = [])
+    private function createClient($url = '', $verify = false, $options = [])
     {
         return new Client(array_merge([
             'base_uri'      => $url,

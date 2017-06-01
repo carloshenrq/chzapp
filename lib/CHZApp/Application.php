@@ -74,17 +74,26 @@ abstract class Application extends App
     private $mailer;
 
     /**
+     * Eloquent para realizar a conexão com o banco de dados.
+     *
+     * @var \Illuminate\Database\Capsule\Manager
+     */
+    private $eloquent;
+
+    /**
      * Construtor para a classe de aplicação
      *
      * @param bool $developerMode Identifica se a classe usará modo desenvolvedor
      * @param array $sessionConfigs Configurações de sessão. Ao enviar NULL não será definido.
      * @param array $smartyConfigs Configurações do smarty. Ao enviar NULL não será definido.
      * @param array $mailerConfigs Configurações do mailer. Ao enviar NULL não será definido.
+     * @param array $eloquentConfigs Configurações do eloquent. Ao enviar NULL não será definido.
      */
     public function __construct($developerMode = false,
         $sessionConfigs = array(),
         $smartyConfigs = array(),
-        $mailerConfigs = array())
+        $mailerConfigs = array(),
+        $eloquentConfigs = array())
     {
         // Inicializa a classe pai com os dados oficiais.
         parent::__construct([
@@ -108,8 +117,31 @@ abstract class Application extends App
         if(!is_null($mailerConfigs))
             $this->mailer = new Mailer($this, $mailerConfigs);
 
+        if(!is_null($eloquentConfigs))
+            $this->eloquent = new EloquentManager($this, $eloquentConfigs);
+
         // Adição dos middlewares padrões.
         $this->add(new Router($this));
+    }
+
+    /**
+     * Obtém o manager do eloquent.
+     *
+     * @return EloquentManager
+     */
+    public function getEloquent()
+    {
+        return $this->eloquent;
+    }
+
+    /**
+     * Define o manager para o eloquent.
+     *
+     * @param EloquentManager $eloquent
+     */
+    public function setEloquent(EloquentManager $eloquent)
+    {
+        $this->eloquent = $eloquent;
     }
 
     /**
