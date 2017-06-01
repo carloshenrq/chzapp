@@ -226,7 +226,7 @@ abstract class Controller extends Component
             $get, $post, $files);
 
         // Faz a chmada de rota
-        $response = $obj->callRoute( $action, $response );
+        $response = $obj->callRoute($action, $response);
 
         // Verifica o retorno e devolve as informações
         // Para o gerenciador de erro, caso a página não seja encontrada.
