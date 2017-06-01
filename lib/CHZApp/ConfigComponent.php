@@ -33,6 +33,11 @@
 
 namespace CHZApp;
 
+/**
+ * Classe para componentes que necessitam de vetor para configuração.
+ *
+ * @abstract
+ */
 abstract class ConfigComponent extends Component
 {
     /**

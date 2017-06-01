@@ -36,6 +36,9 @@ namespace CHZApp;
 use \Illuminate\Database\Capsule\Manager;
 use \Illuminate\Container\Container;
 
+/**
+ * Adicionado classe para gerenciador do eloquent.
+ */
 class EloquentManager extends ConfigComponent
 {
     /**
