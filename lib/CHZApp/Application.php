@@ -81,6 +81,12 @@ abstract class Application extends App
     private $eloquent;
 
     /**
+     * Define o objeto de parser de assets na aplicação.
+     * @var AssetParser
+     */
+    private $assetParser;
+
+    /**
      * Construtor para a classe de aplicação
      *
      * @param bool $developerMode Identifica se a classe usará modo desenvolvedor
@@ -105,6 +111,9 @@ abstract class Application extends App
         // Define a instância.
         self::$instance = $this;
 
+        // Define se está usando os assets locais.
+        $this->assetParser = new AssetParser($this);
+
         // Inicializa informações de sessão.
         if(!is_null($sessionConfigs))
             $this->session = new Session($this, $sessionConfigs);
@@ -122,6 +131,16 @@ abstract class Application extends App
 
         // Adição dos middlewares padrões.
         $this->add(new Router($this));
+    }
+
+    /**
+     * Obtém o asset parser para o framework
+     *
+     * @return AssetParser
+     */
+    public function getAssetParser()
+    {
+        return $this->assetParser;
     }
 
     /**
