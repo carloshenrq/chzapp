@@ -108,6 +108,8 @@ class AssetParser extends Component
      * as informações compiladas.
      *
      * @param string $file Arquivo que será compilado.
+     * @param bool $minify Identifica se os dados serão minificados.
+     * @param array $options Opções para compilação do coffeescript
      *
      * @return string Dados compilados
      */
