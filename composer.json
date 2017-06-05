@@ -22,5 +22,8 @@
     },
     "autoload" : {
         "files" : ["lib/autoload.php"]
+    },
+    "require-dev": {
+        "apigen/apigen": "^4.1"
     }
 }

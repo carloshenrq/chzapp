@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class CHZApp\ConfigComponent</title>
+
+	<link rel="stylesheet" href="resources/style.css?c2f33731c1948fbed7c333554678bfa68d4817da">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-CHZApp.html">
+						CHZApp					</a>
+
+						</li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-CHZApp.Application.html">Application</a></li>
+				<li><a href="class-CHZApp.AssetParser.html">AssetParser</a></li>
+				<li><a href="class-CHZApp.Component.html">Component</a></li>
+				<li class="active"><a href="class-CHZApp.ConfigComponent.html">ConfigComponent</a></li>
+				<li><a href="class-CHZApp.Controller.html">Controller</a></li>
+				<li><a href="class-CHZApp.EloquentManager.html">EloquentManager</a></li>
+				<li><a href="class-CHZApp.HttpClient.html">HttpClient</a></li>
+				<li><a href="class-CHZApp.Mailer.html">Mailer</a></li>
+				<li><a href="class-CHZApp.Middleware.html">Middleware</a></li>
+				<li><a href="class-CHZApp.Router.html">Router</a></li>
+				<li><a href="class-CHZApp.Session.html">Session</a></li>
+				<li><a href="class-CHZApp.SmartyView.html">SmartyView</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-CHZApp.html" title="Summary of CHZApp"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class ConfigComponent</h1>
+
+
+	<div class="description">
+	<p>Classe para componentes que necessitam de vetor para configuração.</p>
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+			<a href="class-CHZApp.Component.html"><span>CHZApp\Component</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by">
+<b><span>CHZApp\ConfigComponent</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+	<div>
+		<h4>Direct known subclasses</h4>
+			<a href="class-CHZApp.EloquentManager.html">CHZApp\EloquentManager</a>, 
+			<a href="class-CHZApp.Mailer.html">CHZApp\Mailer</a>, 
+			<a href="class-CHZApp.Session.html">CHZApp\Session</a>, 
+			<a href="class-CHZApp.SmartyView.html">CHZApp\SmartyView</a>
+	</div>
+
+
+
+
+
+
+	<div class="info">
+		<b>Abstract</b><br>
+		
+		<b>Namespace:</b> <a href="namespace-CHZApp.html">CHZApp</a><br>
+		
+
+			<b>Located at</b> <a href="source-class-CHZApp.ConfigComponent.html#36-70" title="Go to source code">CHZApp/ConfigComponent.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-CHZApp.ConfigComponent.html#50-61" title="Go to source code">__construct</a>( <span><code><a href="class-CHZApp.Application.html">CHZApp\Application</a></code> <var>$application</var></span>, <span>array <var>$configs</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			<p>Construtor para componentes de configuração.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Construtor para componentes de configuração.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$application</var></dt>
+					<dd></dd>
+					<dt><var>$configs</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CHZApp.Component.html#___construct">CHZApp\Component::__construct()</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="parseConfigs" id="_parseConfigs">
+
+		<td class="attributes"><code>
+			abstract protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_parseConfigs">#</a>
+		<code><a href="source-class-CHZApp.ConfigComponent.html#64-69" title="Go to source code">parseConfigs</a>( <span>array <var>$configs</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			<p>Carrega e aplica as configurações padrões para o componente.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Carrega e aplica as configurações padrões para o componente.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$configs</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CHZApp.Component.html#methods">CHZApp\Component</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CHZApp.Component.html#_getApplication">getApplication()</a>, 
+			<a href="class-CHZApp.Component.html#_init">init()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="configs" id="$configs">
+		<td class="attributes"><code>
+			protected  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-CHZApp.ConfigComponent.html#43-48" title="Go to source code"><var>$configs</var></a>
+
+			<div class="description short">
+				<p>Configurações para o componente.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Configurações para o componente.</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$configs" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>
