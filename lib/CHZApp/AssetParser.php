@@ -34,10 +34,75 @@
 namespace CHZApp;
 
 use \CoffeeScript\Compiler as CSCompiler;
+use \MatthiasMullie\Minify;
+use \Leafo\ScssPhp\Compiler as SCSSCompiler;
 
+/**
+ * Classe para tratar o conteúdo de assets da aplicação.
+ * Compilação de coffeescript e scss
+ */
 class AssetParser extends Component
 {
-    
+    /**
+     * Minifica o conteúdo de css enviado.
+     *
+     * @param string $css Conteúdo de CSS enviado.
+     *
+     * @return string Devolve o CSS minificado.
+     */
+    public function cssMinify($css)
+    {
+        $minify = new Minify\CSS;
+        $minify->add($css);
+        return $minify->minify();
+    }
+
+    /**
+     * Obtém o arquivo scss para ser compilado e retornado os dados
+     *
+     * @param string $file Arquivo a ser compilado.
+     * @param bool $minify Identifica se o arquivo será minificado.
+     * @param array $vars Variaveis definidas para troca nos arquivos.
+     * @param string $importPath Caminho para os arquivos de include
+     *
+     * @return string Arquivo scss compilado.
+     */
+    public function scss($file, $minify = true, $vars = [], $importPath = __DIR__)
+    {
+        // Obtém o conteúdo do arquivo a ser compilado.
+        $fileContents = file_get_contents($file);
+
+        // Instância o compilador e define as variaveis e caminho
+        // para os mixins
+        $compiler = new SCSSCompiler;
+        $compiler->setVariables($vars);
+        $compiler->addImportPath($importPath);
+
+        // Compila o arquivo informado.
+        $cssCompiled = $compiler->compile($fileContents);
+
+        // Minifica os dados a serem retornados
+        // se necessário
+        if($minify) $cssCompiled = $this->cssMinify($cssCompiled);
+
+        // Retorna o CSS compilado.
+        return $cssCompiled;
+    }
+
+    /**
+     * Minifica o conteúdo do arquivo javascript enviado.
+     *
+     * @param string $javascript Conteúdo javascript a ser minificado.
+     *
+     * @return string Javascript minificado.
+     */
+    public function jsMinify($javascript)
+    {
+        $minify = new Minify\JS;
+        $minify->add($javascript);
+        return $minify->minify();
+    }
+
     /**
      * Realiza a compilação de um arquivo coffeeScript e retorna
      * as informações compiladas.
@@ -46,15 +111,25 @@ class AssetParser extends Component
      *
      * @return string Dados compilados
      */
-    public function coffeeScript($file, $options = [])
+    public function coffeeScript($file, $minify = true, $options = [])
     {
+        // Obtém o conteúdo do arquivo para realizar a compilação
+        // do arquivo .coffee
         $fileContents = file_get_contents($file);
 
+        // Opções para o compilador
         $options = array_merge([
             'filename' => $file,
         ], $options);
 
-        return CSCompiler::compile($fileContents, $options);
-    }
+        // Obtém o coffeescript compilado para javascript
+        $jsCompiled = CSCompiler::compile($fileContents, $options);
 
+        // Se for identificado para minificar o arquivo
+        // Então irá aplicar a minificação ao mesmo.
+        if($minify) $jsCompiled = $this->jsMinify($jsCompiled);
+
+        // Retorna os dados de coffeescript compilados.
+        return $jsCompiled;
+    }
 }
