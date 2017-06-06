@@ -56,6 +56,12 @@ abstract class Controller extends Component
     private $restrictionRoutes;
 
     /**
+     * Array com todas as expressões de rotas.
+     * @var array
+     */
+    private $regexRoutes;
+
+    /**
      * Array com o conteúdo de $_GET
      * @var array
      */
@@ -82,21 +88,43 @@ abstract class Controller extends Component
      * @param array $post
      * @param array $files
      */
-    public function __construct(Application $application, $get, $post, $files)
+    public function __construct(Application $application)
     {
         // Inicializa as variaveis de rotas customizadas e 
         // restrições de rota.
         $this->customRoutes = [];
         $this->restrictionRoutes = [];
-
-        // Inicializa os atributos da classe para informações de POST, GET e FILES
-        // Pode ser acessado pelas rotas.
-        $this->get = $get;
-        $this->post = $post;
-        $this->files = $files;
+        $this->regexRoutes = [];
 
         // Chama o construtor de componentes.
         parent::__construct($application);
+    }
+
+    /**
+     * Define todos os dados recebidos pelo controller.
+     *
+     * @param array $get
+     * @param array $post
+     * @param array $files
+     */
+    private function setReceivedData($get, $post, $files)
+    {
+        $this->get = $get;
+        $this->post = $post;
+        $this->files = $files;
+    }
+
+    /**
+     * Adiciona a expressão regular.
+     *
+     * @param string $routeRegexp Expressão regular da rota.
+     * @param string $routeSlim Rota que será tratada pelo slim.
+     *
+     * @return void
+     */
+    protected function addRouteRegexp($routeRegexp, $routeSlim)
+    {
+        $this->regexRoutes[$routeRegexp] = $routeSlim;
     }
 
     /**
@@ -136,7 +164,7 @@ abstract class Controller extends Component
      *
      * @return ResponseInterface
      */
-    final public function callRoute($route, ResponseInterface $response)
+    private function callRoute($route, ResponseInterface $response, $args)
     {
         if(!$this->canCallRoute($route))
             return $response->withStatus(404);
@@ -151,7 +179,7 @@ abstract class Controller extends Component
 
         // Se não houver travas ou restrições, então, retorna a resposta
         // corretamente da rota.
-        return $this->{$route}($response);
+        return $this->{$route}($response, $args);
     }
 
     /**
@@ -181,23 +209,50 @@ abstract class Controller extends Component
     }
 
     /**
-     * Método estatico para realizar toda e qualquer
-     * chamada atraves do router aqui definido.
+     * Faz o tratamento da rota e retorna o caminho correto 
+     *  para retorno dos dados.
      *
-     * @static
+     * @param string $route Dados de rota.
      *
-     * @param object $request
-     * @param object $response
-     * @param array $args
+     * @return string Rota a ser utilizada.
      */
-    public static function router(ServerRequestInterface $request, ResponseInterface $response, $args)
+    final public function parseRoute($route)
     {
-        // Obtém informações da rota acessada pelo cliente.
-        $route = $request->getAttribute('route')->getPattern();
-        $routeParams = explode('/', substr($route, 1));
-        $method = strtoupper($request->getMethod());
+        foreach($this->regexRoutes as $routePattern => $routeSlim)
+        {
+            if(preg_match($routePattern, $route))
+                return $routeSlim;
+        }
 
-        // obtém os dados enviados, post, get etc...
+        return $route;
+    }
+
+    /**
+     * Método para realizar o tratamento de chamada de rota.
+     *
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface $response
+     * @param array $args
+     *
+     * @return ResponseInterface
+     */
+    final public function __router(ServerRequestInterface $request, ResponseInterface $response, $args)
+    {
+        // Obtém os parametros de rota para realizar a chamada.
+        $route = $request->getAttribute('route')->getPattern();
+        $routeParams = array_values(array_filter(explode('/', $route), function($value) {
+            return !empty($value) && preg_match('/^([a-z0-9_]+)$/i', $value);
+        }));
+        array_shift($routeParams);
+
+        // Tratamento para chamar o action correto.
+        $action = implode('_', $routeParams);
+        if(empty($action)) $action = 'index';
+        $action .= '_' . strtoupper($request->getMethod());
+
+        // Após obter os parametros de rotas, obtém também todos os dados
+        // Enviados pela requisição para poder enviar ao método caso
+        // Necessário.
         $get        = $request->getQueryParams();   // dados do $_GET 
         $post       = $request->getParsedBody();    // dados de $_POST
         $files      = $request->getUploadedFiles(); // dados de $_FILES
@@ -205,39 +260,23 @@ abstract class Controller extends Component
         // Remove as definições de $_POST, $_GET, $_REQUEST e $_FILES
         unset($_POST, $_GET, $_REQUEST, $_FILES);
 
-        // Obtém o controller a ser chamado e também o action.
-        $controller = array_shift($routeParams);
-        $action = implode('_', $routeParams);
+        // Define os dados recebidos.
+        $this->setReceivedData($get, $post, $files);
 
-        // Faz o teste para saber se os dados estão vazios.
-        if(empty($controller)) $controller = 'home';
-        if(empty($action)) $action = 'index';
-
-        // Tratado controller para chamada correta.
-        $controller = '\\Controller\\' . ucfirst($controller);
-
-        // Adicionado método de ação ao action.
-        $action .= '_' . $method;
-
-        $app = Application::getInstance();
-
-        // Cria a instância do controller para realizar a chamada.
-        $obj = new $controller($app,
-            $get, $post, $files);
-
-        // Faz a chmada de rota
-        $response = $obj->callRoute($action, $response);
+        // Faz a chamada da rota.
+        $response = $this->callRoute($action, $response, $args);
 
         // Verifica o retorno e devolve as informações
         // Para o gerenciador de erro, caso a página não seja encontrada.
         if($response->getStatusCode() !== 200)
         {
             $response->withStatus(200);
-            return $app->notFoundHandler($request->withAttribute('message', 'Caminho solicitado não foi encontrado.'),
-                $response);
+            return $this->getApplication()
+                        ->notFoundHandler($request->withAttribute('message', 'Caminho solicitado não foi encontrado.'),
+                            $response);
         }
 
-        // Devolve a interface de respostas.
+        // Retorna a resposta devolvida.
         return $response;
     }
 }

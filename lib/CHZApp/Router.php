@@ -50,10 +50,28 @@ class Router extends Middleware
         $path = $request->getUri()->getPath();
         if($path != '/') $path = '/' . $path;
 
-        // Define o router padrão para a requisição.
-        $this->getApplication()->any($path, [
-            '\\CHZApp\\Controller', 'router'
-        ]);
+        // Obtém os dados de tratamento para as rotas.
+        $route = explode('/', $path);
+        array_shift($route);
+
+        // Cria a instância para a variavel de controller.
+        $controller = array_shift($route);
+        if(empty($controller)) $controller = 'home';
+
+        // Classe para o controller.
+        $controllerClass = '\\Controller\\' . ucfirst($controller);
+
+        // Cria a instância do controller.
+        $obj = new $controllerClass($this->getApplication());
+
+        // Realiza o tratamento da rota removendo o inicio para saber os dados seguintes.
+        $subRoute = substr($path, strlen($controller) + 1);
+
+        // Obtém a rota adequada para uso conforme indicação.
+        $correctRouteCall = '/' . $controller . $obj->parseRoute($subRoute);
+
+        // Define a rota de execução.
+        $this->getApplication()->any($correctRouteCall, [$obj, '__router']);
 
         // Retorna para a execução seguinte.
         return $next($request, $response);
