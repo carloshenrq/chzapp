@@ -166,7 +166,7 @@ abstract class Controller extends Component
      */
     private function callRoute($route, ResponseInterface $response, $args)
     {
-        if(!$this->canCallRoute($route))
+        if(!$this->canCallRoute($route, $args))
             return $response->withStatus(404);
 
         // Verifica se é uma rota customizada, se for, faz a chamada
@@ -174,7 +174,7 @@ abstract class Controller extends Component
         if(isset($this->customRoutes[$route]))
         {
             $closure = \Closure::bind($this->customRoutes[$route], $this);
-            return $closure($response);
+            return $closure($response, $args);
         }
 
         // Se não houver travas ou restrições, então, retorna a resposta
@@ -186,10 +186,11 @@ abstract class Controller extends Component
      * Verifica se a rota pode ser chamada.
      *
      * @param string $route Rota a ser invocada
+     * @param array $args Argumentos a serem verificados.
      *
      * @return bool Verdadeiro se puder.
      */
-    private function canCallRoute($route)
+    private function canCallRoute($route, $args)
     {
         // Verifica se uma rota customizada já existe, se não existir
         // Procura por um método fixo da classe.
@@ -201,7 +202,7 @@ abstract class Controller extends Component
                 return true;
 
             $closure = \Closure::bind($this->restrictionRoutes[$route], $this);
-            return $closure();
+            return $closure($args);
         }
 
         // Se não existir nada, não tem o porque de acessar.
