@@ -95,7 +95,7 @@ Então, se você fizer a chamada acima, com ***_GET*** a chamada será ***Contro
 
     class Home extends \CHZApp\Controller
     {
-        public function index_GET(\Psr\Http\Message\ResponseInterface $response)
+        public function index_GET(\Psr\Http\Message\ResponseInterface $response, $args)
         {
 
             // Processamento de rota
