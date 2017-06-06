@@ -113,3 +113,13 @@ Adicione separadores ***_*** entre os actions...
     public function teste_huehue_br_GET();
 
 ***Sempre, por padrão, quando for chamado apenas o controller pela requisição, a rota chamada será index_GET()***
+
+Explicando a afirmação acima...
+
+    /home/
+
+Irá realizar a chamada de ***\Controller\Home->index_GET***
+
+    /perfil/
+
+Irá realizar a chamada de ***\Controller\Perfil->index_GET***
