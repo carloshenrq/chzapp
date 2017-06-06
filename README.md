@@ -21,7 +21,7 @@
 
 Para fazer a instalação basta rodar no composer o comando:
 
-    composer require carloshlfz/framework --dev
+    composer require carloshlfz/framework --prefer-dist dev-master
 
 Ou se você preferir, adicione a suas depêndencias...
 
