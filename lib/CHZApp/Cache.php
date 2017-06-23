@@ -34,37 +34,63 @@
 namespace CHZApp;
 
 /**
- * Classe para componentes que necessitam de vetor para configuração.
- *
- * @abstract
+ * Abstract class to cache management.
  */
-abstract class ConfigComponent extends Component
+abstract class Cache extends ConfigComponent
 {
     /**
-     * Configurações para o componente.
-     * 
-     * @var array
+     * Creates an index with the proper data in cache.
+     *
+     * @param string $index Cache index.
+     * @param mixed $data Data to save in index.
+     * @param int $timeout Max data to save it.
+     *
+     * @return mixed The data saved in cache.
      */
-    protected $configs;
+    abstract public function create($index, $data, $timeout);
 
     /**
-     * Construtor para componentes de configuração.
+     * Removes an index from the cache.
      *
-     * @param Application $application
-     * @param array $configs
+     * @param string $index The index saved from cache
+     *
+     * @return bool True if was removed.
      */
-    public function __construct(Application $application, $configs = array())
+    abstract public function remove($index);
+
+    /**
+     * Gets the index from the cache.
+     *
+     * @param string $index The index saved in the cache
+     *
+     * @return mixed The data in cache. Null if has not in the index
+     */
+    abstract public function get($index);
+
+    /**
+     * Parse the data from cache or put it on there.
+     *
+     * @param string $index The index to put or get from the cache.
+     * @param mixed $data Data to put in the cache if needs too
+     * @param int $timeout Timeout to put in the cache.
+     * @param bool $force If it exists in the cache, the data'll be overwritten
+     *
+     * @return mixed The data in cache
+     */
+    public function parse($index, $data, $timeout, $force = false)
     {
-        $this->parseConfigs($configs);
+        // Remove the index from cache;
+        if($force) $this->remove($index);
 
-        parent::__construct($application);
+        // Gets the data from cache.
+        $cachedData = $this->get($index);
+
+        // If this is not null, then, has in the cache, so, return it.
+        if(!is_null($cachedData))
+            return $cachedData;
+
+        // If it's null, we need to create it on index
+        return $this->create($index, $data, $timeout);
     }
-
-
-    /**
-     * Carrega e aplica as configurações padrões para o componente.
-     *
-     * @param array $configs
-     */
-    abstract protected function parseConfigs($configs = []);
 }
+

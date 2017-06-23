@@ -74,6 +74,13 @@ abstract class Application extends App
     private $mailer;
 
     /**
+     * Dados de memcache para criação de cache.
+     * 
+     * @var MemCache
+     */
+    private $memcache;
+
+    /**
      * Eloquent para realizar a conexão com o banco de dados.
      *
      * @var \Illuminate\Database\Capsule\Manager
@@ -99,7 +106,8 @@ abstract class Application extends App
         $sessionConfigs = array(),
         $smartyConfigs = array(),
         $mailerConfigs = array(),
-        $eloquentConfigs = array())
+        $eloquentConfigs = array(),
+        $cacheConfigs = array())
     {
         // Inicializa a classe pai com os dados oficiais.
         parent::__construct([
@@ -128,6 +136,10 @@ abstract class Application extends App
 
         if(!is_null($eloquentConfigs))
             $this->eloquent = new EloquentManager($this, $eloquentConfigs);
+
+        // Verifica os dados de configuração de cache.
+        if(!is_null($cacheConfigs) && extension_loaded('memcache'))
+            $this->memcache = new MemCache($this, $cacheConfigs);
 
         // Adição dos middlewares padrões.
         $this->add(new Router($this));
@@ -181,6 +193,26 @@ abstract class Application extends App
     public function setMailer(Mailer $mailer)
     {
         $this->mailer = $mailer;
+    }
+
+    /**
+     * Gets memcache object
+     *
+     * @return MemCache
+     */
+    public function getMemCache()
+    {
+        return $this->memcache;
+    }
+
+    /**
+     * Defines memcache object
+     *
+     * @param MemCache $memcache
+     */
+    public function setMemCache(MemCache $memcache)
+    {
+        $this->memcache = $memcache;
     }
 
     /**
