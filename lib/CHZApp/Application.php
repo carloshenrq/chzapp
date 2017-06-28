@@ -97,17 +97,8 @@ abstract class Application extends App
      * Construtor para a classe de aplicação
      *
      * @param bool $developerMode Identifica se a classe usará modo desenvolvedor
-     * @param array $sessionConfigs Configurações de sessão. Ao enviar NULL não será definido.
-     * @param array $smartyConfigs Configurações do smarty. Ao enviar NULL não será definido.
-     * @param array $mailerConfigs Configurações do mailer. Ao enviar NULL não será definido.
-     * @param array $eloquentConfigs Configurações do eloquent. Ao enviar NULL não será definido.
      */
-    public function __construct($developerMode = false,
-        $sessionConfigs = array(),
-        $smartyConfigs = array(),
-        $mailerConfigs = array(),
-        $eloquentConfigs = array(),
-        $cacheConfigs = array())
+    public function __construct($developerMode = false)
     {
         // Inicializa a classe pai com os dados oficiais.
         parent::__construct([
@@ -122,27 +113,93 @@ abstract class Application extends App
         // Define se está usando os assets locais.
         $this->assetParser = new AssetParser($this);
 
-        // Inicializa informações de sessão.
-        if(!is_null($sessionConfigs))
-            $this->session = new Session($this, $sessionConfigs);
-        
-        if(!is_null($smartyConfigs))
-            $this->smartyView = new SmartyView($this, $smartyConfigs);
-
+        // Define o conector httpClient para a aplicação.
         $this->httpClient = new HttpClient($this);
-
-        if(!is_null($mailerConfigs))
-            $this->mailer = new Mailer($this, $mailerConfigs);
-
-        if(!is_null($eloquentConfigs))
-            $this->eloquent = new EloquentManager($this, $eloquentConfigs);
-
-        // Verifica os dados de configuração de cache.
-        if(!is_null($cacheConfigs) && extension_loaded('memcache'))
-            $this->memcache = new MemCache($this, $cacheConfigs);
 
         // Adição dos middlewares padrões.
         $this->add(new Router($this));
+
+        // Chama o inicializador padrão para a aplicação.
+        $this->init();
+    }
+
+    /**
+     * Define opções de inicialização para a aplicação.
+     *
+     * @abstract
+     */
+    abstract protected function init();
+
+    /**
+     * Define as configurações de sessão.
+     *
+     * @param array $sessionConfigs
+     */
+    final protected function setSessionConfigs($sessionConfigs = [])
+    {
+        // Inicializa informações de sessão.
+        if(!is_null($sessionConfigs))
+            $this->session = new Session($this, $sessionConfigs);
+    }
+
+    /**
+     * Define as configurações de smarty.
+     *
+     * @param array $smartyConfigs
+     */
+    final protected function setSmartyConfigs($smartyConfigs = [])
+    {
+        // Inicializa informações de smarty.
+        if(!is_null($smartyConfigs))
+            $this->smartyView = new SmartyView($this, $smartyConfigs);
+    }
+
+    /**
+     * Define as configurações de mailer.
+     *
+     * @param array $mailerConfigs
+     */
+    final protected function setMailerConfigs($mailerConfigs = [])
+    {
+        // Inicializa informações de mailer.
+        if(!is_null($mailerConfigs))
+            $this->mailer = new Mailer($this, $mailerConfigs);
+    }
+
+    /**
+     * Define as configurações de mailer.
+     *
+     * @param array $mailerConfigs
+     */
+    final protected function setMailerConfigs($mailerConfigs = [])
+    {
+        // Inicializa informações de mailer.
+        if(!is_null($mailerConfigs))
+            $this->mailer = new Mailer($this, $mailerConfigs);
+    }
+
+    /**
+     * Define as configurações do eloquent
+     *
+     * @param array $eloquentConfigs
+     */
+    final protected function setEloquentConfigs($eloquentConfigs = [])
+    {
+        // Inicializa informações de eloquent.
+        if(!is_null($mailerConfigs))
+            $this->eloquent = new EloquentManager($this, $eloquentConfigs);
+    }
+
+    /**
+     * Define as configurações do cache
+     *
+     * @param array $cacheConfigs
+     */
+    final protected function setCacheConfigs($cacheConfigs = [])
+    {
+        // Verifica os dados de configuração de cache.
+        if(!is_null($cacheConfigs) && extension_loaded('memcache'))
+            $this->memcache = new MemCache($this, $cacheConfigs);
     }
 
     /**
