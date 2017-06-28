@@ -167,18 +167,6 @@ abstract class Application extends App
     }
 
     /**
-     * Define as configurações de mailer.
-     *
-     * @param array $mailerConfigs
-     */
-    final protected function setMailerConfigs($mailerConfigs = [])
-    {
-        // Inicializa informações de mailer.
-        if(!is_null($mailerConfigs))
-            $this->mailer = new Mailer($this, $mailerConfigs);
-    }
-
-    /**
      * Define as configurações do eloquent
      *
      * @param array $eloquentConfigs
