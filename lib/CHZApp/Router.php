@@ -68,7 +68,7 @@ class Router extends Middleware
         $this->getApplication()->any($path, [$obj, '__router']);
 
         // Retorna para a execução seguinte.
-        return parent::__invoke($request, $response);
+        return parent::__invoke($request, $response, $next);
     }
 
 }
