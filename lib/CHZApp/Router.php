@@ -64,17 +64,11 @@ class Router extends Middleware
         // Cria a instância do controller.
         $obj = new $controllerClass($this->getApplication());
 
-        // Realiza o tratamento da rota removendo o inicio para saber os dados seguintes.
-        $subRoute = substr($path, strlen($controller) + 1);
-
-        // Obtém a rota adequada para uso conforme indicação.
-        $correctRouteCall = '/' . $controller . $obj->parseRoute($subRoute);
-
         // Define a rota de execução.
-        $this->getApplication()->any($correctRouteCall, [$obj, '__router']);
+        $this->getApplication()->any($path, [$obj, '__router']);
 
         // Retorna para a execução seguinte.
-        return $next($request, $response);
+        return parent::__invoke($request, $response);
     }
 
 }
