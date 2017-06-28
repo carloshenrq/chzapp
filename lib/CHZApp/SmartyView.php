@@ -73,6 +73,20 @@ class SmartyView extends ConfigComponent
     }
 
     /**
+     * Responde a requisição com os dados de templates já escritos
+     *
+     * @param object $response Objeto de resposta
+     * @param string $template Arquivo de template
+     * @param array $data Dados para popular o template
+     *
+     * @return object
+     */
+    public function response($response, $template, $data = [])
+    {
+        return $response->write($this->render($template, $data));
+    }
+
+    /**
      * Renderiza o template smarty em os dados fornecidos.
      *
      * @param string $template Arquivo de template que será renderizado
