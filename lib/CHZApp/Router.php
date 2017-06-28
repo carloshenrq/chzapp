@@ -65,7 +65,7 @@ class Router extends Middleware
         $obj = new $controllerClass($this->getApplication());
 
         // Define a rota de execução.
-        $this->getApplication()->any($path, [$obj, '__router']);
+        $this->getApplication()->any($obj->parseRoute($path), [$obj, '__router']);
 
         // Retorna para a execução seguinte.
         return parent::__invoke($request, $response, $next);
