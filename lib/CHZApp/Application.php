@@ -174,7 +174,7 @@ abstract class Application extends App
     final protected function setEloquentConfigs($eloquentConfigs = [])
     {
         // Inicializa informações de eloquent.
-        if(!is_null($mailerConfigs))
+        if(!is_null($eloquentConfigs))
             $this->eloquent = new EloquentManager($this, $eloquentConfigs);
     }
 
