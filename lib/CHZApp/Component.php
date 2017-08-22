@@ -77,4 +77,14 @@ abstract class Component
     {
         return $this->application;
     }
+
+    /**
+     * Obtém os dados de sessão dentro do componente.
+     *
+     * @return Session
+     */
+    final public function getSession()
+    {
+        return $this->getApplication()->getSession();
+    }
 }
