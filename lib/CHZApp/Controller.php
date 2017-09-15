@@ -84,9 +84,6 @@ abstract class Controller extends Component
      * Recebe os posts, get e arquivos.
      *
      * @param Application $application
-     * @param array $get
-     * @param array $post
-     * @param array $files
      */
     public function __construct(Application $application)
     {
@@ -98,6 +95,23 @@ abstract class Controller extends Component
 
         // Chama o construtor de componentes.
         parent::__construct($application);
+    }
+
+    /**
+     * Renderiza o template e retorna os dados para a tela.
+     *
+     * @param ResponseInterface $response
+     * @param string $template
+     * @param array $data
+     *
+     * @return ResponseInterface
+     */
+    public function response(ResponseInterface $response, $template, $data = [])
+    {
+        // Renderiza e retorna os dados para a tela,
+        return $this->getApplication()
+                    ->getSmartyView()
+                    ->response($response, $template, $data);
     }
 
     /**

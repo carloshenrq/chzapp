@@ -48,7 +48,7 @@ class Router extends Middleware
     {
         // Dados para rota que será chamada.
         $path = $request->getUri()->getPath();
-        if($path != '/') $path = '/' . $path;
+        if(substr($path, 0, 1) != '/') $path = '/' . $path;
 
         // Obtém os dados de tratamento para as rotas.
         $route = explode('/', $path);
