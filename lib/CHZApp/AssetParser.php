@@ -43,6 +43,32 @@ use \Leafo\ScssPhp\Compiler as SCSSCompiler;
  */
 class AssetParser extends Component
 {
+    /** 
+     * Componente de cache para o asset.
+     *
+     * @return AssetSQLiteCache
+     */
+    private $sqlCache;
+
+    /**
+     * @see Component::init()
+     */
+    protected function init()
+    {
+        // Define o objeto de cache para o assetparser
+        $this->sqlCache = new AssetSQLiteCache($this->getApplication());
+    }
+
+    /**
+     * Obtém o cache SQLite para uso dos assets.
+     *
+     * @return AssetSQLiteCache
+     */
+    public function getSqlCache()
+    {
+        return $this->sqlCache;
+    }
+
     /**
      * Minifica o conteúdo de css enviado.
      *
