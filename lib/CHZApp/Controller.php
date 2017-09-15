@@ -278,16 +278,21 @@ abstract class Controller extends Component
         // Define os dados recebidos.
         $this->setReceivedData($get, $post, $files);
 
-        // Faz a chamada da rota.
-        $response = $this->callRoute($action, $response, $args);
+        try
+        {
+            // Faz a chamada da rota.
+            $response = $this->callRoute($action, $response, $args);
 
-        // Verifica o retorno e devolve as informações
-        // Para o gerenciador de erro, caso a página não seja encontrada.
-        if($response->getStatusCode() !== 200)
+            // Verifica o retorno e devolve as informações
+            // Para o gerenciador de erro, caso a página não seja encontrada.
+            if($response->getStatusCode() !== 200)
+                throw new ControllerException('Caminho solicitado não foi encontrado.');
+        }
+        catch(ControllerException $ex)
         {
             $response->withStatus(200);
             return $this->getApplication()
-                        ->notFoundHandler($request->withAttribute('message', 'Caminho solicitado não foi encontrado.'),
+                        ->notFoundHandler($request->withAttribute('message', $ex->getMessage()),
                             $response);
         }
 
