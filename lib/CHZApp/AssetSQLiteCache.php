@@ -62,7 +62,7 @@ class AssetSQLiteCache extends Component
                     ->getAssetParser();
     }
 
-    public function parseFileFromCache($file, $fileContent)
+    public function parseFileFromCache($file, $fileContent, $minify = true, $vars = [], $importPath = __DIR__)
     {
         $stmt = $this->pdo->prepare('
             SELECT
@@ -95,10 +95,15 @@ class AssetSQLiteCache extends Component
             // Caso não dê pra fazer o minify...
             $minifyData = $fileContent;
 
+            // Se for um arquivo SCSS então irá compilar o arquivo
+            // E depois devolver em tela.
+            if(preg_match('/\.scss$/', $file))
+                $minifyData = $this->getAssetParser()->scssContent($minifyData, $minify, $vars, $importPath);
+
             // Se for arquivo javascript
             if(preg_match('/\.js$/', $file))
                 $minifyData = $this->getAssetParser()->jsMinify($fileContent);
-            else if(preg_match('/\.(s)?css$/', $file))
+            else if(preg_match('/\.css$/', $file))
                 $minifyData = $this->getAssetParser()->cssMinify($fileContent);
             
             // Grava os dados na tabela de cache..

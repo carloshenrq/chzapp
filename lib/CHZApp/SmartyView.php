@@ -68,7 +68,8 @@ class SmartyView extends ConfigComponent
     {
         $this->configs = array_merge([
             'templateDir'   => './',
-            'cache'         => \Smarty::CACHING_OFF
+            'cache'         => \Smarty::CACHING_OFF,
+            '_CONFIG_VARS'  => (object)[],
         ], $configs);
     }
 
@@ -96,6 +97,9 @@ class SmartyView extends ConfigComponent
      */
     public function render($template, $data = [])
     {
+        // Dados a serem atributuidos FIXADOS ao SMARTY.
+        $data = array_merge($data, ['_CONFIG_VARS' => $this->configs['_CONFIG_VARS']]);
+
         $this->getSmarty()->assign($data);
         return $this->getSmarty()->fetch($template);
     }

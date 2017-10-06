@@ -98,6 +98,22 @@ class AssetParser extends Component
         // Obtém o conteúdo do arquivo a ser compilado.
         $fileContents = file_get_contents($file);
 
+        // Retorna o CSS compilado.
+        return $this->scssContent($fileContents, $minify, $vars, $importPath);
+    }
+
+    /**
+     * Compila o conteudo SCSS e devolve.
+     *
+     * @param string $fileContent Conteudo a ser compilado.
+     * @param bool $minify Identifica se o arquivo será minificado.
+     * @param array $vars Variaveis definidas para troca nos arquivos.
+     * @param string $importPath Caminho para os arquivos de include
+     *
+     * @return string SCSS compilado.
+     */
+    public function scssContent($fileContent, $minify = true, $vars = [], $importPath = __DIR__)
+    {
         // Instância o compilador e define as variaveis e caminho
         // para os mixins
         $compiler = new SCSSCompiler;
@@ -105,7 +121,7 @@ class AssetParser extends Component
         $compiler->addImportPath($importPath);
 
         // Compila o arquivo informado.
-        $cssCompiled = $compiler->compile($fileContents);
+        $cssCompiled = $compiler->compile($fileContent);
 
         // Minifica os dados a serem retornados
         // se necessário
