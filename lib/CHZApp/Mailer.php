@@ -52,20 +52,18 @@ class Mailer extends ConfigComponent
      * @param array $to Destinatário da mensagem.
      * @param string $type Tipo de mensagem. HTML ou TEXT
      */
-    public function send($subject, $to, $template, $data = array(), $type = 'text/html')
+    public function sendFromTemplate($subject, $to, $template, $data = array(), $type = 'text/html')
     {
-        return $this->createMailer()->send($this->createMessage(
-            $subject,
-            $to,
-            $template,
-            $data,
-            $type
-        ));
+        // Renderiza os dados da mensagem para envio.
+        $body = $this->getApplication()
+                    ->getSmartyView()
+                    ->render($template, $data);
+        // Envia os dados.
+        return $this->send($subject, $to, $body, $type);
     }
 
-
     /**
-     * Cria a mensagem para ser enviada.
+     * Realiza o envio do e-mail com os dados informados.
      *
      * @param string $subject Assunto do e-mail
      * @param string $template Arquivo que será renderizado para o envio
@@ -73,18 +71,28 @@ class Mailer extends ConfigComponent
      * @param array $to Destinatário da mensagem.
      * @param string $type Tipo de mensagem. HTML ou TEXT
      */
-    private function createMessage($subject, $to, $template, $data = array(), $type = 'text/html')
+    public function send($subject, $to, $body, $type = 'text/html')
+    {
+        $message = $this->createMessage($subject, $to, $body, $type);
+        return $this->createMailer()->send($message);
+    }
+
+    /**
+     * Cria o componente de mensagem.
+     *
+     * @param string $subject
+     * @param array $to
+     * @param string $body
+     * @param string $type
+     *
+     * @return Swift_Message
+     */
+    private function createMessage($subject, $to, $body, $type = 'text/html')
     {
         // Cria o objeto da mensagem para envio.
         $message = Swift_Message::newInstance($subject)
                                     ->setFrom([$this->configs['from'] => $this->configs['name']])
                                     ->setTo($to);
-
-        // Renderiza os dados da mensagem para envio.
-        $body = $this->getApplication()
-                    ->getSmartyView()
-                    ->render($template, $data);
-
         // Define os dados da mensagem com o conteúdo.
         $message->setBody($body, $type);
 
@@ -114,7 +122,8 @@ class Mailer extends ConfigComponent
             $this->configs['port'],
             $this->configs['encrypt']
         )->setUsername($this->configs['user'])
-        ->setPassword($this->configs['pass']);
+        ->setPassword($this->configs['pass'])
+        ->setTimeout(600);
     }
 
     /**
