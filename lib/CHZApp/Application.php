@@ -94,6 +94,12 @@ abstract class Application extends App
     private $assetParser;
 
     /**
+     * Obtém o endereço IP para o usuário.
+     * @var string
+     */
+    private $ipAddress;
+
+    /**
      * Construtor para a classe de aplicação
      *
      * @param bool $developerMode Identifica se a classe usará modo desenvolvedor
@@ -318,6 +324,36 @@ abstract class Application extends App
     public function setSession(Session $session)
     {
         $this->session = $session;
+    }
+
+    /**
+     * Obtém o endereço ip do usuário.
+     *
+     * @return string
+     */
+    public function getIpAddress()
+    {
+        // Se o endereço ip já tiver sido obtido alguma vez
+        // Retorna o endereço ip.
+        if(!empty($this->ipAddress))
+            return $this->ipAddress;
+        // Define o endereço ip como padrão de '?.?.?.?'
+        $this->ipAddress = '?.?.?.?';
+        // Possiveis variaveis para se obter o endereço ip do cliente.
+        // issue #10: HTTP_CF_CONNECTING_IP-> Usuário usando proteção do cloudfire.
+        $_vars = ['HTTP_CF_CONNECTING_IP', 'HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED',
+                  'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR'];
+        // Varre as opções para retornar os dados ao painel de controle.
+        foreach($_vars as $ip)
+        {
+            if(getenv($ip) !== false)
+            {
+                $this->ipAddress = getenv($ip);
+                break;
+            }
+        }
+        // Retorna o endereço 
+        return $this->getIpAddress();
     }
 
     /**
