@@ -137,6 +137,13 @@ abstract class Application extends App
     abstract protected function init();
 
     /**
+     * Define opções de instalação do banco de dados para a aplicação.
+     * 
+     * @abstract
+     */
+    abstract public function installSchema($schema);
+
+    /**
      * Define as configurações de sessão.
      *
      * @param array $sessionConfigs

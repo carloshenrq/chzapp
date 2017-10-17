@@ -60,6 +60,9 @@ class EloquentManager extends ConfigComponent
         $manager->bootEloquent();
 
         $this->manager = $manager;
+
+        // Automaticamente instala o banco de dados da aplicação.
+        $this->getApplication()->installSchema($this->manager->schema());
     }
 
     /**
