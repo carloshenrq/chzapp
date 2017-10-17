@@ -144,6 +144,18 @@ abstract class Application extends App
     abstract public function installSchema($schema);
 
     /**
+     * Cria a instância da sessão com as configurações
+     *
+     * @param array $sessionConfigs
+     *
+     * @return Session
+     */
+    protected function createSessionInstance($sessionConfigs = [])
+    {
+        return new Session($this, $sessionConfigs);
+    }
+
+    /**
      * Define as configurações de sessão.
      *
      * @param array $sessionConfigs
@@ -152,7 +164,19 @@ abstract class Application extends App
     {
         // Inicializa informações de sessão.
         if(!is_null($sessionConfigs))
-            $this->session = new Session($this, $sessionConfigs);
+            $this->session = $this->createSessionInstance($sessionConfigs);
+    }
+
+    /**
+     * Cria a instância do smarty para ser utilizada.
+     *
+     * @param array $smartyConfigs
+     *
+     * @return SmartyView
+     */
+    protected function createSmartyInstance($smartyConfigs = [])
+    {
+        return new SmartyView($this, $smartyConfigs);
     }
 
     /**
@@ -164,7 +188,17 @@ abstract class Application extends App
     {
         // Inicializa informações de smarty.
         if(!is_null($smartyConfigs))
-            $this->smartyView = new SmartyView($this, $smartyConfigs);
+            $this->smartyView = $this->createSmartyInstance($smartyConfigs);
+    }
+
+    /**
+     * Cria a instância do mailer.
+     *
+     * @param array $mailerConfigs
+     */
+    protected function createMailerInstance($mailerConfigs = [])
+    {
+        return new Mailer($this, $mailerConfigs);
     }
 
     /**
@@ -176,7 +210,19 @@ abstract class Application extends App
     {
         // Inicializa informações de mailer.
         if(!is_null($mailerConfigs))
-            $this->mailer = new Mailer($this, $mailerConfigs);
+            $this->mailer = $this->createMailerInstance($mailerConfigs);
+    }
+
+    /**
+     * Cria uma instância do gerenciador do eloquent.
+     *
+     * @param array $eloquentConfigs
+     *
+     * @return EloquentManager
+     */
+    protected function createEloquentInstance($eloquentConfigs = [])
+    {
+        return new EloquentManager($this, $eloquentConfigs);
     }
 
     /**
@@ -188,7 +234,19 @@ abstract class Application extends App
     {
         // Inicializa informações de eloquent.
         if(!is_null($eloquentConfigs))
-            $this->eloquent = new EloquentManager($this, $eloquentConfigs);
+            $this->eloquent = $this->createEloquentInstance($eloquentConfigs);
+    }
+
+    /**
+     * Cria a instância de cache.
+     *
+     * @param array $cacheConfigs
+     *
+     * @return Cache
+     */
+    protected function createCacheInstance($cacheConfigs = [])
+    {
+        return new MemCache($this, $cacheConfigs);
     }
 
     /**
@@ -200,7 +258,7 @@ abstract class Application extends App
     {
         // Verifica os dados de configuração de cache.
         if(!is_null($cacheConfigs) && extension_loaded('memcache'))
-            $this->memcache = new MemCache($this, $cacheConfigs);
+            $this->memcache = $this->createCacheInstance($cacheConfigs);
     }
 
     /**
@@ -224,16 +282,6 @@ abstract class Application extends App
     }
 
     /**
-     * Define o manager para o eloquent.
-     *
-     * @param EloquentManager $eloquent
-     */
-    public function setEloquent(EloquentManager $eloquent)
-    {
-        $this->eloquent = $eloquent;
-    }
-
-    /**
      * Objeto responsável pelo envio dos e-mails.
      *
      * @return Mailer
@@ -244,16 +292,6 @@ abstract class Application extends App
     }
 
     /**
-     * Define o componente de mailer para a aplicação.
-     *
-     * @param Mailer $mailer
-     */
-    public function setMailer(Mailer $mailer)
-    {
-        $this->mailer = $mailer;
-    }
-
-    /**
      * Gets memcache object
      *
      * @return MemCache
@@ -261,16 +299,6 @@ abstract class Application extends App
     public function getMemCache()
     {
         return $this->memcache;
-    }
-
-    /**
-     * Defines memcache object
-     *
-     * @param MemCache $memcache
-     */
-    public function setMemCache(MemCache $memcache)
-    {
-        $this->memcache = $memcache;
     }
 
     /**
@@ -304,16 +332,6 @@ abstract class Application extends App
     }
 
     /**
-     * Define o uso do SmartyView para a aplicação.
-     *
-     * @param SmartyView $smartyView
-     */
-    public function setSmartyView(SmartyView $smartyView)
-    {
-        $this->smartyView = $smartyView;
-    }
-
-    /**
      * Obtém os dados de sessão.
      * 
      * @return Session
@@ -321,16 +339,6 @@ abstract class Application extends App
     public function getSession()
     {
         return $this->session;
-    }
-
-    /**
-     * Define os dados de sessão.
-     *
-     * @param Session $session
-     */
-    public function setSession(Session $session)
-    {
-        $this->session = $session;
     }
 
     /**
