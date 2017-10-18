@@ -129,6 +129,24 @@ abstract class Controller extends Component
     }
 
     /**
+     * Obtém todas as rotas para o controller
+     *
+     * @return array
+     */
+    final public function getAllRoutes()
+    {
+        $classMethods = get_class_methods(get_class($this));
+        $routesInfo = [];
+        foreach($classMethods as $method)
+        {
+            if(preg_match('/\_(GET|POST|PUT|PATCH|DELETE)$/', $method))
+                $routesInfo[] = $method;
+        }
+        return $routesInfo;
+
+    }
+
+    /**
      * Adiciona a expressão regular.
      *
      * @param string $routeRegexp Expressão regular da rota.
