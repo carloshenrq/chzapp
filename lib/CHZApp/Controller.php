@@ -129,6 +129,26 @@ abstract class Controller extends Component
     }
 
     /**
+     * Aplica em todas as rotas somente pula algumas rotas.
+     *
+     * @param callback $callBack
+     * @param array $skipRoutes
+     *
+     * @return void
+     */
+    final public function applyRestrictionOnAllRoutes($callBack, $skipRoutes = [])
+    {
+        foreach($this->getAllRoutes() as $route)
+        {
+            if(in_array($route, $skipRoutes))
+                continue;
+            $this->addRouteRestriction($route, $callBack);
+        }
+
+        return;
+    }
+
+    /**
      * Obtém todas as rotas para o controller
      *
      * @return array
