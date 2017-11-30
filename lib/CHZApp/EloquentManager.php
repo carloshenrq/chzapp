@@ -61,8 +61,20 @@ class EloquentManager extends ConfigComponent
 
         $this->manager = $manager;
 
-        // Automaticamente instala o banco de dados da aplicação.
-        $this->getApplication()->installSchema($this->manager->schema());
+		// Obtém o schema do banco de dados para chamar dentro
+		// Das funções de instalação.
+		$schema = $this->manager->schema();
+		
+		try
+		{
+			// Automaticamente instala o banco de dados da aplicação.
+			$this->getApplication()->installSchema($schema);
+		}
+		catch(\Exception $ex)
+		{
+			$this->getApplication()->unInstallSchema($schema);
+			throw $ex;
+		}
     }
 
     /**

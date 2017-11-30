@@ -144,6 +144,16 @@ abstract class Application extends App
     abstract public function installSchema($schema);
 
     /**
+     * Define opções de remoção do banco de dados para a aplicação.
+     *
+     * @abstract
+     */
+    public function unInstallSchema($schema)
+	{
+		$tables = $schema->dropAllTables();
+	}
+
+    /**
      * Cria a instância da sessão com as configurações
      *
      * @param array $sessionConfigs
