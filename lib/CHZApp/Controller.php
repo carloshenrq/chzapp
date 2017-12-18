@@ -289,7 +289,7 @@ abstract class Controller extends Component
      *
      * @return ResponseInterface
      */
-    final public function __router(ServerRequestInterface $request, ResponseInterface $response, $args)
+    public function __router(ServerRequestInterface $request, ResponseInterface $response, $args)
     {
         // Obtém os parametros de rota para realizar a chamada.
         $route = $request->getAttribute('route')->getPattern();
