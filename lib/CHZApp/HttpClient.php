@@ -41,6 +41,21 @@ use \GuzzleHttp\Client;
 class HttpClient extends Component
 {
     /**
+     * Realiza uma requisição para obter o endereço ip de internet
+     * o servidor que está sendo executado.
+     *
+     * @return string Endereço ip.
+     */
+    public function getServerIpAddress()
+    {
+        $serverResponse = $this->createClient()
+                                ->get('https://api.ipify.org/')
+                                ->getBody()
+                                ->getContents();
+        return $serverResponse;
+    }
+
+    /**
      * Realiza a verificação de componente do reCaptcha solicitado.
      *
      * @param string $challengeResponse Retorno do desafio em tela preenchido pelo usuário.
