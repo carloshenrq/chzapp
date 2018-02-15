@@ -100,6 +100,12 @@ abstract class Application extends App
     private $ipAddress;
 
     /**
+     * Schema validator to xml files.
+     * @var SchemaValidator
+     */
+    private $schemaValidator;
+
+    /**
      * Construtor para a classe de aplicação
      *
      * @param bool $developerMode Identifica se a classe usará modo desenvolvedor
@@ -121,6 +127,9 @@ abstract class Application extends App
 
         // Define o conector httpClient para a aplicação.
         $this->httpClient = new HttpClient($this);
+
+        // Defines the schemaValidator
+        $this->schemaValidator = new SchemaValidator($this);
 
         // Adição dos middlewares padrões.
         $this->add(new Router($this));
@@ -379,6 +388,26 @@ abstract class Application extends App
         }
         // Retorna o endereço 
         return $this->getIpAddress();
+    }
+
+    /**
+     * Gets the schema validator from this application
+     *
+     * @return SchemaValidator
+     */
+    public function getSchemaValidator()
+    {
+        return $this->schemaValidator;
+    }
+
+    /**
+     * Defines the schema validator to this application
+     *
+     * @param SchemaValidator $schemaValidator
+     */
+    public function setSchemaValidator(SchemaValidator $schemaValidator)
+    {
+        $this->schemaValidator = $schemaValidator;
     }
 
     /**
