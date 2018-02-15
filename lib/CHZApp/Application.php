@@ -106,6 +106,12 @@ abstract class Application extends App
     private $schemaValidator;
 
     /**
+     * Xml to Json converter.
+     * @var XmlJsonConverter
+     */
+    private $xmlJsonConverter;
+
+    /**
      * Construtor para a classe de aplicação
      *
      * @param bool $developerMode Identifica se a classe usará modo desenvolvedor
@@ -130,6 +136,9 @@ abstract class Application extends App
 
         // Defines the schemaValidator
         $this->schemaValidator = new SchemaValidator($this);
+
+        // Defines the xmlJsonConverter
+        $this->xmlJsonConverter = new XmlJsonConverter($this);
 
         // Adição dos middlewares padrões.
         $this->add(new Router($this));
@@ -408,6 +417,26 @@ abstract class Application extends App
     public function setSchemaValidator(SchemaValidator $schemaValidator)
     {
         $this->schemaValidator = $schemaValidator;
+    }
+
+    /**
+     * Gets the xml to json converter
+     *
+     * @return XmlJsonConverter
+     */
+    public function getXmlJsonConverter()
+    {
+        return $this->xmlJsonConverter;
+    }
+
+    /**
+     * Sets the xml to json converter
+     *
+     * @param XmlJsonConverter $xmlJsonConverter
+     */
+    public function setXmlJsonConverter(XmlJsonConverter $xmlJsonConverter)
+    {
+        $this->xmlJsonConverter = $xmlJsonConverter;
     }
 
     /**
