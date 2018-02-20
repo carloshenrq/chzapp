@@ -58,6 +58,35 @@ abstract class Component
 
         // Após instânciar tudo e definir... chama o inicializador.
         $this->init();
+
+        // Aplica os hooks a classe atual caso o application permita que
+        // seja hookada.
+        $this->runHook();
+    }
+
+    /**
+     * Método para executar e aplicar os mods relacionados a classe que está sendo instânciada
+     * caso exista a possibilidade da mesma ser hookada via mods...
+     */
+    private function runHook()
+    {
+        // Verifica se a aplicação permite que os componentes possam ser
+        // hookados, se permitir, então, será realizado o teste de se o componente
+        // pode ser hookado...
+        if(!$this->getApplication()->canHook() || !$this->getApplication()->canHook())
+            return;
+
+        // Realiza os processos de hooking das classes.
+    }
+
+    /**
+     * Verifica se a classe do componente pode ser hookada
+     *
+     * @return boolean
+     */
+    protected function getCanHook()
+    {
+        return false;
     }
 
     /**

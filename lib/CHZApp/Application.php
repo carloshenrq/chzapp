@@ -112,6 +112,12 @@ abstract class Application extends App
     private $xmlJsonConverter;
 
     /**
+     * Identifica se os componentes da aplicação podem ser hookados.
+     * @var boolean
+     */
+    private $canHook;
+
+    /**
      * Construtor para a classe de aplicação
      *
      * @param bool $developerMode Identifica se a classe usará modo desenvolvedor
@@ -146,6 +152,14 @@ abstract class Application extends App
         // Chama o inicializador padrão para a aplicação.
         $this->init();
     }
+
+    /**
+     * Define se as classes desta aplicação podem ser hookadas
+     *
+     * @abstract
+     * @return boolean
+     */
+    abstract public function canHook();
 
     /**
      * Define opções de inicialização para a aplicação.
