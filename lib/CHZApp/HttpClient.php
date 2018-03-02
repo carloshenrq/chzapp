@@ -95,7 +95,7 @@ class HttpClient extends Component
      *
      * @return \GuzzleHttp\Client
      */
-    private function createClient($url = '', $verify = false, $options = [])
+    public function createClient($url = '', $verify = false, $options = [])
     {
         return new Client(array_merge([
             'base_uri'      => $url,
