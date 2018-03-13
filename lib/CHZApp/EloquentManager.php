@@ -55,7 +55,9 @@ class EloquentManager extends ConfigComponent
         parent::__construct($application, $configs);
 
         $manager = new Manager();
-        $manager->addConnection($this->configs);
+        foreach($this->configs as $config)
+            $manager->addConnection((array)$config->data, $config->name);
+
         $manager->setAsGlobal();
         $manager->bootEloquent();
 
@@ -103,14 +105,19 @@ class EloquentManager extends ConfigComponent
     protected function parseConfigs($configs = array())
     {
         $this->configs = array_merge([
-            'driver'    => 'mysql',
-            'host'      => '127.0.0.1',
-            'database'  => 'test',
-            'username'  => 'root',
-            'password'  => 'root',
-            'charset'   => 'utf8',
-            'collation' => 'utf8_swedish_ci',
-            'prefix'    => '',
+            (object)[
+                'name' => 'default',
+                'data' => (object)[
+                    "driver"    => "mysql",
+                    "host"      => "127.0.0.1",
+                    "database"  => "root",
+                    "username"  => "root",
+                    "password"  => "root",
+                    "charset"   => "utf8",
+                    "collation" => "utf8_swedish_ci",
+                    "prefix"    => ""
+                ]
+            ]
         ], $configs);
     }
 }
