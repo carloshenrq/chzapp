@@ -173,14 +173,14 @@ abstract class Application extends App
      * 
      * @abstract
      */
-    abstract public function installSchema($schema);
+    abstract public function installSchema($schema, $name = 'default');
 
     /**
      * Define opções de remoção do banco de dados para a aplicação.
      *
      * @abstract
      */
-    public function unInstallSchema($schema)
+    public function unInstallSchema($schema, $name = 'default')
 	{
 		$tables = $schema->dropAllTables();
 	}

@@ -48,35 +48,44 @@ class EloquentManager extends ConfigComponent
     private $manager;
 
     /**
+     * Conexões que irão ser executadas.
+     * @var array
+     */
+    private $schemas = [];
+
+    /**
      * @see Component::__construct()
      */
     public function __construct(Application $application, $configs = array())
     {
         parent::__construct($application, $configs);
+        $this->schemas = [];
 
         $manager = new Manager();
-        foreach($this->configs as $config)
-            $manager->addConnection((array)$config->data, $config->name);
+        foreach($this->configs as $name => $config)
+        {
+            $this->schemas[] = $name;
+            $manager->addConnection((array)$config->data, $name);
+        }
 
         $manager->setAsGlobal();
         $manager->bootEloquent();
 
         $this->manager = $manager;
-
-		// Obtém o schema do banco de dados para chamar dentro
-		// Das funções de instalação.
-		$schema = $this->manager->schema();
 		
-		try
-		{
-			// Automaticamente instala o banco de dados da aplicação.
-			$this->getApplication()->installSchema($schema);
-		}
-		catch(\Exception $ex)
-		{
-			$this->getApplication()->unInstallSchema($schema);
-			throw $ex;
-		}
+        // Automaticamente instala o banco de dados da aplicação.
+        foreach($this->schemas as $name)
+        {
+            $schema = $this->manager->schema($name);
+            try
+            {
+                $this->getApplication()->installSchema($schema, $name);
+            }
+            catch(\Exception $ex)
+            {
+                $this->getApplication()->unInstallSchema($schema);
+            }
+        }
     }
 
     /**
@@ -105,8 +114,7 @@ class EloquentManager extends ConfigComponent
     protected function parseConfigs($configs = array())
     {
         $this->configs = array_merge([
-            (object)[
-                'name' => 'default',
+            'default' => (object)[
                 'data' => (object)[
                     "driver"    => "mysql",
                     "host"      => "127.0.0.1",
@@ -118,7 +126,7 @@ class EloquentManager extends ConfigComponent
                     "prefix"    => ""
                 ]
             ]
-        ], $configs);
+        ], (array)$configs);
     }
 }
 
