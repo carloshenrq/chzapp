@@ -212,6 +212,18 @@ abstract class Component
     }
 
     /**
+     * Verifica se o método possui algum hook no componente.
+     *
+     * @param string $method
+     *
+     * @return boolean
+     */
+    final public function isHookedMethod($method)
+    {
+        return isset($this->_hookedMethods[$method]);
+    }
+
+    /**
      * Método para definir propriedades custom
      *
      * @param string $name

@@ -247,7 +247,7 @@ abstract class Controller extends Component
         // Verifica se uma rota customizada já existe, se não existir
         // Procura por um método fixo da classe.
         // -> Caso exista, faz teste de restrição de rotas.
-        if(isset($this->customRoutes[$route]) || method_exists($this, $route))
+        if(isset($this->customRoutes[$route]) || method_exists($this, $route) || $this->isHookedMethod($route))
         {
             // Se não houver restrições de rota, retorna verdadeiro...
             if(!isset($this->restrictionRoutes[$route]))
