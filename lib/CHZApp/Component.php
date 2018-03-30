@@ -262,11 +262,24 @@ abstract class Component
      */
     public function __call($name, $args)
     {
+        return $this->__callHooked($name, $args);
+    }
+
+    /**
+     * Faz a chamada dos métodos de hook forçando ou não.
+     *
+     * @param string $name nome do método invocado
+     * @param array $args argumentos para passar ao método
+     * @param bool $force Se for verdadeiro, pula o teste de hook.
+     *
+     * @return mixed Varia conforme método
+     */
+    public function __callHooked($name, $args, $force = false)
+    {
         $refl = new \ReflectionObject($this);
 
         // Se o método existir na classe então, entrar nos testes de if...
-
-        if($refl->hasMethod($name))
+        if(!$force && $refl->hasMethod($name))
         {
             $method = $refl->getMethod($name);
             if($method->isPublic())

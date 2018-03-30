@@ -221,6 +221,11 @@ abstract class Controller extends Component
         if(!$this->canCallRoute($route, $args))
             return $response->withStatus(404);
 
+        // Verifica se é uma rota hookada, caso seja, irá preferir a rota de hook a rota
+        // convencional.
+        if($this->isHookedMethod($route))
+            return $this->__callHooked($route, [$response, $args], true);
+
         // Verifica se é uma rota customizada, se for, faz a chamada
         // E retorna.
         if(isset($this->customRoutes[$route]))
