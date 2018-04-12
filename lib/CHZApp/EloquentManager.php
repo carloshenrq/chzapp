@@ -77,13 +77,28 @@ class EloquentManager extends ConfigComponent
         foreach($this->schemas as $name)
         {
             $schema = $this->manager->schema($name);
+            // Constroi o nome do método para ser chamado e realizar
+            // a instalação daquele schema...
+            $installMethod = 'installSchema' . ucfirst($name);
+
             try
             {
-                $this->getApplication()->installSchema($schema, $name);
+                if(method_exists($application, $installMethod))
+                    call_user_func_array([$application, $installMethod], [
+                        $schema
+                    ]);
+                else
+                    $this->getApplication()->installSchema($schema, $name);
             }
             catch(\Exception $ex)
             {
-                $this->getApplication()->unInstallSchema($schema);
+                $uninstallMethod = 'un' . ucfirst($installMethod);
+                if(method_exists($application, $uninstallMethod))
+                    call_user_func_array([$application, $uninstallMethod], [
+                        $schema
+                    ]);
+                else
+                    $this->getApplication()->unInstallSchema($schema, $name);
             }
         }
     }

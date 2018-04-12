@@ -168,7 +168,10 @@ abstract class Application extends App
      * @abstract
      * @return boolean
      */
-    abstract public function canHook();
+    public function canHook()
+    {
+        return false;
+    }
 
     /**
      * Define opções de inicialização para a aplicação.
@@ -182,7 +185,10 @@ abstract class Application extends App
      * 
      * @abstract
      */
-    abstract public function installSchema($schema, $name = 'default');
+    public function installSchema($schema, $name = 'default')
+    {
+        return;
+    }
 
     /**
      * Define opções de remoção do banco de dados para a aplicação.
