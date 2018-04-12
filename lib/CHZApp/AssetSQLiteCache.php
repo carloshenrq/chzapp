@@ -36,35 +36,35 @@ namespace CHZApp;
 class AssetSQLiteCache extends Component
 {
     /**
-     * Conexão SQLite com o PDO do banco de dados.
-     * @var \PDO
+     * Obtém a a conexão com o banco de dados do cache em SQLite
+     * @return \PDO
      */
-    private $pdo;
-
-    /**
-     * @see Component::init()
-     */
-    protected function init()
+    private function getConnection()
     {
-        // Abre uma conexão persistente com o banco de dados do SQLite
-        $this->pdo = new \PDO('sqlite:sqlcache.db', null, null, [
-            \PDO::ATTR_ERRMODE          => \PDO::ERRMODE_EXCEPTION,
-            \PDO::ATTR_PERSISTENT       => true
-        ]);
-
-        // Realiza a instalação das tabelas do banco de dados.
-        $this->performInstall();
+        return $this->getApplication()->getSQLiteCache()->getConnection();
     }
 
+    /**
+     * Obtém informações sobre o AssetParser para tratamento dos dados SCSS e JS
+     * @return AssetParser
+     */
     private function getAssetParser()
     {
         return $this->getApplication()
                     ->getAssetParser();
     }
 
+    /**
+     * Obtém os dados do cache para os ASSETS
+     *
+     * @return string Conteudo em cache
+     */
     public function parseFileFromCache($file, $fileContent, $minify = true, $vars = [], $importPath = __DIR__)
     {
-        $stmt = $this->pdo->prepare('
+        $pdo = $this->getConnection();
+        $pdo->beginTransaction();
+
+        $stmt = $pdo->prepare('
             SELECT
                 FileOutput,
                 Filehash
@@ -87,7 +87,7 @@ class AssetSQLiteCache extends Component
         {
             // Prepara execução para apagar do banco de dados e remove o cache
             // Caso exista...
-            $stmt = $this->pdo->prepare('DELETE FROM asset_cache WHERE Filename = :Filename');
+            $stmt = $pdo->prepare('DELETE FROM asset_cache WHERE Filename = :Filename');
             $stmt->execute([
                 ':Filename' => $file,
             ]);
@@ -107,7 +107,7 @@ class AssetSQLiteCache extends Component
                 $minifyData = $this->getAssetParser()->cssMinify($fileContent);
             
             // Grava os dados na tabela de cache..
-            $stmt = $this->pdo->prepare('
+            $stmt = $pdo->prepare('
                 INSERT INTO asset_cache VALUES (:Filename, :Filehash, :FileOutput)
             ');
             $stmt->execute([
@@ -116,68 +116,18 @@ class AssetSQLiteCache extends Component
                 ':FileOutput'       => $minifyData,
             ]);
 
+            // Envia as informações
+            $pdo->commit();
+
             // Chama a função novamente para devolver o cache...
             return $this->parseFileFromCache($file, $fileContent);
         }
 
+        // Envia as informações
+        $pdo->commit();
+
         // Retorna o output de dados
         return $rs->FileOutput;
-    }
-
-    /**
-     * Carrega todas as tabelas instaladas no banco de dados do SQLite
-     *
-     * @return array
-     */
-    private function loadInstalledTables()
-    {
-        $stmt = $this->pdo->query('
-            SELECT
-                tbl_name
-            FROM
-                sqlite_master
-            WHERE
-                type="table"
-        ');
-        $ds = $stmt->fetchAll(\PDO::FETCH_OBJ);
-        $tables = [];
-
-        foreach($ds as $rs)
-            $tables[] = $rs->tbl_name;
-        
-        return $tables;
-    }
-
-    /**
-     * Realiza a instalação das tabelas no banco de dados.
-     * @return void
-     */
-    private function performInstall()
-    {
-        $tables = $this->loadInstalledTables();
-
-        $this->pdo->beginTransaction();
-
-        // Cria a tabela de cache
-        if(!in_array('asset_cache', $tables))
-        {
-            $qry = '
-                CREATE TABLE asset_cache (
-                    Filename STRING NOT NULL,
-                    Filehash STRING NOT NULL,
-                    FileOutput STRING NOT NULL
-                );
-                
-                CREATE UNIQUE INDEX asset_cache_u01 on asset_cache (
-                    Filename
-                );
-            ';
-
-            foreach(explode(';', $qry) as $query)
-                $this->pdo->query($query);
-        }
-
-        $this->pdo->commit();
     }
 }
 

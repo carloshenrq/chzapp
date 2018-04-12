@@ -81,6 +81,12 @@ abstract class Application extends App
     private $memcache;
 
     /**
+     * Obtém o cache para o SQLite
+     * @var SQLiteCache
+     */
+    private $sqliteCache;
+
+    /**
      * Eloquent para realizar a conexão com o banco de dados.
      *
      * @var \Illuminate\Database\Capsule\Manager
@@ -145,6 +151,9 @@ abstract class Application extends App
 
         // Defines the xmlJsonConverter
         $this->xmlJsonConverter = new XmlJsonConverter($this);
+
+        // Define os dados de cache para o banco de dados SQLite
+        $this->sqliteCache = new SQLiteCache($this, []);
 
         // Adição dos middlewares padrões.
         $this->add(new Router($this));
@@ -341,6 +350,15 @@ abstract class Application extends App
     public function getMemCache()
     {
         return $this->memcache;
+    }
+
+    /**
+     * Obtém o cache em SQLite
+     * @return SQLiteCache
+     */
+    public function getSQLiteCache()
+    {
+        return $this->sqliteCache;
     }
 
     /**
