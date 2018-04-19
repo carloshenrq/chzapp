@@ -286,6 +286,51 @@ abstract class Controller extends Component
     }
 
     /**
+     * Verifica as chaves no vetor POST
+     *
+     * @param array $keys Chaves a serem verificadas
+     *
+     * @return boolean Chaves a serem verificadas
+     */
+    protected function verifyKeysPost($keys)
+    {
+        return $this->verifyKeys($keys, $this->post);
+    }
+
+    /**
+     * Verifica as chaves no vetor GET
+     *
+     * @param array $keys Chaves a serem verificadas
+     *
+     * @return boolean Chaves a serem verificadas
+     */
+    protected function verifyKeysGet($keys)
+    {
+        return $this->verifyKeys($keys, $this->get);
+    }
+
+    /**
+     * Verifica chaves de um vetor, caso todas as chaves estejam presentes.
+     *
+     * @param array $keys Chaves a verificar
+     * @param array $vector Vetor que será testado
+     *
+     * @return boolean Se todas as $keys estiverem em $vector, será retornado, verdadeiro
+     */
+    protected function verifyKeys($keys, $vector)
+    {
+        // Verre todas as chaves e testa o vetor,
+        // caso não exista, será retornado false.
+        foreach($keys as $key)
+        {
+            if(!array_key_exists($key, $vector))
+                return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Método para realizar o tratamento de chamada de rota.
      *
      * @param ServerRequestInterface $request
