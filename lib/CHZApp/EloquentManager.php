@@ -33,8 +33,9 @@
 
 namespace CHZApp;
 
-use \Illuminate\Database\Capsule\Manager;
+use \Illuminate\Events\Dispatcher;
 use \Illuminate\Container\Container;
+use \Illuminate\Database\Capsule\Manager;
 
 /**
  * Adicionado classe para gerenciador do eloquent.
@@ -67,6 +68,9 @@ class EloquentManager extends ConfigComponent
             $this->schemas[] = $name;
             $manager->addConnection((array)$config->data, $name);
         }
+
+        // Define o disparador de eventos para os models
+        $manager->setEventDispatcher(new Dispatcher(new Container));
 
         $manager->setAsGlobal();
         $manager->bootEloquent();
