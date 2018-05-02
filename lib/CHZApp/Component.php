@@ -72,6 +72,10 @@ abstract class Component
         if($this->hookDir !== false)
             $this->runHook();
 
+        // Adiciona todos os eventos que estão no formato correto
+        // dos métodos de leitura...
+        $this->parseEventMethods();
+
         // Após instânciar tudo e definir... chama o inicializador.
         $this->init();
     }
@@ -95,6 +99,37 @@ abstract class Component
     }
 
     /**
+     * Verifica todos os métodos deste componente que possuem notação para
+     * os eventos. Para declarar um evento por método é necessário que esteja
+     * da seguinte forma:
+     *
+     * -> on_init
+     * -> on_ready
+     * -> on_loaded
+     * -> on_<xxxx>
+     *
+     * Sempre iniciados com o 'on_', para disparar usar o dispatchEvent('xxxx')
+     * exemplo, para disparar o método 'on_init', usar dispatchEvent('init')
+     */
+    private function parseEventMethods()
+    {
+        // Obtém todos os métodos referentes para poder adicionar
+        // Aos eventos de forma automatica...
+        $methods = get_class_methods($this);
+
+        foreach($methods as $method)
+        {
+            // Se não encontrar o evento, continua a busca dos métodos seguintes...
+            if(!preg_match('/^on_([a-zA-Z0-9\_]+)$/i', $method, $match))
+                continue;
+
+            $event = $match[1];
+            $this->addEventListener($event, [$this, $method]);
+        }
+
+    }
+
+    /**
      * Getter para a aplicação vinculada ao componente.
      *
      * @return Application
@@ -112,6 +147,97 @@ abstract class Component
     final public function getSession()
     {
         return $this->getApplication()->getSession();
+    }
+
+    /**
+     * Informações para eventos referentes ao componente.
+     * @var array
+     */
+    private $events = [];
+
+    /**
+     * Adiciona uma rotina de evento ao componente. Os eventos
+     * executados serão efeitos conforme fila, serão diversos callbacks
+     * para apenas um nome de evento.
+     *
+     * @param string $event Nome do evento
+     * @param callback $callback Rotina para realizar o callback
+     *
+     * @return void
+     */
+    final public function addEventListener($event, $callback)
+    {
+        // Se callback não puder ser chamado, então...
+        if(!is_callable($callback))
+            throw new \Exception('The content from "$callback" is not a valid callable function/method.');
+
+        // Se não houver fila de eventos para o evento declarado
+        if(!isset($this->events[$event]))
+            $this->events[$event] = [];
+
+        // Adiciona o evento a fila de eventos...
+        $this->events[$event][] = $callback;
+    }
+
+    /**
+     * Dispara os eventos referentes ao objeto.
+     * Aqui, pode ser sobreescrito para obter informações ou até mesmo tratamento
+     * dos dados enviados, se necessário...
+     *
+     * @param string $event Nome do evenot a ser disparado
+     * @param mixed $data Dados a serem enviados ao evento
+     *
+     */
+    public function trigger($event, $data = null)
+    {
+        $this->dispatchEvent($event, $data);
+    }
+
+    /**
+     * Dispara os eventos me memória para o componente.
+     *
+     * @param string $event Nome do evento a ser disparado
+     * @param mixed Dados a serem enviados ao evento
+     *
+     * @return void
+     */
+    private function dispatchEvent($event, $data = null)
+    {
+        // Se não houver eventos a disparar, apenas ignora...
+        if(!isset($this->events[$event]))
+            return;
+
+        // Dispara todos os eventos em memória
+        foreach($this->events[$event] as $eventCall)
+        {
+            if(is_array($eventCall))
+            {
+                call_user_func($eventCall, $data);
+            }
+            else
+            {
+                $closureObj = \Closure::bind($eventCall, $this);
+                call_user_func($closureObj, $data);
+            }
+        }
+
+        return;
+    }
+
+    /**
+     * Apaga todos os callbacks para os eventos informados
+     *
+     * @param string $event Nome do evento
+     *
+     * @return void
+     */
+    final public function removeEventListener($event)
+    {
+        // Se não houver eventos a disparar, apenas ignora...
+        if(!isset($this->events[$event]))
+            return;
+
+        unset($this->events[$event]);
     }
 
     /**
