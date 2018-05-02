@@ -334,6 +334,13 @@ abstract class Component
                 $closureObj = \Closure::bind($_tmpFile['init'], $this);
                 call_user_func($closureObj);
             }
+
+            // Adicionado a leitura de tags de evento
+            if(isset($_tmpFile['events']))
+            {
+                foreach($_tmpFile['events'] as $event => $eventCallback)
+                    $this->addEventListener($event, $eventCallback);
+            }
         }
     }
 
