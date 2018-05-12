@@ -11,7 +11,7 @@
     "require": {
         "php":">=5.6.4",
         "slim/slim":"3.9.1",
-        "akrabat/rka-ip-address-middleware":"0.6",
+        "akrabat/ip-address-middleware":"1.0",
         "smarty/smarty":"3.1.31",
         "guzzlehttp/guzzle":"6.3.2",
         "illuminate/database":"5.6.17",
