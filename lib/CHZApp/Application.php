@@ -124,6 +124,12 @@ abstract class Application extends App
     private $canHook;
 
     /**
+     * Define o autoload para as classes de hook.
+     * @var string
+     */
+    private $hookAutoload;
+
+    /**
      * Construtor para a classe de aplicação
      *
      * @param bool $developerMode Identifica se a classe usará modo desenvolvedor
@@ -171,6 +177,16 @@ abstract class Application extends App
     public function canHook()
     {
         return false;
+    }
+
+    /**
+     * Define o caminho para o autoload 
+     *
+     * @param string $autoloadPath
+     */
+    final protected function setHookAutoload($autoloadPath)
+    {
+        require_once $autoloadPath;
     }
 
     /**
