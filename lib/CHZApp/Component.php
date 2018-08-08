@@ -270,7 +270,7 @@ abstract class Component
         // Verifica se a aplicação permite que os componentes possam ser
         // hookados, se permitir, então, será realizado o teste de se o componente
         // pode ser hookado...
-        if(!$this->getApplication()->canHook())
+        if(!$this->getApplication()->canHook() || !$this->getCanHook())
             return;
 
         // Obtém o nome da classe para poder encontrar os hooks necessários para a mesma.
