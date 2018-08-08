@@ -90,9 +90,10 @@ class Mailer extends ConfigComponent
     private function createMessage($subject, $to, $body, $type = 'text/html')
     {
         // Cria o objeto da mensagem para envio.
-        $message = Swift_Message::newInstance($subject)
-                                    ->setFrom([$this->configs['from'] => $this->configs['name']])
-                                    ->setTo($to);
+        $message = new Swift_Message($subject);
+		
+		$message->setFrom([$this->configs['from'] => $this->configs['name']])
+				->setTo($to);
         // Define os dados da mensagem com o conteúdo.
         $message->setBody($body, $type);
 
@@ -107,7 +108,7 @@ class Mailer extends ConfigComponent
      */
     private function createMailer()
     {
-        return Swift_Mailer::newInstance($this->createTransport());
+        return new Swift_Mailer($this->createTransport());
     }
 
     /**
@@ -117,11 +118,12 @@ class Mailer extends ConfigComponent
      */
     private function createTransport()
     {
-        return Swift_SmtpTransport::newInstance(
+		$transport = new Swift_SmtpTransport(
             $this->configs['host'],
             $this->configs['port'],
             $this->configs['encrypt']
-        )->setUsername($this->configs['user'])
+        );
+        return $transport->setUsername($this->configs['user'])
         ->setPassword($this->configs['pass'])
         ->setTimeout(600);
     }

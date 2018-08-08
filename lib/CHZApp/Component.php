@@ -188,9 +188,12 @@ abstract class Component
      * @param mixed $data Dados a serem enviados ao evento
      *
      */
-    public function trigger($event, $data = null)
+    public function trigger($event)
     {
-        $this->dispatchEvent($event, $data);
+		$args = func_get_args();
+		array_shift($args);
+		
+        $this->dispatchEvent($event, $args);
     }
 
     /**
@@ -201,7 +204,7 @@ abstract class Component
      *
      * @return void
      */
-    private function dispatchEvent($event, $data = null)
+    private function dispatchEvent($event, $data)
     {
         // Se não houver eventos a disparar, apenas ignora...
         if(!isset($this->events[$event]))
@@ -212,12 +215,12 @@ abstract class Component
         {
             if(is_array($eventCall))
             {
-                call_user_func($eventCall, $data);
+                call_user_func_array($eventCall, $data);
             }
             else
             {
                 $closureObj = \Closure::bind($eventCall, $this);
-                call_user_func($closureObj, $data);
+                call_user_func_array($closureObj, $data);
             }
         }
 
