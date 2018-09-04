@@ -37,25 +37,245 @@ namespace CHZApp;
  * Classe para gerenciamento de hooks e também de eventos
  * que os hooks poderão e farão uso.
  */
-abstract class HookHandler implements IEventHandler
+abstract class HookHandler implements IEventHandler, IHookHandler
 {
-	/**
-	 * Array de eventos em memória.
-	 * @var array
-	 */
-	private $events;
-
 	/**
 	 * Construtor para o gerenciador de hooks e eventos.
 	 */
 	public function __construct()
 	{
+        // Inicializa vetor de eventos para os hooks.
 		$this->events = [];
 
 		// Faz a leitura dos métodos que são eventos da propria classe.
-		$this->parseEventMethods();
-	}
+        $this->parseEventMethods();
+        
+        // Se os hooks podem ser executados então inicializa a leitura dos
+        // hooks presentes na pasta.
+        if($this->canHook())
+        {
+            // Define o local aonde serão lidos os hooks
+            $this->setHookDir(realpath(join(DIRECTORY_SEPARATOR, [
+                __DIR__,
+                '..',
+                '..',
+                '..',
+                '..',
+                '..',
+                'hooks'
+            ])));
 
+            // Inicia a leitura dos dados de hook
+            $this->readHookDir();
+        }
+    }
+    
+    // ==========  IHookHandler =========== //
+
+    /**
+     * Diretório aonde se encontram os hooks.
+     * @var string
+     */
+    private $hookDir;
+
+    /**
+     * Métodos que foram hookados.
+     * @var array
+     */
+    private $hookMethods;
+
+    /**
+     * Propriedades que foram hookados.
+     * @var array
+     */
+    private $hookProperties;
+
+    /**
+     * Informa os arquivos de hooking que já foram carregados
+     * @var array
+     */
+    private $hookReadFiles;
+
+    /**
+     * @see IHookHandler::canHook()
+     */
+    public function canHook()
+    {
+        return true;
+    }
+
+    /**
+     * @see IHookHandler::setHookDir($hookDir)
+     */
+    final public function setHookDir($hookDir)
+    {
+        $this->hookDir = $hookDir;
+    }
+
+    /**
+     * @see IHookHandler::getHookDir()
+     */
+    final public function getHookDir()
+    {
+        return $this->hookDir;
+    }
+
+    /**
+     * IHookHandler::readHookDir()
+     */
+    final public function readHookDir()
+    {
+        // Inicializa as variaveis de hooking
+        $_tmpHookFiles = $this->hookMethods = $this->hookProperties = $this->hookReadFiles = [];
+
+        // Inicializa o leitor de diretórios para os hookings...
+        $diHook = new \DirectoryIterator($this->getHookDir());
+        $class2hook = str_replace(['/', '\\'], '_', get_class($this)); 
+
+        // Varre o diretório procurando os arquivos para a classe...
+        foreach($diHook as $fHook)
+        {
+            if($fHook->isDir() || $fHook->isDot() || !$fHook->isFile())
+                continue;
+            
+            if(preg_match('/^' . preg_quote($class2hook) . '\_(?:[^\.]+)\.php$/i', $fHook->getFilename()))
+            {
+                $_tmpHookFiles[] = join(DIRECTORY_SEPARATOR, [
+                    $this->getHookDir(),
+                    $fHook->getFilename()
+                ]);
+            }   
+        }
+
+        // Se não houver hooks, ignora a leitura e passa para o próximo.
+        if(count($_tmpHookFiles) == 0)
+            return;
+
+        // Varre todos os arquivos de hooking para adicionar
+        // os métodos ao componente...
+        foreach($_tmpHookFiles as $hookFile)
+        {
+            // Se o arquivo já foi adicionado então, não há sentido
+            // adicionar ele novamente.
+            if(in_array($hookFile, $this->hookReadFiles))
+                continue;
+
+            // Abre os dados de arquivo de hooking
+            $hookContent = @require_once($hookFile);
+
+            // Coloca o arquivo de hook em memória.
+            $this->hookReadFiles[] = $hookFile;
+
+            // Possui os métodos para adicionar os hooks?
+            if(isset($hookContent['methods']))
+            {
+                foreach($hookContent['methods'] as $method => $callback)
+                    $this->hookMethods[$method] = $callback;
+            }
+
+            // Possui os propriedades para adicionar os hooks?
+            if(isset($hookContent['properties']))
+            {
+                foreach($hookContent['properties'] as $propertyName => $propertyValue)
+                    $this->hookProperties[$propertyName] = $propertyValue;
+            }
+
+            // Adicionado a leitura de tags de evento
+            if(isset($hookContent['events']))
+            {
+                foreach($hookContent['events'] as $event => $eventCallback)
+                    $this->addEventListener($event, $eventCallback);
+            }
+
+            // Verifica se existe os dados para execução inicial do plugin
+            if(isset($hookContent['init']))
+            {
+                $closureObj = \Closure::bind($hookContent['init'], $this);
+                call_user_func($closureObj);
+            }
+        }
+    }
+
+    /**
+     * @see IHookHandler::getHookedFiles()
+     */
+    final public function getHookedFiles()
+    {
+        return $this->hookReadFiles;
+    }
+
+    /**
+     * @see IHookHandler::isHookedMethod($method)
+     */
+    final public function isHookedMethod($method)
+    {
+        return array_key_exists($method, $this->hookMethods);
+    }
+
+    /**
+     * @see IHookHandler::__set($name, $value)
+     */
+    final public function __set($name, $value)
+    {
+        if(!array_key_exists($name, $this->hookProperties))
+            throw new \Exception('Undefined property: '.get_class($this).'::$'.$name);
+
+        $this->hookProperties[$name] = $value;
+    }
+
+    /**
+     * @see IHookHandler::__get($name)
+     */
+    final public function __get($name)
+    {
+        if(!array_key_exists($name, $this->hookProperties))
+            throw new \Exception('Undefined property: '.get_class($this).'::$'.$name);
+
+        return $this->hookProperties[$name];
+    }
+
+    /**
+     * @see IHookHandler::__call($name, $args)
+     */
+    final public function __call($name, $args)
+    {
+        return $this->__callHooked($name, $args);
+    }
+
+    /**
+     * @see IHookHandler::__callHooked($name, $args, $force = false)
+     */
+    final public function __callHooked($name, $args, $force = false)
+    {
+        $refl = new \ReflectionObject($this);
+
+        // Se o método existir na classe então, entrar nos testes de if...
+        if(!$force && $refl->hasMethod($name))
+        {
+            $method = $refl->getMethod($name);
+            if(!$method->isPublic())
+                return $this->__callHooked($name, $args, true);
+            
+            return call_user_func_array([$this, $name], $args);
+        }
+        else if(array_key_exists($name, $this->hookMethods))
+        {
+            $closureObj = \Closure::bind($this->hookMethods[$name], $this);
+            return call_user_func_array($closureObj, $args);
+        }
+
+        throw new \Exception('<strong>Fatal error:</strong> Call to undefined method ' . get_class($this) . '::' . $name . '() in <strong>' .
+            __FILE__ . '</strong> on line <strong>' . __LINE__ . '</strong>');
+    }
+
+    // ========== IEventHandler =========== //
+
+	/**
+	 * Array de eventos em memória.
+	 * @var array
+	 */
+	private $events;
+    
 	/**
 	 * @see IEventHandler::parseEventMethods()
 	 */
