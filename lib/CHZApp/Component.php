@@ -39,25 +39,26 @@ namespace CHZApp;
  *
  * @abstract
  */
-abstract class Component extends HookHandler
+abstract class Component extends HookHandler implements IComponent
 {
     /**
      * Aplicação que é vinculada ao componente.
      * @var Application
      */
-    private $application;
+    private $app;
 
     /**
      * Construtor para o componente, deve receber a aplicação.
      *
      * @param Application $application
      */
-    public function __construct(Application $application)
+    public function __construct(IApplication $app)
     {
         // Inicializa informações de hooking e eventos para a classe
         parent::__construct();
 
-        $this->application = $application;
+        // Define a aplicação do componente
+        $this->setApplication($app);
 
         // Após instânciar tudo e definir... chama o inicializador.
         $this->init();
@@ -66,25 +67,28 @@ abstract class Component extends HookHandler
     /**
      * Inicializador para os componentes.
      */
-    protected function init()
+    public function init()
     {
         return;
     }
 
     /**
-     * Getter para a aplicação vinculada ao componente.
-     *
-     * @return Application
+     * @see IComponent::setApplication(IApplication $app)
      */
-    final public function getApplication()
+    final public function setApplication(IApplication $app)
     {
-        return $this->application;
+        $this->app = $app;
     }
 
     /**
-     * Obtém os dados de sessão dentro do componente.
-     *
-     * @return Session
+     * @see IComponent::getApplication()
+     */
+    final public function getApplication()
+    {
+        return $this->app;
+    }
+
+    /**
      */
     final public function getSession()
     {

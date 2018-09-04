@@ -36,7 +36,7 @@ namespace CHZApp;
 /**
  * Classe para gerenciamento de sessões.
  */
-class Session extends ConfigComponent
+class Session extends ConfigComponent implements ISession
 {
     /**
      * Algoritmo de criptografia.

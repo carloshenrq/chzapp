@@ -41,7 +41,7 @@ use \Slim\App;
  *
  * @abstract
  */
-abstract class Application extends App
+abstract class Application extends App implements IApplication
 {
     private static $instance;
 
@@ -237,7 +237,7 @@ abstract class Application extends App
     {
         // Inicializa informações de sessão.
         if(!is_null($sessionConfigs))
-            $this->session = $this->createSessionInstance($sessionConfigs);
+            $this->setSession($this->createSessionInstance($sessionConfigs));
     }
 
     /**
@@ -414,11 +414,17 @@ abstract class Application extends App
     }
 
     /**
-     * Obtém os dados de sessão.
-     * 
-     * @return Session
+     * @see IApplication::setSession(ISession $session)
      */
-    public function getSession()
+    final public function setSession(ISession $session)
+    {
+        $this->session = $session;
+    }
+
+    /**
+     * @see IApplication::getSession()
+     */
+    final public function getSession()
     {
         return $this->session;
     }
