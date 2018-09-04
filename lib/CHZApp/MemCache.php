@@ -92,7 +92,7 @@ class MemCache extends Cache
     /**
      * @see Component::init()
      */
-    protected function init()
+    public function init()
     {
         // Defines the memcache client to connect on the server.
         $this->client = new \Memcache;

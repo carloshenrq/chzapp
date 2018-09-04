@@ -53,7 +53,7 @@ class AssetParser extends Component
     /**
      * @see Component::init()
      */
-    protected function init()
+    public function init()
     {
         // Define o objeto de cache para o assetparser
         $this->sqlCache = new AssetSQLiteCache($this->getApplication());

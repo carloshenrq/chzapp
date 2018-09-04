@@ -96,7 +96,7 @@ class Session extends ConfigComponent implements ISession
     /**
      * Inicializa a sessão com os dados iniciais.
      */
-    protected function init()
+    public function init()
     {
         // Se ainda não houver dados de criação de sessão
         // Então irá inicializar informações

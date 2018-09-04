@@ -132,7 +132,7 @@ class SQLiteCache extends Cache
     /**
      * @see Component::init()
      */
-    protected function init()
+    public function init()
     {
         // Abre uma conexão persistente com o banco de dados do SQLite
         $this->pdo = new \PDO('sqlite:sqlcache.db', null, null, [

@@ -120,5 +120,5 @@ interface IHookHandler
      * 
      * @return mixed Dados de execução hookados
      */
-    public function __callHooked($name, $args, $force = false)
+    public function __callHooked($name, $args, $force = false);
 }
