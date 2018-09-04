@@ -55,6 +55,13 @@ interface IEventHandler
 	public function addEventListener($event, $callback);
 
 	/**
+	 * Remove todos os vinculos de callback para o evento.
+	 *
+	 * @param string $event Nome do evento que será removido os vinculos
+	 */
+	public function removeEventListener($event);
+
+	/**
 	 * Dispara o evento informado.
 	 * Os argumentos sub-sequentes serão usados para passar ao método.
 	 *
