@@ -41,16 +41,10 @@ use \Swift_Message;
  * Componente responsavel pelo envio de informações
  * por e-mail.
  */
-class Mailer extends ConfigComponent
+class Mailer extends ConfigComponent implements IMailer
 {
     /**
-     * Realiza o envio do e-mail com os dados informados.
-     *
-     * @param string $subject Assunto do e-mail
-     * @param string $template Arquivo que será renderizado para o envio
-     * @param string $data Dados para trocar durante o render.
-     * @param array $to Destinatário da mensagem.
-     * @param string $type Tipo de mensagem. HTML ou TEXT
+     * @see IMailer::sendFromTemplate($subject, $to, $template, $data, $type)
      */
     public function sendFromTemplate($subject, $to, $template, $data = array(), $type = 'text/html')
     {
@@ -63,31 +57,18 @@ class Mailer extends ConfigComponent
     }
 
     /**
-     * Realiza o envio do e-mail com os dados informados.
-     *
-     * @param string $subject Assunto do e-mail
-     * @param string $template Arquivo que será renderizado para o envio
-     * @param string $data Dados para trocar durante o render.
-     * @param array $to Destinatário da mensagem.
-     * @param string $type Tipo de mensagem. HTML ou TEXT
+     * @see IMailer::send($subject, $to, $body, $type)
      */
-    public function send($subject, $to, $body, $type = 'text/html')
+    final public function send($subject, $to, $body, $type = 'text/html')
     {
         $message = $this->createMessage($subject, $to, $body, $type);
         return $this->createMailer()->send($message);
     }
 
     /**
-     * Cria o componente de mensagem.
-     *
-     * @param string $subject
-     * @param array $to
-     * @param string $body
-     * @param string $type
-     *
-     * @return Swift_Message
+     * @see IMailer::createMessage($subject, $to, $body, $type)
      */
-    private function createMessage($subject, $to, $body, $type = 'text/html')
+    final public function createMessage($subject, $to, $body, $type = 'text/html')
     {
         // Cria o objeto da mensagem para envio.
         $message = new Swift_Message($subject);
@@ -102,21 +83,17 @@ class Mailer extends ConfigComponent
     }
 
     /**
-     * Cria o mailer para enviar o e-mail.
-     *
-     * @return \Swift_Mailer
+     * @see IMailer::createMailer()
      */
-    private function createMailer()
+    final public function createMailer()
     {
         return new Swift_Mailer($this->createTransport());
     }
 
     /**
-     * Cria o transporte para enviar o e-mail usando o Swift_Mailer
-     *
-     * @return \Swift_SmtpTransport
+     * @see IMailer::createTransport()
      */
-    private function createTransport()
+    final public function createTransport()
     {
 		$transport = new Swift_SmtpTransport(
             $this->configs['host'],

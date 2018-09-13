@@ -283,7 +283,7 @@ abstract class Application extends App implements IApplication
     {
         // Inicializa informações de mailer.
         if(!is_null($mailerConfigs))
-            $this->mailer = $this->createMailerInstance($mailerConfigs);
+            $this->setMailer($this->createMailerInstance($mailerConfigs));
     }
 
     /**
@@ -355,11 +355,21 @@ abstract class Application extends App implements IApplication
     }
 
     /**
+     * Define informações do mailer para a aplicação.
+     * 
+     * @param IMailer $mailer Informações do entregador de emails
+     */
+    final public function setMailer(IMailer $mailer)
+    {
+        $this->mailer = $mailer;
+    }
+
+    /**
      * Objeto responsável pelo envio dos e-mails.
      *
-     * @return Mailer
+     * @return IMailer
      */
-    public function getMailer()
+    final public function getMailer()
     {
         return $this->mailer;
     }
