@@ -38,5 +38,45 @@ namespace CHZApp;
  */
 interface ISession
 {
+    /**
+     * Recria os dados de sessão.
+     * 
+     * @param boolean $deleteOldSession Informa se irá deletar os dados da sessão anterior.
+     * 
+     * @return boolean Verdadeiro se comando foi executado com sucesso.
+     */
+    public function recreate($deleteOldSession = false);
 
+    /**
+     * Método mágico para poder remover a variavel de sessão.
+     * 
+     * @param string $name
+     */
+    public function __unset($name);
+
+    /**
+     * Método para verificar se há definições para a variavel de sessão
+     * 
+     * @param string $name
+     * 
+     * @return boolean Verdadeiro caso esteja definido.
+     */
+    public function __isset($name);
+
+    /**
+     * Método usado para definir entradas de sessão
+     * 
+     * @param string $name
+     * @param mixed $value
+     */
+    public function __set($name, $value);
+
+    /**
+     * Faz a leitura de dados nas entradas de sessão
+     * 
+     * @param string $name
+     * 
+     * @return mixed
+     */
+    public function __get($name);
 }

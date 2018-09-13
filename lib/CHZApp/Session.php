@@ -36,7 +36,7 @@ namespace CHZApp;
 /**
  * Classe para gerenciamento de sessões.
  */
-class Session extends ConfigComponent implements ISession
+class Session extends ConfigComponent implements ISession, ICrypto
 {
     /**
      * Algoritmo de criptografia.
@@ -123,9 +123,7 @@ class Session extends ConfigComponent implements ISession
     }
 
     /**
-     * Remove os dados de sessão.
-     *
-     * @param string $name
+     * @see ISession::__unset($name)
      */
     final public function __unset($name)
     {
@@ -135,11 +133,7 @@ class Session extends ConfigComponent implements ISession
     }
 
     /**
-     * Verifica se existe o indice nos dados de sessão.
-     *
-     * @param string $name
-     *
-     * @return bool Verdadeiro se existir.
+     * @see ISession::__isset($name)
      */
     final public function __isset($name)
     {
@@ -149,10 +143,7 @@ class Session extends ConfigComponent implements ISession
     }
 
     /**
-     * Define os dados de sessão com a chave informada.
-     *
-     * @param string $name
-     * @param mixed $value
+     * @see ISession::__set($name, $value)
      */
     final public function __set($name, $value)
     {
@@ -169,11 +160,7 @@ class Session extends ConfigComponent implements ISession
     }
 
     /**
-     * Obtém dados de sessão com a chave informada.
-     *
-     * @param string $name
-     *
-     * @return mixed Dados retornados.
+     * @see ISession::__get($name)
      */
     final public function __get($name)
     {
@@ -188,11 +175,7 @@ class Session extends ConfigComponent implements ISession
     }
 
     /**
-     * Recria a sessão informando se irá deletar os dados anteriores.
-     *
-     * @param bool $deleteOldSession
-     *
-     * @return bool Se foi deletado com sucesso, então verdadeiro.
+     * @see ISession::recreate($deleteOldSession = false)
      */
     public function recreate($deleteOldSession = false)
     {
@@ -200,11 +183,7 @@ class Session extends ConfigComponent implements ISession
     }
 
     /**
-     * Define dados e informações de criptografia para a sessão.
-     *
-     * @param string $algo Algoritmo de criptografia.
-     * @param string $key Chave de criptografia.
-     * @param string $iv IV de criptografia.
+     * @see ICrypto::setCryptInfo($algo, $key, $iv)
      */
     final public function setCryptInfo($algo, $key, $iv)
     {
@@ -214,21 +193,15 @@ class Session extends ConfigComponent implements ISession
     }
 
     /**
-     * Verifica se existe criptografia para sessão.
-     *
-     * @return bool Verdadeiro caso exista.
+     * @see ICrypto::hasCrypt()
      */
-    private function hasCrypt()
+    final public function hasCrypt()
     {
         return !empty($this->cryptAlgo);
     }
 
     /**
-     * Criptografa os dados enviados com os dados de session.
-     *
-     * @param string $data
-     *
-     * @return string Dados criptografados.
+     * @see ICrypto::encrypt($data)
      */
     private function encrypt($data)
     {
@@ -242,11 +215,7 @@ class Session extends ConfigComponent implements ISession
     }
 
     /**
-     * Decriptografa os dados enviados com informações da session.
-     *
-     * @param string $data
-     *
-     * @return string Dados decriptografados.
+     * @see ICrypto::decrypt($data)
      */
     private function decrypt($data)
     {
