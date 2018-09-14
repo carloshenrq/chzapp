@@ -55,9 +55,9 @@ abstract class Application extends App implements IApplication
     /**
      * Obtém informação do viewer para a aplicação.
      *
-     * @var SmartyView
+     * @var IViewer
      */
-    private $smartyView;
+    private $viewer;
 
     /**
      * Cliente para requisições externas.
@@ -245,9 +245,9 @@ abstract class Application extends App implements IApplication
      *
      * @param array $smartyConfigs
      *
-     * @return SmartyView
+     * @return IViewer
      */
-    protected function createSmartyInstance($smartyConfigs = [])
+    protected function createViewerInstance($smartyConfigs = [])
     {
         return new SmartyView($this, $smartyConfigs);
     }
@@ -261,7 +261,7 @@ abstract class Application extends App implements IApplication
     {
         // Inicializa informações de smarty.
         if(!is_null($smartyConfigs))
-            $this->smartyView = $this->createSmartyInstance($smartyConfigs);
+            $this->setView($this->createViewerInstance($smartyConfigs));
     }
 
     /**
@@ -355,9 +355,7 @@ abstract class Application extends App implements IApplication
     }
 
     /**
-     * Define informações do mailer para a aplicação.
-     * 
-     * @param IMailer $mailer Informações do entregador de emails
+     * @see IApplication::setMailer(IMailer $mailer)
      */
     final public function setMailer(IMailer $mailer)
     {
@@ -365,9 +363,7 @@ abstract class Application extends App implements IApplication
     }
 
     /**
-     * Objeto responsável pelo envio dos e-mails.
-     *
-     * @return IMailer
+     * @see IApplication::getMailer()
      */
     final public function getMailer()
     {
@@ -414,13 +410,19 @@ abstract class Application extends App implements IApplication
     }
 
     /**
-     * Obtém informações de visualização para o smarty.
-     *
-     * @return SmartyView
+     * @see IApplication::setView(IViewer $viewer)
      */
-    public function getSmartyView()
+    final public function setView(IViewer $viewer)
     {
-        return $this->smartyView;
+        $this->viewer = $viewer;
+    }
+
+    /**
+     * @see IApplication::getView()
+     */
+    final public function getView()
+    {
+        return $this->viewer;
     }
 
     /**

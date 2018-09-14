@@ -39,6 +39,20 @@ namespace CHZApp;
 interface IApplication
 {
     /**
+     * Define informações de mailer.
+     * 
+     * @param IMailer $mailer
+     */
+    public function setMailer(IMailer $mailer);
+
+    /**
+     * Obtém o objeto de mailer.
+     * 
+     * @return IMailer
+     */
+    public function getMailer();
+
+    /**
      * Define a sessão para a aplicação.
      * 
      * @param ISession $sess

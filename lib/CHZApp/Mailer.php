@@ -50,7 +50,7 @@ class Mailer extends ConfigComponent implements IMailer
     {
         // Renderiza os dados da mensagem para envio.
         $body = $this->getApplication()
-                    ->getSmartyView()
+                    ->getView()
                     ->render($template, $data);
         // Envia os dados.
         return $this->send($subject, $to, $body, $type);

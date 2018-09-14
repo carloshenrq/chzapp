@@ -110,7 +110,7 @@ abstract class Controller extends Component
     {
         // Renderiza e retorna os dados para a tela,
         return $this->getApplication()
-                    ->getSmartyView()
+                    ->getView()
                     ->response($response, $template, $data);
     }
 

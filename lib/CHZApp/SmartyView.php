@@ -38,7 +38,7 @@ use \Smarty;
 /**
  * Classe para tratamento dos templates para o Smarty.
  */
-class SmartyView extends ConfigComponent
+class SmartyView extends ConfigComponent implements IViewer
 {
     /**
      * Objeto instânciado para smarty.
@@ -74,13 +74,7 @@ class SmartyView extends ConfigComponent
     }
 
     /**
-     * Responde a requisição com os dados de templates já escritos
-     *
-     * @param object $response Objeto de resposta
-     * @param string $template Arquivo de template
-     * @param array $data Dados para popular o template
-     *
-     * @return object
+     * @see IViewer::response($response, $template, $data = [])
      */
     public function response($response, $template, $data = [])
     {
@@ -88,28 +82,21 @@ class SmartyView extends ConfigComponent
     }
 
     /**
-     * Renderiza o template smarty em os dados fornecidos.
-     *
-     * @param string $template Arquivo de template que será renderizado
-     * @param string $data Dados que irão para o arquivo template.
-     *
-     * @return string Dados renderizados.
+     * @see IViewer::render($template, $data = [])
      */
     public function render($template, $data = [])
     {
         // Dados a serem atributuidos FIXADOS ao SMARTY.
         $data = array_merge($data, ['_CONFIG_VARS' => $this->configs['_CONFIG_VARS']]);
 
-        $this->getSmarty()->assign($data);
-        return $this->getSmarty()->fetch($template);
+        $this->getView()->assign($data);
+        return $this->getView()->fetch($template);
     }
 
     /**
-     * Obtém o objeto para smarty.
-     *
-     * @return \Smarty
+     * @see IViewer::getView()
      */
-    public function getSmarty()
+    public function getView()
     {
         return $this->smarty;
     }
