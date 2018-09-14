@@ -150,7 +150,7 @@ abstract class Application extends App implements IApplication
         $this->assetParser = new AssetParser($this);
 
         // Define o conector httpClient para a aplicação.
-        $this->httpClient = new HttpClient($this);
+        $this->setHttpClient(new HttpClient($this));
 
         // Defines the schemaValidator
         $this->schemaValidator = new SchemaValidator($this);
@@ -390,6 +390,16 @@ abstract class Application extends App implements IApplication
     }
 
     /**
+     * Define o componente de HttpClient para a aplicação.
+     *
+     * @param HttpClient $httpClient
+     */
+    final public function setHttpClient(IHttpClient $httpClient)
+    {
+        $this->httpClient = $httpClient;
+    }
+
+    /**
      * Obtém o objeto que gerência as chamadas de http externo.
      *
      * @return HttpClient
@@ -397,16 +407,6 @@ abstract class Application extends App implements IApplication
     public function getHttpClient()
     {
         return $this->httpClient;
-    }
-
-    /**
-     * Define o componente de HttpClient para a aplicação.
-     *
-     * @param HttpClient $httpClient
-     */
-    public function setHttpClient(HttpClient $httpClient)
-    {
-        $this->httpClient = $httpClient;
     }
 
     /**

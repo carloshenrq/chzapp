@@ -38,7 +38,7 @@ use \GuzzleHttp\Client;
 /**
  * Gerenciador de requisições HTTP para fora da aplicação.
  */
-class HttpClient extends Component
+class HttpClient extends Component implements IHttpClient
 {
     /**
      * Realiza uma requisição para obter o endereço ip de internet

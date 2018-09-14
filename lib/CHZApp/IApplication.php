@@ -39,6 +39,20 @@ namespace CHZApp;
 interface IApplication
 {
     /**
+     * Define o objeto de conexão com outros serviços Httpd
+     * 
+     * @param IHttpClient $httpClient
+     */
+    public function setHttpClient(IHttpClient $httpClient);
+
+    /**
+     * Obtém o objeto de conexão com outros serviços Http
+     * 
+     * @return IHttpClient
+     */
+    public function getHttpClient();
+
+    /**
      * Define objeto de viewer.
      * 
      * @param IViewer $viewer
