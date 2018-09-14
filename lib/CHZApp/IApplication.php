@@ -39,6 +39,20 @@ namespace CHZApp;
 interface IApplication
 {
     /**
+     * Define objeto de viewer.
+     * 
+     * @param IViewer $viewer
+     */
+    public function setViewer(IViewer $viewer);
+
+    /**
+     * Obtém objeto de Viewer.
+     * 
+     * @return IViewer
+     */
+    public function getViewer();
+
+    /**
      * Define informações de mailer.
      * 
      * @param IMailer $mailer
