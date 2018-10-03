@@ -34,6 +34,7 @@
 namespace CHZApp;
 
 use \Slim\App;
+use \CHZApp\Interfaces\IApplication;
 
 /**
  * Classe principal para realizar os tratamentos de aplicação
