@@ -261,7 +261,7 @@ abstract class Application extends App implements IApplication
     {
         // Inicializa informações de smarty.
         if(!is_null($smartyConfigs))
-            $this->setView($this->createViewerInstance($smartyConfigs));
+            $this->setViewer($this->createViewerInstance($smartyConfigs));
     }
 
     /**
@@ -410,17 +410,17 @@ abstract class Application extends App implements IApplication
     }
 
     /**
-     * @see IApplication::setView(IViewer $viewer)
+     * @see IApplication::setViewer(IViewer $viewer)
      */
-    final public function setView(IViewer $viewer)
+    final public function setViewer(IViewer $viewer)
     {
         $this->viewer = $viewer;
     }
 
     /**
-     * @see IApplication::getView()
+     * @see IApplication::getViewer()
      */
-    final public function getView()
+    final public function getViewer()
     {
         return $this->viewer;
     }
