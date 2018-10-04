@@ -34,6 +34,7 @@
 namespace CHZApp;
 
 use \GuzzleHttp\Client;
+use \CHZApp\Interfaces\IHttpClient;
 
 /**
  * Gerenciador de requisições HTTP para fora da aplicação.

@@ -31,7 +31,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace CHZApp;
+namespace CHZApp\Interfaces;
 
 /**
  * Interface para gerar os métodos de hooking.

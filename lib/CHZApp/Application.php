@@ -35,6 +35,7 @@ namespace CHZApp;
 
 use \Slim\App;
 use \CHZApp\Interfaces\IApplication;
+use \CHZApp\Interfaces\IHttpClient;
 
 /**
  * Classe principal para realizar os tratamentos de aplicação
