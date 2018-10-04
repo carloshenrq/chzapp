@@ -1,4 +1,4 @@
-# CHZApp
+# CHZApp [![Build Status](https://travis-ci.com/carloshenrq/chzapp.svg?branch=master)](https://travis-ci.com/carloshenrq/chzapp)
 É um pequeno framework de uso pessoal que estou disponibilizando aqui no github. Facilitou alguns serviços meus, claro que de outras formas, mas esta versão deve ajudar alguém que possa estar precisando também.
 
 ### Conjunto de Bibliotecas
