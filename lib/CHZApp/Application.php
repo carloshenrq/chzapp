@@ -34,6 +34,11 @@
 namespace CHZApp;
 
 use \Slim\App;
+use \CHZApp\Interfaces\IApplication;
+use \CHZApp\Interfaces\IHttpClient;
+use \CHZApp\Interfaces\IMailer;
+use \CHZApp\Interfaces\ISession;
+use \CHZApp\Interfaces\IViewer;
 
 /**
  * Classe principal para realizar os tratamentos de aplicação

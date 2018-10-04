@@ -31,42 +31,35 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace CHZApp;
+namespace CHZApp\Interfaces;
 
-interface ICrypto
+interface IViewer
 {
     /**
-     * Define informações de criptografia para o objeto
+     * Objeto de resposta com informações de template.
      * 
-     * @param string $algo
-     * @param string $key
-     * @param string $iv
+     * @param object $response Objeto de resposta.
+     * @param string $template Arquivo de template.
+     * @param array $data Dados para preencher o template
+     * 
+     * @return object Objeto de resposta preenchido.
      */
-    public function setCryptInfo($algo, $key, $iv);
+    public function response($response, $template, $data = []);
 
     /**
-     * Verifica se o objeto possui informações de criptografia
-     * definidas.
+     * Faz o tratamento do template e dos dados.
      * 
-     * @return boolean Verdadeiro se possuir
+     * @param string $template Arquivo de template.
+     * @param array $data Dados para preencher o template
+     * 
+     * @return string Template tratado e pronto para resposta.
      */
-    public function hasCrypt();
+    public function render($template, $data = []);
 
     /**
-     * Dados a serem criptografados
+     * Obtém o objeto de tratamento para os templates.
      * 
-     * @param string $data Texto de dados para possuir criptografia
-     * 
-     * @return mixed False se não conseguir aplicar, caso contrario texto encritado
+     * @return object
      */
-    public function encrypt($data);
-
-    /**
-     * Remove a criptografia dos dados
-     * 
-     * @param string $data Dados criptografados
-     * 
-     * @return mixed False se não conseguir decriptografar.
-     */
-    public function decrypt($data);
+    public function getView();
 }

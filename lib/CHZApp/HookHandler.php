@@ -33,6 +33,9 @@
 
 namespace CHZApp;
 
+use \CHZApp\Interfaces\IHookHandler;
+use \CHZApp\Interfaces\IEventHandler;
+
 /**
  * Classe para gerenciamento de hooks e também de eventos
  * que os hooks poderão e farão uso.

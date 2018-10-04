@@ -31,35 +31,12 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace CHZApp;
+namespace CHZApp\Interfaces;
 
-interface IViewer
+/**
+ * Interface para conexões com outros serviços de HTTP
+ */
+interface IHttpClient
 {
-    /**
-     * Objeto de resposta com informações de template.
-     * 
-     * @param object $response Objeto de resposta.
-     * @param string $template Arquivo de template.
-     * @param array $data Dados para preencher o template
-     * 
-     * @return object Objeto de resposta preenchido.
-     */
-    public function response($response, $template, $data = []);
 
-    /**
-     * Faz o tratamento do template e dos dados.
-     * 
-     * @param string $template Arquivo de template.
-     * @param array $data Dados para preencher o template
-     * 
-     * @return string Template tratado e pronto para resposta.
-     */
-    public function render($template, $data = []);
-
-    /**
-     * Obtém o objeto de tratamento para os templates.
-     * 
-     * @return object
-     */
-    public function getView();
 }

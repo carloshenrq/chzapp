@@ -31,12 +31,42 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace CHZApp;
+namespace CHZApp\Interfaces;
 
-/**
- * Interface para conexões com outros serviços de HTTP
- */
-interface IHttpClient
+interface ICrypto
 {
+    /**
+     * Define informações de criptografia para o objeto
+     * 
+     * @param string $algo
+     * @param string $key
+     * @param string $iv
+     */
+    public function setCryptInfo($algo, $key, $iv);
 
+    /**
+     * Verifica se o objeto possui informações de criptografia
+     * definidas.
+     * 
+     * @return boolean Verdadeiro se possuir
+     */
+    public function hasCrypt();
+
+    /**
+     * Dados a serem criptografados
+     * 
+     * @param string $data Texto de dados para possuir criptografia
+     * 
+     * @return mixed False se não conseguir aplicar, caso contrario texto encritado
+     */
+    public function encrypt($data);
+
+    /**
+     * Remove a criptografia dos dados
+     * 
+     * @param string $data Dados criptografados
+     * 
+     * @return mixed False se não conseguir decriptografar.
+     */
+    public function decrypt($data);
 }

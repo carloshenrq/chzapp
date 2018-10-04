@@ -32,6 +32,8 @@
  */
 
 namespace CHZApp;
+use \CHZApp\Interfaces\IApplication;
+use \CHZApp\Interfaces\IComponent;
 
 /**
  * Classe para componenetes da aplicação. Normalmente utilizada
