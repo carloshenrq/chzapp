@@ -1,0 +1,8 @@
+language: php
+php:
+  - 7.1
+before_install:
+  - travis_retry composer self-update
+  - composer global require phpunit/phpunit
+  - composer install
+script: phpunit
