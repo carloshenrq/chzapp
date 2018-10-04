@@ -33,6 +33,8 @@
 
 namespace CHZApp;
 
+use \CHZApp\Interfaces\IMailer;
+
 use \Swift_SmtpTransport;
 use \Swift_Mailer;
 use \Swift_Message;

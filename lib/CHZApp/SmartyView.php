@@ -33,6 +33,7 @@
 
 namespace CHZApp;
 
+use \CHZApp\Interfaces\IViewer;
 use \Smarty;
 
 /**

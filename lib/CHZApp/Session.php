@@ -34,6 +34,7 @@
 namespace CHZApp;
 
 use \CHZApp\Interfaces\ICrypto;
+use \CHZApp\Interfaces\ISession;
 
 /**
  * Classe para gerenciamento de sessões.
