@@ -32,6 +32,7 @@
  */
 
 namespace CHZApp;
+use \CHZApp\Interfaces\IApplication;
 use \CHZApp\Interfaces\IComponent;
 
 /**
