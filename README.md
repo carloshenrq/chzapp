@@ -1,4 +1,5 @@
-# CHZApp [![Build Status](https://travis-ci.com/carloshenrq/chzapp.svg?branch=master)](https://travis-ci.com/carloshenrq/chzapp)
+# CHZApp [![Build Status](https://travis-ci.com/carloshenrq/chzapp.svg?branch=master)](https://travis-ci.com/carloshenrq/chzapp) [![GitHub issues](https://img.shields.io/github/issues/carloshenrq/chzapp.svg)](https://github.com/carloshenrq/chzapp/issues) [![GitHub forks](https://img.shields.io/github/forks/carloshenrq/chzapp.svg)](https://github.com/carloshenrq/chzapp/network) [![GitHub stars](https://img.shields.io/github/stars/carloshenrq/chzapp.svg)](https://github.com/carloshenrq/chzapp/stargazers) [![GitHub license](https://img.shields.io/github/license/carloshenrq/chzapp.svg)](https://github.com/carloshenrq/chzapp/blob/master/LICENSE)
+
 É um pequeno framework de uso pessoal que estou disponibilizando aqui no github. Facilitou alguns serviços meus, claro que de outras formas, mas esta versão deve ajudar alguém que possa estar precisando também.
 
 ### Conjunto de Bibliotecas
