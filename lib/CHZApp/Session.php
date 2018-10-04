@@ -206,7 +206,7 @@ class Session extends ConfigComponent implements ISession, ICrypto
     /**
      * @see ICrypto::encrypt($data)
      */
-    private function encrypt($data)
+    public function encrypt($data)
     {
         // Se não existe informações para criptografia,
         // então, retornará false.
@@ -220,7 +220,7 @@ class Session extends ConfigComponent implements ISession, ICrypto
     /**
      * @see ICrypto::decrypt($data)
      */
-    private function decrypt($data)
+    public function decrypt($data)
     {
         // Se não existe informações para criptografia,
         // então, retornará false.

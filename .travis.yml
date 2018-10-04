@@ -6,4 +6,8 @@ before_install:
   - travis_retry composer self-update
   - composer global require phpunit/phpunit
   - composer install
-script: phpunit
+script:
+  - phpunit --coverage-clover=coverage.xml
+  - phpunit
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
