@@ -128,8 +128,13 @@ abstract class HookHandler implements IEventHandler, IHookHandler
      */
     final public function readHookDir()
     {
+
         // Inicializa as variaveis de hooking
         $_tmpHookFiles = $this->hookMethods = $this->hookProperties = $this->hookReadFiles = [];
+
+        // Se o diretório estiver embranco... então não será executado.
+        if(empty($this->getHookDir()))
+            return;
 
         // Inicializa o leitor de diretórios para os hookings...
         $diHook = new \DirectoryIterator($this->getHookDir());
