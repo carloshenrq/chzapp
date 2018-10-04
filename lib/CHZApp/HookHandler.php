@@ -109,6 +109,7 @@ abstract class HookHandler implements IEventHandler, IHookHandler
 
     /**
      * @see IHookHandler::setHookDir($hookDir)
+	 * @final
      */
     final public function setHookDir($hookDir)
     {
@@ -117,6 +118,7 @@ abstract class HookHandler implements IEventHandler, IHookHandler
 
     /**
      * @see IHookHandler::getHookDir()
+	 * @final
      */
     final public function getHookDir()
     {
@@ -125,6 +127,7 @@ abstract class HookHandler implements IEventHandler, IHookHandler
 
     /**
      * IHookHandler::readHookDir()
+ 	 * @final
      */
     final public function readHookDir()
     {
@@ -206,6 +209,7 @@ abstract class HookHandler implements IEventHandler, IHookHandler
 
     /**
      * @see IHookHandler::getHookedFiles()
+	 * @final
      */
     final public function getHookedFiles()
     {
@@ -214,6 +218,7 @@ abstract class HookHandler implements IEventHandler, IHookHandler
 
     /**
      * @see IHookHandler::isHookedMethod($method)
+	 * @final
      */
     final public function isHookedMethod($method)
     {
@@ -222,6 +227,7 @@ abstract class HookHandler implements IEventHandler, IHookHandler
 
     /**
      * @see IHookHandler::__set($name, $value)
+	 * @final
      */
     final public function __set($name, $value)
     {
@@ -233,6 +239,7 @@ abstract class HookHandler implements IEventHandler, IHookHandler
 
     /**
      * @see IHookHandler::__get($name)
+	 * @final
      */
     final public function __get($name)
     {
@@ -244,6 +251,7 @@ abstract class HookHandler implements IEventHandler, IHookHandler
 
     /**
      * @see IHookHandler::__call($name, $args)
+	 * @final
      */
     final public function __call($name, $args)
     {
@@ -252,6 +260,7 @@ abstract class HookHandler implements IEventHandler, IHookHandler
 
     /**
      * @see IHookHandler::__callHooked($name, $args, $force = false)
+	 * @final
      */
     final public function __callHooked($name, $args, $force = false)
     {
@@ -286,6 +295,7 @@ abstract class HookHandler implements IEventHandler, IHookHandler
     
 	/**
 	 * @see IEventHandler::parseEventMethods()
+	 * @final
 	 */
 	final public function parseEventMethods()
 	{
@@ -306,6 +316,7 @@ abstract class HookHandler implements IEventHandler, IHookHandler
 
 	/**
 	 * @see IEventHandler::addEventListener($event, $callback)
+	 * @final
 	 */
 	final public function addEventListener($event, $callback)
 	{
@@ -323,6 +334,7 @@ abstract class HookHandler implements IEventHandler, IHookHandler
 
     /**
      * @see IEventHandler::removeEventListener($event)
+	 * @final
      */
     final public function removeEventListener($event)
     {
@@ -335,6 +347,7 @@ abstract class HookHandler implements IEventHandler, IHookHandler
 
     /**
      * @see IEventHandler::trigger($event)
+	 * @final
      */
     final public function trigger($event)
     {
