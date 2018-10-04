@@ -209,7 +209,6 @@ abstract class HookHandler implements IEventHandler, IHookHandler
 
     /**
      * @see IHookHandler::getHookedFiles()
-	 * @final
      */
     final public function getHookedFiles()
     {
@@ -218,7 +217,6 @@ abstract class HookHandler implements IEventHandler, IHookHandler
 
     /**
      * @see IHookHandler::isHookedMethod($method)
-	 * @final
      */
     final public function isHookedMethod($method)
     {
@@ -227,9 +225,8 @@ abstract class HookHandler implements IEventHandler, IHookHandler
 
     /**
      * @see IHookHandler::__set($name, $value)
-	 * @final
      */
-    final public function __set($name, $value)
+    public function __set($name, $value)
     {
         if(!array_key_exists($name, $this->hookProperties))
             throw new \Exception('Undefined property: '.get_class($this).'::$'.$name);
@@ -239,9 +236,8 @@ abstract class HookHandler implements IEventHandler, IHookHandler
 
     /**
      * @see IHookHandler::__get($name)
-	 * @final
      */
-    final public function __get($name)
+    public function __get($name)
     {
         if(!array_key_exists($name, $this->hookProperties))
             throw new \Exception('Undefined property: '.get_class($this).'::$'.$name);
@@ -251,9 +247,8 @@ abstract class HookHandler implements IEventHandler, IHookHandler
 
     /**
      * @see IHookHandler::__call($name, $args)
-	 * @final
      */
-    final public function __call($name, $args)
+    public function __call($name, $args)
     {
         return $this->__callHooked($name, $args);
     }
