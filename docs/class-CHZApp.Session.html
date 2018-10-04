@@ -20,9 +20,16 @@
 			<ul>
 				<li class="active">
 					<a href="namespace-CHZApp.html">
-						CHZApp					</a>
+						CHZApp<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-CHZApp.Interfaces.html">
+						Interfaces					</a>
 
 						</li>
+							</ul></li>
 			</ul>
 		</div>
 
@@ -34,20 +41,32 @@
 			<ul>
 				<li><a href="class-CHZApp.Application.html">Application</a></li>
 				<li><a href="class-CHZApp.AssetParser.html">AssetParser</a></li>
+				<li><a href="class-CHZApp.AssetSQLiteCache.html">AssetSQLiteCache</a></li>
+				<li><a href="class-CHZApp.Cache.html">Cache</a></li>
 				<li><a href="class-CHZApp.Component.html">Component</a></li>
 				<li><a href="class-CHZApp.ConfigComponent.html">ConfigComponent</a></li>
 				<li><a href="class-CHZApp.Controller.html">Controller</a></li>
 				<li><a href="class-CHZApp.EloquentManager.html">EloquentManager</a></li>
+				<li><a href="class-CHZApp.HookHandler.html">HookHandler</a></li>
 				<li><a href="class-CHZApp.HttpClient.html">HttpClient</a></li>
 				<li><a href="class-CHZApp.Mailer.html">Mailer</a></li>
+				<li><a href="class-CHZApp.MemCache.html">MemCache</a></li>
 				<li><a href="class-CHZApp.Middleware.html">Middleware</a></li>
 				<li><a href="class-CHZApp.Router.html">Router</a></li>
+				<li><a href="class-CHZApp.SchemaValidator.html">SchemaValidator</a></li>
 				<li class="active"><a href="class-CHZApp.Session.html">Session</a></li>
 				<li><a href="class-CHZApp.SmartyView.html">SmartyView</a></li>
+				<li><a href="class-CHZApp.SQLiteCache.html">SQLiteCache</a></li>
+				<li><a href="class-CHZApp.XmlJsonConverter.html">XmlJsonConverter</a></li>
 			</ul>
 
 
 
+			<h3>Exceptions</h3>
+			<ul>
+				<li><a href="class-CHZApp.ControllerException.html">ControllerException</a></li>
+				<li><a href="class-CHZApp.SchemaValidatorException.html">SchemaValidatorException</a></li>
+			</ul>
 
 
 		</div>
@@ -91,21 +110,38 @@
 
 	<dl class="tree">
 		<dd style="padding-left:0px">
-			<a href="class-CHZApp.Component.html"><span>CHZApp\Component</span></a>
+			<a href="class-CHZApp.HookHandler.html"><span>CHZApp\HookHandler</span></a>
 			
+			 implements 
+				<a href="class-CHZApp.Interfaces.IEventHandler.html"><span>CHZApp\Interfaces\IEventHandler</span></a>, 
+			
+				<a href="class-CHZApp.Interfaces.IHookHandler.html"><span>CHZApp\Interfaces\IHookHandler</span></a>
 			
 			
 		</dd>
 		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by">
+			<a href="class-CHZApp.Component.html"><span>CHZApp\Component</span></a>
+			
+			 implements 
+				<a href="class-CHZApp.Interfaces.IComponent.html"><span>CHZApp\Interfaces\IComponent</span></a>
+			
+			
+		</dd>
+		<dd style="padding-left:60px">
 			<img src="resources/inherit.png" alt="Extended by">
 			<a href="class-CHZApp.ConfigComponent.html"><span>CHZApp\ConfigComponent</span></a>
 			
 			
 			
 		</dd>
-		<dd style="padding-left:60px">
+		<dd style="padding-left:90px">
 			<img src="resources/inherit.png" alt="Extended by">
 <b><span>CHZApp\Session</span></b>			
+			 implements 
+				<a href="class-CHZApp.Interfaces.ISession.html"><span>CHZApp\Interfaces\ISession</span></a>, 
+			
+				<a href="class-CHZApp.Interfaces.ICrypto.html"><span>CHZApp\Interfaces\ICrypto</span></a>
 			
 			
 		</dd>
@@ -124,7 +160,7 @@
 		<b>Namespace:</b> <a href="namespace-CHZApp.html">CHZApp</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-CHZApp.Session.html#36-261" title="Go to source code">CHZApp/Session.php</a>
+			<b>Located at</b> <a href="source-class-CHZApp.Session.html#39-233" title="Go to source code">CHZApp/Session.php</a>
 		<br>
 	</div>
 
@@ -144,7 +180,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-CHZApp.Session.html#59-84" title="Go to source code">__construct</a>( <span><code><a href="class-CHZApp.Application.html">CHZApp\Application</a></code> <var>$application</var></span>, <span>array <var>$configs</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-CHZApp.Session.html#62-87" title="Go to source code">__construct</a>( <span><code><a href="class-CHZApp.Application.html">CHZApp\Application</a></code> <var>$application</var></span>, <span>array <var>$configs</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -187,7 +223,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_parseConfigs">#</a>
-		<code><a href="source-class-CHZApp.Session.html#86-94" title="Go to source code">parseConfigs</a>( <span>array <var>$configs</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-CHZApp.Session.html#89-97" title="Go to source code">parseConfigs</a>( <span>array <var>$configs</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -217,7 +253,7 @@
 	<tr data-order="init" id="_init">
 
 		<td class="attributes"><code>
-			 protected 
+			 public 
 
 			
 			
@@ -226,7 +262,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_init">#</a>
-		<code><a href="source-class-CHZApp.Session.html#96-123" title="Go to source code">init</a>( )</code>
+		<code><a href="source-class-CHZApp.Session.html#99-126" title="Go to source code">init</a>( )</code>
 
 		<div class="description short">
 			<p>Inicializa a sessão com os dados iniciais.</p>
@@ -258,14 +294,14 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___unset">#</a>
-		<code><a href="source-class-CHZApp.Session.html#125-135" title="Go to source code">__unset</a>( <span>string <var>$name</var></span> )</code>
+		<code><a href="source-class-CHZApp.Session.html#128-136" title="Go to source code">__unset</a>( <span>string <var>$name</var></span> )</code>
 
 		<div class="description short">
-			<p>Remove os dados de sessão.</p>
+			
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Remove os dados de sessão.</p>
+			
 
 
 				<h4>Parameters</h4>
@@ -276,8 +312,14 @@
 
 
 
+				<h4>See</h4>
+				<div class="list">
+						ISession::__unset($name)<br>
+				</div>
 
 
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-CHZApp.Interfaces.ISession.html#___unset">CHZApp\Interfaces\ISession::__unset()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
@@ -293,14 +335,14 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___isset">#</a>
-		<code><a href="source-class-CHZApp.Session.html#137-149" title="Go to source code">__isset</a>( <span>string <var>$name</var></span> )</code>
+		<code><a href="source-class-CHZApp.Session.html#138-146" title="Go to source code">__isset</a>( <span>string <var>$name</var></span> )</code>
 
 		<div class="description short">
-			<p>Verifica se existe o indice nos dados de sessão.</p>
+			
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Verifica se existe o indice nos dados de sessão.</p>
+			
 
 
 				<h4>Parameters</h4>
@@ -311,12 +353,18 @@
 
 				<h4>Returns</h4>
 				<div class="list">
-					boolean<br>Verdadeiro se existir.
+					boolean<br>Verdadeiro caso esteja definido.
 				</div>
 
 
+				<h4>See</h4>
+				<div class="list">
+						ISession::__isset($name)<br>
+				</div>
 
 
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-CHZApp.Interfaces.ISession.html#___isset">CHZApp\Interfaces\ISession::__isset()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
@@ -332,28 +380,36 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___set">#</a>
-		<code><a href="source-class-CHZApp.Session.html#151-169" title="Go to source code">__set</a>( <span>string <var>$name</var></span>, <span>mixed <var>$value</var></span> )</code>
+		<code><a href="source-class-CHZApp.Session.html#148-163" title="Go to source code">__set</a>( <span>string <var>$name</var></span>, <span>mixed <var>$value</var></span> )</code>
 
 		<div class="description short">
-			<p>Define os dados de sessão com a chave informada.</p>
+			
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Define os dados de sessão com a chave informada.</p>
+			
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$name</var></dt>
-					<dd></dd>
+					<dd>Propriedade</dd>
 					<dt><var>$value</var></dt>
-					<dd></dd>
+					<dd>Valor para a propriedade</dd>
 				</dl></div>
 
 
 
+				<h4>See</h4>
+				<div class="list">
+						ISession::__set($name, $value)<br>
+				</div>
 
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CHZApp.HookHandler.html#___set">CHZApp\HookHandler::__set()</a></code></div>
 
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-CHZApp.Interfaces.ISession.html#___set">CHZApp\Interfaces\ISession::__set()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
@@ -369,30 +425,38 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___get">#</a>
-		<code><a href="source-class-CHZApp.Session.html#171-188" title="Go to source code">__get</a>( <span>string <var>$name</var></span> )</code>
+		<code><a href="source-class-CHZApp.Session.html#165-178" title="Go to source code">__get</a>( <span>string <var>$name</var></span> )</code>
 
 		<div class="description short">
-			<p>Obtém dados de sessão com a chave informada.</p>
+			
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Obtém dados de sessão com a chave informada.</p>
+			
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$name</var></dt>
-					<dd></dd>
+					<dd>Propriedade</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					mixed<br>Dados retornados.
+					mixed<br>Valor para a propriedade
 				</div>
 
 
+				<h4>See</h4>
+				<div class="list">
+						ISession::__get($name)<br>
+				</div>
 
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CHZApp.HookHandler.html#___get">CHZApp\HookHandler::__get()</a></code></div>
 
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-CHZApp.Interfaces.ISession.html#___get">CHZApp\Interfaces\ISession::__get()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
@@ -408,30 +472,36 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_recreate">#</a>
-		<code><a href="source-class-CHZApp.Session.html#190-200" title="Go to source code">recreate</a>( <span>boolean <var>$deleteOldSession</var> = <span class="php-keyword1">false</span></span> )</code>
+		<code><a href="source-class-CHZApp.Session.html#180-186" title="Go to source code">recreate</a>( <span>boolean <var>$deleteOldSession</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
-			<p>Recria a sessão informando se irá deletar os dados anteriores.</p>
+			
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Recria a sessão informando se irá deletar os dados anteriores.</p>
+			
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$deleteOldSession</var></dt>
-					<dd></dd>
+					<dd>Informa se irá deletar os dados da sessão anterior.</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					boolean<br>Se foi deletado com sucesso, então verdadeiro.
+					boolean<br>Verdadeiro se comando foi executado com sucesso.
 				</div>
 
 
+				<h4>See</h4>
+				<div class="list">
+						ISession::recreate($deleteOldSession = false)<br>
+				</div>
 
 
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-CHZApp.Interfaces.ISession.html#_recreate">CHZApp\Interfaces\ISession::recreate()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
@@ -447,30 +517,76 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setCryptInfo">#</a>
-		<code><a href="source-class-CHZApp.Session.html#202-214" title="Go to source code">setCryptInfo</a>( <span>string <var>$algo</var></span>, <span>string <var>$key</var></span>, <span>string <var>$iv</var></span> )</code>
+		<code><a href="source-class-CHZApp.Session.html#188-196" title="Go to source code">setCryptInfo</a>( <span>string <var>$algo</var></span>, <span>string <var>$key</var></span>, <span>string <var>$iv</var></span> )</code>
 
 		<div class="description short">
-			<p>Define dados e informações de criptografia para a sessão.</p>
+			
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Define dados e informações de criptografia para a sessão.</p>
+			
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$algo</var></dt>
-					<dd>Algoritmo de criptografia.</dd>
+					<dd></dd>
 					<dt><var>$key</var></dt>
-					<dd>Chave de criptografia.</dd>
+					<dd></dd>
 					<dt><var>$iv</var></dt>
-					<dd>IV de criptografia.</dd>
+					<dd></dd>
 				</dl></div>
 
 
 
+				<h4>See</h4>
+				<div class="list">
+						ICrypto::setCryptInfo($algo, $key, $iv)<br>
+				</div>
 
 
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-CHZApp.Interfaces.ICrypto.html#_setCryptInfo">CHZApp\Interfaces\ICrypto::setCryptInfo()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="hasCrypt" id="_hasCrypt">
+
+		<td class="attributes"><code>
+			final public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_hasCrypt">#</a>
+		<code><a href="source-class-CHZApp.Session.html#198-204" title="Go to source code">hasCrypt</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean<br>Verdadeiro se possuir
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						ICrypto::hasCrypt()<br>
+				</div>
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-CHZApp.Interfaces.ICrypto.html#_hasCrypt">CHZApp\Interfaces\ICrypto::hasCrypt()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
@@ -480,7 +596,37 @@
 	<caption>Methods inherited from <a href="class-CHZApp.Component.html#methods">CHZApp\Component</a></caption>
 	<tr>
 		<td><code>
-			<a href="class-CHZApp.Component.html#_getApplication">getApplication()</a>
+			<a href="class-CHZApp.Component.html#_getApplication">getApplication()</a>, 
+			<a href="class-CHZApp.Component.html#_getSession">getSession()</a>, 
+			<a href="class-CHZApp.Component.html#_setApplication">setApplication()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CHZApp.HookHandler.html#methods">CHZApp\HookHandler</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CHZApp.HookHandler.html#___call">__call()</a>, 
+			<a href="class-CHZApp.HookHandler.html#___callHooked">__callHooked()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_addEventListener">addEventListener()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_canHook">canHook()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_getHookDir">getHookDir()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_getHookedFiles">getHookedFiles()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_isHookedMethod">isHookedMethod()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_parseEventMethods">parseEventMethods()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_readHookDir">readHookDir()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_removeEventListener">removeEventListener()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_setHookDir">setHookDir()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_trigger">trigger()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CHZApp.Interfaces.ICrypto.html#methods">CHZApp\Interfaces\ICrypto</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CHZApp.Interfaces.ICrypto.html#_decrypt">decrypt()</a>, 
+			<a href="class-CHZApp.Interfaces.ICrypto.html#_encrypt">encrypt()</a>
 		</code></td>
 	</tr>
 	</table>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Interface CHZApp\Interfaces\ICrypto</title>
+
+	<link rel="stylesheet" href="resources/style.css?c2f33731c1948fbed7c333554678bfa68d4817da">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-CHZApp.html">
+						CHZApp<span></span>
+					</a>
+
+						<ul>
+				<li class="active">
+					<a href="namespace-CHZApp.Interfaces.html">
+						Interfaces					</a>
+
+						</li>
+							</ul></li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-CHZApp.Interfaces.IApplication.html">IApplication</a></li>
+				<li><a href="class-CHZApp.Interfaces.IComponent.html">IComponent</a></li>
+				<li class="active"><a href="class-CHZApp.Interfaces.ICrypto.html">ICrypto</a></li>
+				<li><a href="class-CHZApp.Interfaces.IEventHandler.html">IEventHandler</a></li>
+				<li><a href="class-CHZApp.Interfaces.IHookHandler.html">IHookHandler</a></li>
+				<li><a href="class-CHZApp.Interfaces.IHttpClient.html">IHttpClient</a></li>
+				<li><a href="class-CHZApp.Interfaces.IMailer.html">IMailer</a></li>
+				<li><a href="class-CHZApp.Interfaces.ISession.html">ISession</a></li>
+				<li><a href="class-CHZApp.Interfaces.IViewer.html">IViewer</a></li>
+			</ul>
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-CHZApp.Interfaces.html" title="Summary of CHZApp\Interfaces"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Interface ICrypto</h1>
+
+
+
+
+
+
+
+	<div>
+		<h4>Direct known implementers</h4>
+			<a href="class-CHZApp.Session.html">CHZApp\Session</a>
+	</div>
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-CHZApp.html">CHZApp</a>\<a href="namespace-CHZApp.Interfaces.html">Interfaces</a><br>
+		
+
+			<b>Located at</b> <a href="source-class-CHZApp.Interfaces.ICrypto.html#36-72" title="Go to source code">CHZApp/Interfaces/ICrypto.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="setCryptInfo" id="_setCryptInfo">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setCryptInfo">#</a>
+		<code><a href="source-class-CHZApp.Interfaces.ICrypto.html#38-45" title="Go to source code">setCryptInfo</a>( <span>string <var>$algo</var></span>, <span>string <var>$key</var></span>, <span>string <var>$iv</var></span> )</code>
+
+		<div class="description short">
+			<p>Define informações de criptografia para o objeto</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Define informações de criptografia para o objeto</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$algo</var></dt>
+					<dd></dd>
+					<dt><var>$key</var></dt>
+					<dd></dd>
+					<dt><var>$iv</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="hasCrypt" id="_hasCrypt">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_hasCrypt">#</a>
+		<code><a href="source-class-CHZApp.Interfaces.ICrypto.html#47-53" title="Go to source code">hasCrypt</a>( )</code>
+
+		<div class="description short">
+			<p>Verifica se o objeto possui informações de criptografia
+definidas.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Verifica se o objeto possui informações de criptografia
+definidas.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean<br>Verdadeiro se possuir
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="encrypt" id="_encrypt">
+
+		<td class="attributes"><code>
+			 public 
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_encrypt">#</a>
+		<code><a href="source-class-CHZApp.Interfaces.ICrypto.html#55-62" title="Go to source code">encrypt</a>( <span>string <var>$data</var></span> )</code>
+
+		<div class="description short">
+			<p>Dados a serem criptografados</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Dados a serem criptografados</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$data</var></dt>
+					<dd>Texto de dados para possuir criptografia</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed<br>False se não conseguir aplicar, caso contrario texto encritado
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="decrypt" id="_decrypt">
+
+		<td class="attributes"><code>
+			 public 
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_decrypt">#</a>
+		<code><a href="source-class-CHZApp.Interfaces.ICrypto.html#64-71" title="Go to source code">decrypt</a>( <span>string <var>$data</var></span> )</code>
+
+		<div class="description short">
+			<p>Remove a criptografia dos dados</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Remove a criptografia dos dados</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$data</var></dt>
+					<dd>Dados criptografados</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed<br>False se não conseguir decriptografar.
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

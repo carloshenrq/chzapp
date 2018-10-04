@@ -20,9 +20,16 @@
 			<ul>
 				<li class="active">
 					<a href="namespace-CHZApp.html">
-						CHZApp					</a>
+						CHZApp<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-CHZApp.Interfaces.html">
+						Interfaces					</a>
 
 						</li>
+							</ul></li>
 			</ul>
 		</div>
 
@@ -34,20 +41,32 @@
 			<ul>
 				<li class="active"><a href="class-CHZApp.Application.html">Application</a></li>
 				<li><a href="class-CHZApp.AssetParser.html">AssetParser</a></li>
+				<li><a href="class-CHZApp.AssetSQLiteCache.html">AssetSQLiteCache</a></li>
+				<li><a href="class-CHZApp.Cache.html">Cache</a></li>
 				<li><a href="class-CHZApp.Component.html">Component</a></li>
 				<li><a href="class-CHZApp.ConfigComponent.html">ConfigComponent</a></li>
 				<li><a href="class-CHZApp.Controller.html">Controller</a></li>
 				<li><a href="class-CHZApp.EloquentManager.html">EloquentManager</a></li>
+				<li><a href="class-CHZApp.HookHandler.html">HookHandler</a></li>
 				<li><a href="class-CHZApp.HttpClient.html">HttpClient</a></li>
 				<li><a href="class-CHZApp.Mailer.html">Mailer</a></li>
+				<li><a href="class-CHZApp.MemCache.html">MemCache</a></li>
 				<li><a href="class-CHZApp.Middleware.html">Middleware</a></li>
 				<li><a href="class-CHZApp.Router.html">Router</a></li>
+				<li><a href="class-CHZApp.SchemaValidator.html">SchemaValidator</a></li>
 				<li><a href="class-CHZApp.Session.html">Session</a></li>
 				<li><a href="class-CHZApp.SmartyView.html">SmartyView</a></li>
+				<li><a href="class-CHZApp.SQLiteCache.html">SQLiteCache</a></li>
+				<li><a href="class-CHZApp.XmlJsonConverter.html">XmlJsonConverter</a></li>
 			</ul>
 
 
 
+			<h3>Exceptions</h3>
+			<ul>
+				<li><a href="class-CHZApp.ControllerException.html">ControllerException</a></li>
+				<li><a href="class-CHZApp.SchemaValidatorException.html">SchemaValidatorException</a></li>
+			</ul>
 
 
 		</div>
@@ -99,6 +118,8 @@ Slim\App
 		<dd style="padding-left:30px">
 			<img src="resources/inherit.png" alt="Extended by">
 <b><span>CHZApp\Application</span></b>			
+			 implements 
+				<a href="class-CHZApp.Interfaces.IApplication.html"><span>CHZApp\Interfaces\IApplication</span></a>
 			
 			
 		</dd>
@@ -117,7 +138,7 @@ Slim\App
 		<b>Namespace:</b> <a href="namespace-CHZApp.html">CHZApp</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-CHZApp.Application.html#38-255" title="Go to source code">CHZApp/Application.php</a>
+			<b>Located at</b> <a href="source-class-CHZApp.Application.html#43-528" title="Go to source code">CHZApp/Application.php</a>
 		<br>
 	</div>
 
@@ -137,7 +158,7 @@ Slim\App
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-CHZApp.Application.html#89-134" title="Go to source code">__construct</a>( <span>boolean <var>$developerMode</var> = <span class="php-keyword1">false</span></span>, <span>array <var>$sessionConfigs</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$smartyConfigs</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$mailerConfigs</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$eloquentConfigs</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-CHZApp.Application.html#137-174" title="Go to source code">__construct</a>( <span>boolean <var>$developerMode</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
 			<p>Construtor para a classe de aplicação</p>
@@ -151,14 +172,531 @@ Slim\App
 				<div class="list"><dl>
 					<dt><var>$developerMode</var></dt>
 					<dd>Identifica se a classe usará modo desenvolvedor</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="canHook" id="_canHook">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_canHook">#</a>
+		<code><a href="source-class-CHZApp.Application.html#176-185" title="Go to source code">canHook</a>( )</code>
+
+		<div class="description short">
+			<p>Define se as classes desta aplicação podem ser hookadas</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Define se as classes desta aplicação podem ser hookadas</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setHookAutoload" id="_setHookAutoload">
+
+		<td class="attributes"><code>
+			final protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setHookAutoload">#</a>
+		<code><a href="source-class-CHZApp.Application.html#187-195" title="Go to source code">setHookAutoload</a>( <span>string <var>$autoloadPath</var></span> )</code>
+
+		<div class="description short">
+			<p>Define o caminho para o autoload</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Define o caminho para o autoload</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$autoloadPath</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="init" id="_init">
+
+		<td class="attributes"><code>
+			abstract protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_init">#</a>
+		<code><a href="source-class-CHZApp.Application.html#197-202" title="Go to source code">init</a>( )</code>
+
+		<div class="description short">
+			<p>Define opções de inicialização para a aplicação.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Define opções de inicialização para a aplicação.</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="installSchema" id="_installSchema">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_installSchema">#</a>
+		<code><a href="source-class-CHZApp.Application.html#204-212" title="Go to source code">installSchema</a>( <span> <var>$schema</var></span>, <span> <var>$name</var> = <span class="php-quote">'default'</span></span> )</code>
+
+		<div class="description short">
+			<p>Define opções de instalação do banco de dados para a aplicação.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Define opções de instalação do banco de dados para a aplicação.</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="unInstallSchema" id="_unInstallSchema">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_unInstallSchema">#</a>
+		<code><a href="source-class-CHZApp.Application.html#214-222" title="Go to source code">unInstallSchema</a>( <span> <var>$schema</var></span>, <span> <var>$name</var> = <span class="php-quote">'default'</span></span> )</code>
+
+		<div class="description short">
+			<p>Define opções de remoção do banco de dados para a aplicação.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Define opções de remoção do banco de dados para a aplicação.</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="createSessionInstance" id="_createSessionInstance">
+
+		<td class="attributes"><code>
+			 protected 
+
+			<code><a href="class-CHZApp.Session.html">CHZApp\Session</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_createSessionInstance">#</a>
+		<code><a href="source-class-CHZApp.Application.html#224-234" title="Go to source code">createSessionInstance</a>( <span>array <var>$sessionConfigs</var> = []</span> )</code>
+
+		<div class="description short">
+			<p>Cria a instância da sessão com as configurações</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Cria a instância da sessão com as configurações</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
 					<dt><var>$sessionConfigs</var></dt>
-					<dd>Configurações de sessão. Ao enviar NULL não será definido.</dd>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-CHZApp.Session.html">CHZApp\Session</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setSessionConfigs" id="_setSessionConfigs">
+
+		<td class="attributes"><code>
+			final protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setSessionConfigs">#</a>
+		<code><a href="source-class-CHZApp.Application.html#236-246" title="Go to source code">setSessionConfigs</a>( <span>array <var>$sessionConfigs</var> = []</span> )</code>
+
+		<div class="description short">
+			<p>Define as configurações de sessão.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Define as configurações de sessão.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$sessionConfigs</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="createViewerInstance" id="_createViewerInstance">
+
+		<td class="attributes"><code>
+			 protected 
+
+			<code><a href="class-CHZApp.Interfaces.IViewer.html">CHZApp\Interfaces\IViewer</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_createViewerInstance">#</a>
+		<code><a href="source-class-CHZApp.Application.html#248-258" title="Go to source code">createViewerInstance</a>( <span>array <var>$smartyConfigs</var> = []</span> )</code>
+
+		<div class="description short">
+			<p>Cria a instância do smarty para ser utilizada.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Cria a instância do smarty para ser utilizada.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
 					<dt><var>$smartyConfigs</var></dt>
-					<dd>Configurações do smarty. Ao enviar NULL não será definido.</dd>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-CHZApp.Interfaces.IViewer.html">CHZApp\Interfaces\IViewer</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setSmartyConfigs" id="_setSmartyConfigs">
+
+		<td class="attributes"><code>
+			final protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setSmartyConfigs">#</a>
+		<code><a href="source-class-CHZApp.Application.html#260-270" title="Go to source code">setSmartyConfigs</a>( <span>array <var>$smartyConfigs</var> = []</span> )</code>
+
+		<div class="description short">
+			<p>Define as configurações de smarty.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Define as configurações de smarty.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$smartyConfigs</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="createMailerInstance" id="_createMailerInstance">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_createMailerInstance">#</a>
+		<code><a href="source-class-CHZApp.Application.html#272-280" title="Go to source code">createMailerInstance</a>( <span>array <var>$mailerConfigs</var> = []</span> )</code>
+
+		<div class="description short">
+			<p>Cria a instância do mailer.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Cria a instância do mailer.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
 					<dt><var>$mailerConfigs</var></dt>
-					<dd>Configurações do mailer. Ao enviar NULL não será definido.</dd>
+					<dd></dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setMailerConfigs" id="_setMailerConfigs">
+
+		<td class="attributes"><code>
+			final protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setMailerConfigs">#</a>
+		<code><a href="source-class-CHZApp.Application.html#282-292" title="Go to source code">setMailerConfigs</a>( <span>array <var>$mailerConfigs</var> = []</span> )</code>
+
+		<div class="description short">
+			<p>Define as configurações de mailer.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Define as configurações de mailer.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$mailerConfigs</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="createEloquentInstance" id="_createEloquentInstance">
+
+		<td class="attributes"><code>
+			 protected 
+
+			<code><a href="class-CHZApp.EloquentManager.html">CHZApp\EloquentManager</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_createEloquentInstance">#</a>
+		<code><a href="source-class-CHZApp.Application.html#294-304" title="Go to source code">createEloquentInstance</a>( <span>array <var>$eloquentConfigs</var> = []</span> )</code>
+
+		<div class="description short">
+			<p>Cria uma instância do gerenciador do eloquent.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Cria uma instância do gerenciador do eloquent.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
 					<dt><var>$eloquentConfigs</var></dt>
-					<dd>Configurações do eloquent. Ao enviar NULL não será definido.</dd>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-CHZApp.EloquentManager.html">CHZApp\EloquentManager</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setEloquentConfigs" id="_setEloquentConfigs">
+
+		<td class="attributes"><code>
+			final protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setEloquentConfigs">#</a>
+		<code><a href="source-class-CHZApp.Application.html#306-316" title="Go to source code">setEloquentConfigs</a>( <span>array <var>$eloquentConfigs</var> = []</span> )</code>
+
+		<div class="description short">
+			<p>Define as configurações do eloquent</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Define as configurações do eloquent</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$eloquentConfigs</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="createCacheInstance" id="_createCacheInstance">
+
+		<td class="attributes"><code>
+			 protected 
+
+			<code><a href="class-CHZApp.Cache.html">CHZApp\Cache</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_createCacheInstance">#</a>
+		<code><a href="source-class-CHZApp.Application.html#318-328" title="Go to source code">createCacheInstance</a>( <span>array <var>$cacheConfigs</var> = []</span> )</code>
+
+		<div class="description short">
+			<p>Cria a instância de cache.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Cria a instância de cache.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$cacheConfigs</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-CHZApp.Cache.html">CHZApp\Cache</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setCacheConfigs" id="_setCacheConfigs">
+
+		<td class="attributes"><code>
+			final protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setCacheConfigs">#</a>
+		<code><a href="source-class-CHZApp.Application.html#330-340" title="Go to source code">setCacheConfigs</a>( <span>array <var>$cacheConfigs</var> = []</span> )</code>
+
+		<div class="description short">
+			<p>Define as configurações do cache</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Define as configurações do cache</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$cacheConfigs</var></dt>
+					<dd></dd>
 				</dl></div>
 
 
@@ -180,7 +718,7 @@ Slim\App
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getAssetParser">#</a>
-		<code><a href="source-class-CHZApp.Application.html#136-144" title="Go to source code">getAssetParser</a>( )</code>
+		<code><a href="source-class-CHZApp.Application.html#342-350" title="Go to source code">getAssetParser</a>( )</code>
 
 		<div class="description short">
 			<p>Obtém o asset parser para o framework</p>
@@ -214,7 +752,7 @@ Slim\App
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getEloquent">#</a>
-		<code><a href="source-class-CHZApp.Application.html#146-154" title="Go to source code">getEloquent</a>( )</code>
+		<code><a href="source-class-CHZApp.Application.html#352-360" title="Go to source code">getEloquent</a>( )</code>
 
 		<div class="description short">
 			<p>Obtém o manager do eloquent.</p>
@@ -236,79 +774,10 @@ Slim\App
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="setEloquent" id="_setEloquent">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_setEloquent">#</a>
-		<code><a href="source-class-CHZApp.Application.html#156-164" title="Go to source code">setEloquent</a>( <span><code><a href="class-CHZApp.EloquentManager.html">CHZApp\EloquentManager</a></code> <var>$eloquent</var></span> )</code>
-
-		<div class="description short">
-			<p>Define o manager para o eloquent.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Define o manager para o eloquent.</p>
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$eloquent</var></dt>
-					<dd></dd>
-				</dl></div>
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getMailer" id="_getMailer">
-
-		<td class="attributes"><code>
-			 public 
-
-			<code><a href="class-CHZApp.Mailer.html">CHZApp\Mailer</a></code>
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getMailer">#</a>
-		<code><a href="source-class-CHZApp.Application.html#166-174" title="Go to source code">getMailer</a>( )</code>
-
-		<div class="description short">
-			<p>Objeto responsável pelo envio dos e-mails.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Objeto responsável pelo envio dos e-mails.</p>
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code><a href="class-CHZApp.Mailer.html">CHZApp\Mailer</a></code>
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
 	<tr data-order="setMailer" id="_setMailer">
 
 		<td class="attributes"><code>
-			 public 
+			final public 
 
 			
 			
@@ -317,14 +786,14 @@ Slim\App
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setMailer">#</a>
-		<code><a href="source-class-CHZApp.Application.html#176-184" title="Go to source code">setMailer</a>( <span><code><a href="class-CHZApp.Mailer.html">CHZApp\Mailer</a></code> <var>$mailer</var></span> )</code>
+		<code><a href="source-class-CHZApp.Application.html#362-368" title="Go to source code">setMailer</a>( <span><code><a href="class-CHZApp.Interfaces.IMailer.html">CHZApp\Interfaces\IMailer</a></code> <var>$mailer</var></span> )</code>
 
 		<div class="description short">
-			<p>Define o componente de mailer para a aplicação.</p>
+			
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Define o componente de mailer para a aplicação.</p>
+			
 
 
 				<h4>Parameters</h4>
@@ -335,37 +804,117 @@ Slim\App
 
 
 
+				<h4>See</h4>
+				<div class="list">
+						IApplication::setMailer(IMailer $mailer)<br>
+				</div>
 
 
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-CHZApp.Interfaces.IApplication.html#_setMailer">CHZApp\Interfaces\IApplication::setMailer()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="getHttpClient" id="_getHttpClient">
+	<tr data-order="getMailer" id="_getMailer">
 
 		<td class="attributes"><code>
-			 public 
+			final public 
 
-			<code><a href="class-CHZApp.HttpClient.html">CHZApp\HttpClient</a></code>
+			<code><a href="class-CHZApp.Interfaces.IMailer.html">CHZApp\Interfaces\IMailer</a></code>
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_getHttpClient">#</a>
-		<code><a href="source-class-CHZApp.Application.html#186-194" title="Go to source code">getHttpClient</a>( )</code>
+		<a class="anchor" href="#_getMailer">#</a>
+		<code><a href="source-class-CHZApp.Application.html#370-376" title="Go to source code">getMailer</a>( )</code>
 
 		<div class="description short">
-			<p>Obtém o objeto que gerência as chamadas de http externo.</p>
+			
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Obtém o objeto que gerência as chamadas de http externo.</p>
+			
 
 
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code><a href="class-CHZApp.HttpClient.html">CHZApp\HttpClient</a></code>
+					<code><a href="class-CHZApp.Interfaces.IMailer.html">CHZApp\Interfaces\IMailer</a></code>
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						IApplication::getMailer()<br>
+				</div>
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-CHZApp.Interfaces.IApplication.html#_getMailer">CHZApp\Interfaces\IApplication::getMailer()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getMemCache" id="_getMemCache">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-CHZApp.MemCache.html">CHZApp\MemCache</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getMemCache">#</a>
+		<code><a href="source-class-CHZApp.Application.html#378-386" title="Go to source code">getMemCache</a>( )</code>
+
+		<div class="description short">
+			<p>Gets memcache object</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets memcache object</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-CHZApp.MemCache.html">CHZApp\MemCache</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getSQLiteCache" id="_getSQLiteCache">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-CHZApp.SQLiteCache.html">CHZApp\SQLiteCache</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getSQLiteCache">#</a>
+		<code><a href="source-class-CHZApp.Application.html#388-395" title="Go to source code">getSQLiteCache</a>( )</code>
+
+		<div class="description short">
+			<p>Obtém o cache em SQLite</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Obtém o cache em SQLite</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-CHZApp.SQLiteCache.html">CHZApp\SQLiteCache</a></code>
 				</div>
 
 
@@ -377,7 +926,7 @@ Slim\App
 	<tr data-order="setHttpClient" id="_setHttpClient">
 
 		<td class="attributes"><code>
-			 public 
+			final public 
 
 			
 			
@@ -386,7 +935,7 @@ Slim\App
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setHttpClient">#</a>
-		<code><a href="source-class-CHZApp.Application.html#196-204" title="Go to source code">setHttpClient</a>( <span><code><a href="class-CHZApp.HttpClient.html">CHZApp\HttpClient</a></code> <var>$httpClient</var></span> )</code>
+		<code><a href="source-class-CHZApp.Application.html#397-405" title="Go to source code">setHttpClient</a>( <span><code><a href="class-CHZApp.Interfaces.IHttpClient.html">CHZApp\Interfaces\IHttpClient</a></code> <var>$httpClient</var></span> )</code>
 
 		<div class="description short">
 			<p>Define o componente de HttpClient para a aplicação.</p>
@@ -406,35 +955,235 @@ Slim\App
 
 
 
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-CHZApp.Interfaces.IApplication.html#_setHttpClient">CHZApp\Interfaces\IApplication::setHttpClient()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="getSmartyView" id="_getSmartyView">
+	<tr data-order="getHttpClient" id="_getHttpClient">
 
 		<td class="attributes"><code>
 			 public 
 
-			<code><a href="class-CHZApp.SmartyView.html">CHZApp\SmartyView</a></code>
+			<code><a href="class-CHZApp.HttpClient.html">CHZApp\HttpClient</a></code>
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_getSmartyView">#</a>
-		<code><a href="source-class-CHZApp.Application.html#206-214" title="Go to source code">getSmartyView</a>( )</code>
+		<a class="anchor" href="#_getHttpClient">#</a>
+		<code><a href="source-class-CHZApp.Application.html#407-415" title="Go to source code">getHttpClient</a>( )</code>
 
 		<div class="description short">
-			<p>Obtém informações de visualização para o smarty.</p>
+			<p>Obtém o objeto que gerência as chamadas de http externo.</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Obtém informações de visualização para o smarty.</p>
+			<p>Obtém o objeto que gerência as chamadas de http externo.</p>
 
 
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code><a href="class-CHZApp.SmartyView.html">CHZApp\SmartyView</a></code>
+					<code><a href="class-CHZApp.HttpClient.html">CHZApp\HttpClient</a></code>
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-CHZApp.Interfaces.IApplication.html#_getHttpClient">CHZApp\Interfaces\IApplication::getHttpClient()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setViewer" id="_setViewer">
+
+		<td class="attributes"><code>
+			final public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setViewer">#</a>
+		<code><a href="source-class-CHZApp.Application.html#417-423" title="Go to source code">setViewer</a>( <span><code><a href="class-CHZApp.Interfaces.IViewer.html">CHZApp\Interfaces\IViewer</a></code> <var>$viewer</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$viewer</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						IApplication::setViewer(IViewer $viewer)<br>
+				</div>
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-CHZApp.Interfaces.IApplication.html#_setViewer">CHZApp\Interfaces\IApplication::setViewer()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getViewer" id="_getViewer">
+
+		<td class="attributes"><code>
+			final public 
+
+			<code><a href="class-CHZApp.Interfaces.IViewer.html">CHZApp\Interfaces\IViewer</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getViewer">#</a>
+		<code><a href="source-class-CHZApp.Application.html#425-431" title="Go to source code">getViewer</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-CHZApp.Interfaces.IViewer.html">CHZApp\Interfaces\IViewer</a></code>
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						IApplication::getViewer()<br>
+				</div>
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-CHZApp.Interfaces.IApplication.html#_getViewer">CHZApp\Interfaces\IApplication::getViewer()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setSession" id="_setSession">
+
+		<td class="attributes"><code>
+			final public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setSession">#</a>
+		<code><a href="source-class-CHZApp.Application.html#433-439" title="Go to source code">setSession</a>( <span><code><a href="class-CHZApp.Interfaces.ISession.html">CHZApp\Interfaces\ISession</a></code> <var>$session</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$session</var></dt>
+					<dd>$sess</dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						IApplication::setSession(ISession $session)<br>
+				</div>
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-CHZApp.Interfaces.IApplication.html#_setSession">CHZApp\Interfaces\IApplication::setSession()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getSession" id="_getSession">
+
+		<td class="attributes"><code>
+			final public 
+
+			<code><a href="class-CHZApp.Interfaces.ISession.html">CHZApp\Interfaces\ISession</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getSession">#</a>
+		<code><a href="source-class-CHZApp.Application.html#441-447" title="Go to source code">getSession</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-CHZApp.Interfaces.ISession.html">CHZApp\Interfaces\ISession</a></code>
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						IApplication::getSession()<br>
+				</div>
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-CHZApp.Interfaces.IApplication.html#_getSession">CHZApp\Interfaces\IApplication::getSession()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getIpAddress" id="_getIpAddress">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getIpAddress">#</a>
+		<code><a href="source-class-CHZApp.Application.html#449-477" title="Go to source code">getIpAddress</a>( )</code>
+
+		<div class="description short">
+			<p>Obtém o endereço ip do usuário.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Obtém o endereço ip do usuário.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
 				</div>
 
 
@@ -443,7 +1192,41 @@ Slim\App
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="setSmartyView" id="_setSmartyView">
+	<tr data-order="getSchemaValidator" id="_getSchemaValidator">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-CHZApp.SchemaValidator.html">CHZApp\SchemaValidator</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getSchemaValidator">#</a>
+		<code><a href="source-class-CHZApp.Application.html#479-487" title="Go to source code">getSchemaValidator</a>( )</code>
+
+		<div class="description short">
+			<p>Gets the schema validator from this application</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets the schema validator from this application</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-CHZApp.SchemaValidator.html">CHZApp\SchemaValidator</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setSchemaValidator" id="_setSchemaValidator">
 
 		<td class="attributes"><code>
 			 public 
@@ -454,20 +1237,20 @@ Slim\App
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_setSmartyView">#</a>
-		<code><a href="source-class-CHZApp.Application.html#216-224" title="Go to source code">setSmartyView</a>( <span><code><a href="class-CHZApp.SmartyView.html">CHZApp\SmartyView</a></code> <var>$smartyView</var></span> )</code>
+		<a class="anchor" href="#_setSchemaValidator">#</a>
+		<code><a href="source-class-CHZApp.Application.html#489-497" title="Go to source code">setSchemaValidator</a>( <span><code><a href="class-CHZApp.SchemaValidator.html">CHZApp\SchemaValidator</a></code> <var>$schemaValidator</var></span> )</code>
 
 		<div class="description short">
-			<p>Define o uso do SmartyView para a aplicação.</p>
+			<p>Defines the schema validator to this application</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Define o uso do SmartyView para a aplicação.</p>
+			<p>Defines the schema validator to this application</p>
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$smartyView</var></dt>
+					<dt><var>$schemaValidator</var></dt>
 					<dd></dd>
 				</dl></div>
 
@@ -478,32 +1261,32 @@ Slim\App
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="getSession" id="_getSession">
+	<tr data-order="getXmlJsonConverter" id="_getXmlJsonConverter">
 
 		<td class="attributes"><code>
 			 public 
 
-			<code><a href="class-CHZApp.Session.html">CHZApp\Session</a></code>
+			<code><a href="class-CHZApp.XmlJsonConverter.html">CHZApp\XmlJsonConverter</a></code>
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_getSession">#</a>
-		<code><a href="source-class-CHZApp.Application.html#226-234" title="Go to source code">getSession</a>( )</code>
+		<a class="anchor" href="#_getXmlJsonConverter">#</a>
+		<code><a href="source-class-CHZApp.Application.html#499-507" title="Go to source code">getXmlJsonConverter</a>( )</code>
 
 		<div class="description short">
-			<p>Obtém os dados de sessão.</p>
+			<p>Gets the xml to json converter</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Obtém os dados de sessão.</p>
+			<p>Gets the xml to json converter</p>
 
 
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code><a href="class-CHZApp.Session.html">CHZApp\Session</a></code>
+					<code><a href="class-CHZApp.XmlJsonConverter.html">CHZApp\XmlJsonConverter</a></code>
 				</div>
 
 
@@ -512,7 +1295,7 @@ Slim\App
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="setSession" id="_setSession">
+	<tr data-order="setXmlJsonConverter" id="_setXmlJsonConverter">
 
 		<td class="attributes"><code>
 			 public 
@@ -523,20 +1306,20 @@ Slim\App
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_setSession">#</a>
-		<code><a href="source-class-CHZApp.Application.html#236-244" title="Go to source code">setSession</a>( <span><code><a href="class-CHZApp.Session.html">CHZApp\Session</a></code> <var>$session</var></span> )</code>
+		<a class="anchor" href="#_setXmlJsonConverter">#</a>
+		<code><a href="source-class-CHZApp.Application.html#509-517" title="Go to source code">setXmlJsonConverter</a>( <span><code><a href="class-CHZApp.XmlJsonConverter.html">CHZApp\XmlJsonConverter</a></code> <var>$xmlJsonConverter</var></span> )</code>
 
 		<div class="description short">
-			<p>Define os dados de sessão.</p>
+			<p>Sets the xml to json converter</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Define os dados de sessão.</p>
+			<p>Sets the xml to json converter</p>
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$session</var></dt>
+					<dt><var>$xmlJsonConverter</var></dt>
 					<dd></dd>
 				</dl></div>
 
@@ -559,7 +1342,7 @@ Slim\App
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getInstance">#</a>
-		<code><a href="source-class-CHZApp.Application.html#246-254" title="Go to source code">getInstance</a>( )</code>
+		<code><a href="source-class-CHZApp.Application.html#519-527" title="Go to source code">getInstance</a>( )</code>
 
 		<div class="description short">
 			<p>Instância global da aplicção.</p>

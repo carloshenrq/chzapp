@@ -20,9 +20,16 @@
 			<ul>
 				<li class="active">
 					<a href="namespace-CHZApp.html">
-						CHZApp					</a>
+						CHZApp<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-CHZApp.Interfaces.html">
+						Interfaces					</a>
 
 						</li>
+							</ul></li>
 			</ul>
 		</div>
 
@@ -34,20 +41,32 @@
 			<ul>
 				<li><a href="class-CHZApp.Application.html">Application</a></li>
 				<li><a href="class-CHZApp.AssetParser.html">AssetParser</a></li>
+				<li><a href="class-CHZApp.AssetSQLiteCache.html">AssetSQLiteCache</a></li>
+				<li><a href="class-CHZApp.Cache.html">Cache</a></li>
 				<li><a href="class-CHZApp.Component.html">Component</a></li>
 				<li><a href="class-CHZApp.ConfigComponent.html">ConfigComponent</a></li>
 				<li><a href="class-CHZApp.Controller.html">Controller</a></li>
 				<li><a href="class-CHZApp.EloquentManager.html">EloquentManager</a></li>
+				<li><a href="class-CHZApp.HookHandler.html">HookHandler</a></li>
 				<li><a href="class-CHZApp.HttpClient.html">HttpClient</a></li>
 				<li><a href="class-CHZApp.Mailer.html">Mailer</a></li>
+				<li><a href="class-CHZApp.MemCache.html">MemCache</a></li>
 				<li><a href="class-CHZApp.Middleware.html">Middleware</a></li>
 				<li><a href="class-CHZApp.Router.html">Router</a></li>
+				<li><a href="class-CHZApp.SchemaValidator.html">SchemaValidator</a></li>
 				<li><a href="class-CHZApp.Session.html">Session</a></li>
 				<li><a href="class-CHZApp.SmartyView.html">SmartyView</a></li>
+				<li><a href="class-CHZApp.SQLiteCache.html">SQLiteCache</a></li>
+				<li><a href="class-CHZApp.XmlJsonConverter.html">XmlJsonConverter</a></li>
 			</ul>
 
 
 
+			<h3>Exceptions</h3>
+			<ul>
+				<li><a href="class-CHZApp.ControllerException.html">ControllerException</a></li>
+				<li><a href="class-CHZApp.SchemaValidatorException.html">SchemaValidatorException</a></li>
+			</ul>
 
 
 		</div>
@@ -83,6 +102,12 @@
 <div id="content" class="namespace">
 	<h1>Namespace CHZApp</h1>
 
+	<table class="summary" id="namespaces">
+	<caption>Namespaces summary</caption>
+	<tr>
+		<td class="name"><a href="namespace-CHZApp.Interfaces.html">CHZApp\Interfaces</a></td>
+	</tr>
+	</table>
 
 
 <table class="summary" id="classes">
@@ -96,6 +121,15 @@ e gerenciamento de sessão, usuários, e renderização.</p></td>
 	<td class="name"><a href="class-CHZApp.AssetParser.html">AssetParser</a></td>
 	<td><p>Classe para tratar o conteúdo de assets da aplicação.
 Compilação de coffeescript e scss</p></td>
+</tr>
+<tr>
+	<td class="name"><a href="class-CHZApp.AssetSQLiteCache.html">AssetSQLiteCache</a></td>
+	<td><p>Classe para componenetes da aplicação. Normalmente utilizada
+para aplicação de plugins.</p></td>
+</tr>
+<tr>
+	<td class="name"><a href="class-CHZApp.Cache.html">Cache</a></td>
+	<td>Abstract class to cache management.</td>
 </tr>
 <tr>
 	<td class="name"><a href="class-CHZApp.Component.html">Component</a></td>
@@ -115,6 +149,11 @@ para aplicação de plugins.</p></td>
 	<td>Adicionado classe para gerenciador do eloquent.</td>
 </tr>
 <tr>
+	<td class="name"><a href="class-CHZApp.HookHandler.html">HookHandler</a></td>
+	<td><p>Classe para gerenciamento de hooks e também de eventos
+que os hooks poderão e farão uso.</p></td>
+</tr>
+<tr>
 	<td class="name"><a href="class-CHZApp.HttpClient.html">HttpClient</a></td>
 	<td>Gerenciador de requisições HTTP para fora da aplicação.</td>
 </tr>
@@ -122,6 +161,10 @@ para aplicação de plugins.</p></td>
 	<td class="name"><a href="class-CHZApp.Mailer.html">Mailer</a></td>
 	<td><p>Componente responsavel pelo envio de informações
 por e-mail.</p></td>
+</tr>
+<tr>
+	<td class="name"><a href="class-CHZApp.MemCache.html">MemCache</a></td>
+	<td>Class to management memcache server</td>
 </tr>
 <tr>
 	<td class="name"><a href="class-CHZApp.Middleware.html">Middleware</a></td>
@@ -132,6 +175,11 @@ por e-mail.</p></td>
 	<td>Classe para tudo para a classe controller.</td>
 </tr>
 <tr>
+	<td class="name"><a href="class-CHZApp.SchemaValidator.html">SchemaValidator</a></td>
+	<td><p>Classe para componenetes da aplicação. Normalmente utilizada
+para aplicação de plugins.</p></td>
+</tr>
+<tr>
 	<td class="name"><a href="class-CHZApp.Session.html">Session</a></td>
 	<td>Classe para gerenciamento de sessões.</td>
 </tr>
@@ -139,10 +187,30 @@ por e-mail.</p></td>
 	<td class="name"><a href="class-CHZApp.SmartyView.html">SmartyView</a></td>
 	<td>Classe para tratamento dos templates para o Smarty.</td>
 </tr>
+<tr>
+	<td class="name"><a href="class-CHZApp.SQLiteCache.html">SQLiteCache</a></td>
+	<td>Abstract class to cache management.</td>
+</tr>
+<tr>
+	<td class="name"><a href="class-CHZApp.XmlJsonConverter.html">XmlJsonConverter</a></td>
+	<td><p>Classe para componenetes da aplicação. Normalmente utilizada
+para aplicação de plugins.</p></td>
+</tr>
 </table>
 
 
 
+<table class="summary" id="exceptions">
+<caption>Exceptions summary</caption>
+<tr>
+	<td class="name"><a href="class-CHZApp.ControllerException.html">ControllerException</a></td>
+	<td></td>
+</tr>
+<tr>
+	<td class="name"><a href="class-CHZApp.SchemaValidatorException.html">SchemaValidatorException</a></td>
+	<td></td>
+</tr>
+</table>
 
 
 </div>
@@ -152,7 +220,7 @@ por e-mail.</p></td>
 	</div>
 </div>
 </div>
-<script src="resources/combined.js?26e4672210d70123fe0eff658baa8abbba6b506d"></script>
-<script src="elementlist.js?8fd6f830f0e561864c01967c718c642f9a6acee2"></script>
+<script src="resources/combined.js?eb867bb2c29ab62dfb6ee905fe808fc5167c5481"></script>
+<script src="elementlist.js?ea866278a10a64523125eabca78c98c81045eaf3"></script>
 </body>
 </html>

@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class CHZApp\SQLiteCache</title>
+
+	<link rel="stylesheet" href="resources/style.css?c2f33731c1948fbed7c333554678bfa68d4817da">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-CHZApp.html">
+						CHZApp<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-CHZApp.Interfaces.html">
+						Interfaces					</a>
+
+						</li>
+							</ul></li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-CHZApp.Application.html">Application</a></li>
+				<li><a href="class-CHZApp.AssetParser.html">AssetParser</a></li>
+				<li><a href="class-CHZApp.AssetSQLiteCache.html">AssetSQLiteCache</a></li>
+				<li><a href="class-CHZApp.Cache.html">Cache</a></li>
+				<li><a href="class-CHZApp.Component.html">Component</a></li>
+				<li><a href="class-CHZApp.ConfigComponent.html">ConfigComponent</a></li>
+				<li><a href="class-CHZApp.Controller.html">Controller</a></li>
+				<li><a href="class-CHZApp.EloquentManager.html">EloquentManager</a></li>
+				<li><a href="class-CHZApp.HookHandler.html">HookHandler</a></li>
+				<li><a href="class-CHZApp.HttpClient.html">HttpClient</a></li>
+				<li><a href="class-CHZApp.Mailer.html">Mailer</a></li>
+				<li><a href="class-CHZApp.MemCache.html">MemCache</a></li>
+				<li><a href="class-CHZApp.Middleware.html">Middleware</a></li>
+				<li><a href="class-CHZApp.Router.html">Router</a></li>
+				<li><a href="class-CHZApp.SchemaValidator.html">SchemaValidator</a></li>
+				<li><a href="class-CHZApp.Session.html">Session</a></li>
+				<li><a href="class-CHZApp.SmartyView.html">SmartyView</a></li>
+				<li class="active"><a href="class-CHZApp.SQLiteCache.html">SQLiteCache</a></li>
+				<li><a href="class-CHZApp.XmlJsonConverter.html">XmlJsonConverter</a></li>
+			</ul>
+
+
+
+			<h3>Exceptions</h3>
+			<ul>
+				<li><a href="class-CHZApp.ControllerException.html">ControllerException</a></li>
+				<li><a href="class-CHZApp.SchemaValidatorException.html">SchemaValidatorException</a></li>
+			</ul>
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-CHZApp.html" title="Summary of CHZApp"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class SQLiteCache</h1>
+
+
+	<div class="description">
+	<p>Abstract class to cache management.</p>
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+			<a href="class-CHZApp.HookHandler.html"><span>CHZApp\HookHandler</span></a>
+			
+			 implements 
+				<a href="class-CHZApp.Interfaces.IEventHandler.html"><span>CHZApp\Interfaces\IEventHandler</span></a>, 
+			
+				<a href="class-CHZApp.Interfaces.IHookHandler.html"><span>CHZApp\Interfaces\IHookHandler</span></a>
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by">
+			<a href="class-CHZApp.Component.html"><span>CHZApp\Component</span></a>
+			
+			 implements 
+				<a href="class-CHZApp.Interfaces.IComponent.html"><span>CHZApp\Interfaces\IComponent</span></a>
+			
+			
+		</dd>
+		<dd style="padding-left:60px">
+			<img src="resources/inherit.png" alt="Extended by">
+			<a href="class-CHZApp.ConfigComponent.html"><span>CHZApp\ConfigComponent</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:90px">
+			<img src="resources/inherit.png" alt="Extended by">
+			<a href="class-CHZApp.Cache.html"><span>CHZApp\Cache</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:120px">
+			<img src="resources/inherit.png" alt="Extended by">
+<b><span>CHZApp\SQLiteCache</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-CHZApp.html">CHZApp</a><br>
+		
+
+			<b>Located at</b> <a href="source-class-CHZApp.SQLiteCache.html#36-261" title="Go to source code">CHZApp/SQLiteCache.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="remove" id="_remove">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_remove">#</a>
+		<code><a href="source-class-CHZApp.SQLiteCache.html#47-62" title="Go to source code">remove</a>( <span>string <var>$index</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$index</var></dt>
+					<dd>The index saved from cache</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean<br>True if was removed.
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						Cache::remove()<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="create" id="_create">
+
+		<td class="attributes"><code>
+			 public 
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_create">#</a>
+		<code><a href="source-class-CHZApp.SQLiteCache.html#64-92" title="Go to source code">create</a>( <span>string <var>$index</var></span>, <span>mixed <var>$data</var></span>, <span>integer <var>$timeout</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$index</var></dt>
+					<dd>Cache index.</dd>
+					<dt><var>$data</var></dt>
+					<dd>Data to save in index.</dd>
+					<dt><var>$timeout</var></dt>
+					<dd>Max data to save it.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed<br>The data saved in cache.
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						Cache::create()<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="get" id="_get">
+
+		<td class="attributes"><code>
+			 public 
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_get">#</a>
+		<code><a href="source-class-CHZApp.SQLiteCache.html#94-130" title="Go to source code">get</a>( <span>string <var>$index</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$index</var></dt>
+					<dd>The index saved in the cache</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed<br>The data in cache. Null if has not in the index
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						Cache::get()<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="init" id="_init">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_init">#</a>
+		<code><a href="source-class-CHZApp.SQLiteCache.html#132-153" title="Go to source code">init</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						Component::init()<br>
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CHZApp.Component.html#_init">CHZApp\Component::init()</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="performInstall" id="_performInstall">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_performInstall">#</a>
+		<code><a href="source-class-CHZApp.SQLiteCache.html#179-227" title="Go to source code">performInstall</a>( )</code>
+
+		<div class="description short">
+			<p>Realiza a instalação do banco de dados de cache local
+Caso a rotina esteja hookada, então, irá fazer a chamada da mesma logo após a conclusão desta...</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Realiza a instalação do banco de dados de cache local
+Caso a rotina esteja hookada, então, irá fazer a chamada da mesma logo após a conclusão desta...</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="parseConfigs" id="_parseConfigs">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_parseConfigs">#</a>
+		<code><a href="source-class-CHZApp.SQLiteCache.html#242-251" title="Go to source code">parseConfigs</a>( <span>array <var>$configs</var> = []</span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$configs</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						ConfigComponent::parseConfigs<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getConnection" id="_getConnection">
+
+		<td class="attributes"><code>
+			 public 
+
+			PDO
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getConnection">#</a>
+		<code><a href="source-class-CHZApp.SQLiteCache.html#253-260" title="Go to source code">getConnection</a>( )</code>
+
+		<div class="description short">
+			<p>Obtém a conexão de PDO</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Obtém a conexão de PDO</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					PDO
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CHZApp.Cache.html#methods">CHZApp\Cache</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CHZApp.Cache.html#_parse">parse()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CHZApp.ConfigComponent.html#methods">CHZApp\ConfigComponent</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CHZApp.ConfigComponent.html#___construct">__construct()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CHZApp.Component.html#methods">CHZApp\Component</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CHZApp.Component.html#_getApplication">getApplication()</a>, 
+			<a href="class-CHZApp.Component.html#_getSession">getSession()</a>, 
+			<a href="class-CHZApp.Component.html#_setApplication">setApplication()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CHZApp.HookHandler.html#methods">CHZApp\HookHandler</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CHZApp.HookHandler.html#___call">__call()</a>, 
+			<a href="class-CHZApp.HookHandler.html#___callHooked">__callHooked()</a>, 
+			<a href="class-CHZApp.HookHandler.html#___get">__get()</a>, 
+			<a href="class-CHZApp.HookHandler.html#___set">__set()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_addEventListener">addEventListener()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_canHook">canHook()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_getHookDir">getHookDir()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_getHookedFiles">getHookedFiles()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_isHookedMethod">isHookedMethod()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_parseEventMethods">parseEventMethods()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_readHookDir">readHookDir()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_removeEventListener">removeEventListener()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_setHookDir">setHookDir()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_trigger">trigger()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-CHZApp.ConfigComponent.html#properties">CHZApp\ConfigComponent</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CHZApp.ConfigComponent.html#$configs"><var>$configs</var></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

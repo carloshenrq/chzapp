@@ -20,9 +20,16 @@
 			<ul>
 				<li class="active">
 					<a href="namespace-CHZApp.html">
-						CHZApp					</a>
+						CHZApp<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-CHZApp.Interfaces.html">
+						Interfaces					</a>
 
 						</li>
+							</ul></li>
 			</ul>
 		</div>
 
@@ -34,20 +41,32 @@
 			<ul>
 				<li><a href="class-CHZApp.Application.html">Application</a></li>
 				<li><a href="class-CHZApp.AssetParser.html">AssetParser</a></li>
+				<li><a href="class-CHZApp.AssetSQLiteCache.html">AssetSQLiteCache</a></li>
+				<li><a href="class-CHZApp.Cache.html">Cache</a></li>
 				<li><a href="class-CHZApp.Component.html">Component</a></li>
 				<li><a href="class-CHZApp.ConfigComponent.html">ConfigComponent</a></li>
 				<li><a href="class-CHZApp.Controller.html">Controller</a></li>
 				<li><a href="class-CHZApp.EloquentManager.html">EloquentManager</a></li>
+				<li><a href="class-CHZApp.HookHandler.html">HookHandler</a></li>
 				<li><a href="class-CHZApp.HttpClient.html">HttpClient</a></li>
 				<li><a href="class-CHZApp.Mailer.html">Mailer</a></li>
+				<li><a href="class-CHZApp.MemCache.html">MemCache</a></li>
 				<li><a href="class-CHZApp.Middleware.html">Middleware</a></li>
 				<li><a href="class-CHZApp.Router.html">Router</a></li>
+				<li><a href="class-CHZApp.SchemaValidator.html">SchemaValidator</a></li>
 				<li><a href="class-CHZApp.Session.html">Session</a></li>
 				<li class="active"><a href="class-CHZApp.SmartyView.html">SmartyView</a></li>
+				<li><a href="class-CHZApp.SQLiteCache.html">SQLiteCache</a></li>
+				<li><a href="class-CHZApp.XmlJsonConverter.html">XmlJsonConverter</a></li>
 			</ul>
 
 
 
+			<h3>Exceptions</h3>
+			<ul>
+				<li><a href="class-CHZApp.ControllerException.html">ControllerException</a></li>
+				<li><a href="class-CHZApp.SchemaValidatorException.html">SchemaValidatorException</a></li>
+			</ul>
 
 
 		</div>
@@ -91,21 +110,36 @@
 
 	<dl class="tree">
 		<dd style="padding-left:0px">
-			<a href="class-CHZApp.Component.html"><span>CHZApp\Component</span></a>
+			<a href="class-CHZApp.HookHandler.html"><span>CHZApp\HookHandler</span></a>
 			
+			 implements 
+				<a href="class-CHZApp.Interfaces.IEventHandler.html"><span>CHZApp\Interfaces\IEventHandler</span></a>, 
+			
+				<a href="class-CHZApp.Interfaces.IHookHandler.html"><span>CHZApp\Interfaces\IHookHandler</span></a>
 			
 			
 		</dd>
 		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by">
+			<a href="class-CHZApp.Component.html"><span>CHZApp\Component</span></a>
+			
+			 implements 
+				<a href="class-CHZApp.Interfaces.IComponent.html"><span>CHZApp\Interfaces\IComponent</span></a>
+			
+			
+		</dd>
+		<dd style="padding-left:60px">
 			<img src="resources/inherit.png" alt="Extended by">
 			<a href="class-CHZApp.ConfigComponent.html"><span>CHZApp\ConfigComponent</span></a>
 			
 			
 			
 		</dd>
-		<dd style="padding-left:60px">
+		<dd style="padding-left:90px">
 			<img src="resources/inherit.png" alt="Extended by">
 <b><span>CHZApp\SmartyView</span></b>			
+			 implements 
+				<a href="class-CHZApp.Interfaces.IViewer.html"><span>CHZApp\Interfaces\IViewer</span></a>
 			
 			
 		</dd>
@@ -124,7 +158,7 @@
 		<b>Namespace:</b> <a href="namespace-CHZApp.html">CHZApp</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-CHZApp.SmartyView.html#38-98" title="Go to source code">CHZApp/SmartyView.php</a>
+			<b>Located at</b> <a href="source-class-CHZApp.SmartyView.html#39-104" title="Go to source code">CHZApp/SmartyView.php</a>
 		<br>
 	</div>
 
@@ -144,7 +178,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-CHZApp.SmartyView.html#49-62" title="Go to source code">__construct</a>( <span><code><a href="class-CHZApp.Application.html">CHZApp\Application</a></code> <var>$application</var></span>, <span>array <var>$configs</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-CHZApp.SmartyView.html#50-63" title="Go to source code">__construct</a>( <span><code><a href="class-CHZApp.Application.html">CHZApp\Application</a></code> <var>$application</var></span>, <span>array <var>$configs</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			<p>Define dados iniciais e configuração para o leitor dos templates.</p>
@@ -183,7 +217,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_parseConfigs">#</a>
-		<code><a href="source-class-CHZApp.SmartyView.html#64-73" title="Go to source code">parseConfigs</a>( <span>array <var>$configs</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-CHZApp.SmartyView.html#65-75" title="Go to source code">parseConfigs</a>( <span>array <var>$configs</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -210,6 +244,55 @@
 		</div>
 		</div></td>
 	</tr>
+	<tr data-order="response" id="_response">
+
+		<td class="attributes"><code>
+			 public 
+
+			object
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_response">#</a>
+		<code><a href="source-class-CHZApp.SmartyView.html#77-83" title="Go to source code">response</a>( <span>object <var>$response</var></span>, <span>string <var>$template</var></span>, <span>array <var>$data</var> = []</span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$response</var></dt>
+					<dd>Objeto de resposta.</dd>
+					<dt><var>$template</var></dt>
+					<dd>Arquivo de template.</dd>
+					<dt><var>$data</var></dt>
+					<dd>Dados para preencher o template</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					object<br>Objeto de resposta preenchido.
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						IViewer::response($response, $template, $data = [])<br>
+				</div>
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-CHZApp.Interfaces.IViewer.html#_response">CHZApp\Interfaces\IViewer::response()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="render" id="_render">
 
 		<td class="attributes"><code>
@@ -222,66 +305,78 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_render">#</a>
-		<code><a href="source-class-CHZApp.SmartyView.html#75-87" title="Go to source code">render</a>( <span>string <var>$template</var></span>, <span>string <var>$data</var> = []</span> )</code>
+		<code><a href="source-class-CHZApp.SmartyView.html#85-95" title="Go to source code">render</a>( <span>string <var>$template</var></span>, <span>array <var>$data</var> = []</span> )</code>
 
 		<div class="description short">
-			<p>Renderiza o template smarty em os dados fornecidos.</p>
+			
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Renderiza o template smarty em os dados fornecidos.</p>
+			
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$template</var></dt>
-					<dd>Arquivo de template que será renderizado</dd>
+					<dd>Arquivo de template.</dd>
 					<dt><var>$data</var></dt>
-					<dd>Dados que irão para o arquivo template.</dd>
+					<dd>Dados para preencher o template</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					string<br>Dados renderizados.
+					string<br>Template tratado e pronto para resposta.
 				</div>
 
 
+				<h4>See</h4>
+				<div class="list">
+						IViewer::render($template, $data = [])<br>
+				</div>
 
 
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-CHZApp.Interfaces.IViewer.html#_render">CHZApp\Interfaces\IViewer::render()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="getSmarty" id="_getSmarty">
+	<tr data-order="getView" id="_getView">
 
 		<td class="attributes"><code>
 			 public 
 
-			Smarty
+			object
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_getSmarty">#</a>
-		<code><a href="source-class-CHZApp.SmartyView.html#89-97" title="Go to source code">getSmarty</a>( )</code>
+		<a class="anchor" href="#_getView">#</a>
+		<code><a href="source-class-CHZApp.SmartyView.html#97-103" title="Go to source code">getView</a>( )</code>
 
 		<div class="description short">
-			<p>Obtém o objeto para smarty.</p>
+			
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Obtém o objeto para smarty.</p>
+			
 
 
 
 				<h4>Returns</h4>
 				<div class="list">
-					Smarty
+					object
 				</div>
 
 
+				<h4>See</h4>
+				<div class="list">
+						IViewer::getView()<br>
+				</div>
 
 
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-CHZApp.Interfaces.IViewer.html#_getView">CHZApp\Interfaces\IViewer::getView()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
@@ -292,7 +387,30 @@
 	<tr>
 		<td><code>
 			<a href="class-CHZApp.Component.html#_getApplication">getApplication()</a>, 
-			<a href="class-CHZApp.Component.html#_init">init()</a>
+			<a href="class-CHZApp.Component.html#_getSession">getSession()</a>, 
+			<a href="class-CHZApp.Component.html#_init">init()</a>, 
+			<a href="class-CHZApp.Component.html#_setApplication">setApplication()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CHZApp.HookHandler.html#methods">CHZApp\HookHandler</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CHZApp.HookHandler.html#___call">__call()</a>, 
+			<a href="class-CHZApp.HookHandler.html#___callHooked">__callHooked()</a>, 
+			<a href="class-CHZApp.HookHandler.html#___get">__get()</a>, 
+			<a href="class-CHZApp.HookHandler.html#___set">__set()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_addEventListener">addEventListener()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_canHook">canHook()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_getHookDir">getHookDir()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_getHookedFiles">getHookedFiles()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_isHookedMethod">isHookedMethod()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_parseEventMethods">parseEventMethods()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_readHookDir">readHookDir()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_removeEventListener">removeEventListener()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_setHookDir">setHookDir()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_trigger">trigger()</a>
 		</code></td>
 	</tr>
 	</table>

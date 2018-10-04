@@ -20,9 +20,16 @@
 			<ul>
 				<li class="active">
 					<a href="namespace-CHZApp.html">
-						CHZApp					</a>
+						CHZApp<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-CHZApp.Interfaces.html">
+						Interfaces					</a>
 
 						</li>
+							</ul></li>
 			</ul>
 		</div>
 
@@ -34,20 +41,32 @@
 			<ul>
 				<li><a href="class-CHZApp.Application.html">Application</a></li>
 				<li class="active"><a href="class-CHZApp.AssetParser.html">AssetParser</a></li>
+				<li><a href="class-CHZApp.AssetSQLiteCache.html">AssetSQLiteCache</a></li>
+				<li><a href="class-CHZApp.Cache.html">Cache</a></li>
 				<li><a href="class-CHZApp.Component.html">Component</a></li>
 				<li><a href="class-CHZApp.ConfigComponent.html">ConfigComponent</a></li>
 				<li><a href="class-CHZApp.Controller.html">Controller</a></li>
 				<li><a href="class-CHZApp.EloquentManager.html">EloquentManager</a></li>
+				<li><a href="class-CHZApp.HookHandler.html">HookHandler</a></li>
 				<li><a href="class-CHZApp.HttpClient.html">HttpClient</a></li>
 				<li><a href="class-CHZApp.Mailer.html">Mailer</a></li>
+				<li><a href="class-CHZApp.MemCache.html">MemCache</a></li>
 				<li><a href="class-CHZApp.Middleware.html">Middleware</a></li>
 				<li><a href="class-CHZApp.Router.html">Router</a></li>
+				<li><a href="class-CHZApp.SchemaValidator.html">SchemaValidator</a></li>
 				<li><a href="class-CHZApp.Session.html">Session</a></li>
 				<li><a href="class-CHZApp.SmartyView.html">SmartyView</a></li>
+				<li><a href="class-CHZApp.SQLiteCache.html">SQLiteCache</a></li>
+				<li><a href="class-CHZApp.XmlJsonConverter.html">XmlJsonConverter</a></li>
 			</ul>
 
 
 
+			<h3>Exceptions</h3>
+			<ul>
+				<li><a href="class-CHZApp.ControllerException.html">ControllerException</a></li>
+				<li><a href="class-CHZApp.SchemaValidatorException.html">SchemaValidatorException</a></li>
+			</ul>
 
 
 		</div>
@@ -92,12 +111,25 @@ Compilação de coffeescript e scss</p>
 
 	<dl class="tree">
 		<dd style="padding-left:0px">
-			<a href="class-CHZApp.Component.html"><span>CHZApp\Component</span></a>
+			<a href="class-CHZApp.HookHandler.html"><span>CHZApp\HookHandler</span></a>
 			
+			 implements 
+				<a href="class-CHZApp.Interfaces.IEventHandler.html"><span>CHZApp\Interfaces\IEventHandler</span></a>, 
+			
+				<a href="class-CHZApp.Interfaces.IHookHandler.html"><span>CHZApp\Interfaces\IHookHandler</span></a>
 			
 			
 		</dd>
 		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by">
+			<a href="class-CHZApp.Component.html"><span>CHZApp\Component</span></a>
+			
+			 implements 
+				<a href="class-CHZApp.Interfaces.IComponent.html"><span>CHZApp\Interfaces\IComponent</span></a>
+			
+			
+		</dd>
+		<dd style="padding-left:60px">
 			<img src="resources/inherit.png" alt="Extended by">
 <b><span>CHZApp\AssetParser</span></b>			
 			
@@ -118,7 +150,7 @@ Compilação de coffeescript e scss</p>
 		<b>Namespace:</b> <a href="namespace-CHZApp.html">CHZApp</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-CHZApp.AssetParser.html#40-137" title="Go to source code">CHZApp/AssetParser.php</a>
+			<b>Located at</b> <a href="source-class-CHZApp.AssetParser.html#40-179" title="Go to source code">CHZApp/AssetParser.php</a>
 		<br>
 	</div>
 
@@ -126,6 +158,76 @@ Compilação de coffeescript e scss</p>
 
 	<table class="summary methods" id="methods">
 	<caption>Methods summary</caption>
+	<tr data-order="init" id="_init">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_init">#</a>
+		<code><a href="source-class-CHZApp.AssetParser.html#53-60" title="Go to source code">init</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						Component::init()<br>
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CHZApp.Component.html#_init">CHZApp\Component::init()</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getSqlCache" id="_getSqlCache">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-CHZApp.AssetSQLiteCache.html">CHZApp\AssetSQLiteCache</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getSqlCache">#</a>
+		<code><a href="source-class-CHZApp.AssetParser.html#62-70" title="Go to source code">getSqlCache</a>( )</code>
+
+		<div class="description short">
+			<p>Obtém o cache SQLite para uso dos assets.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Obtém o cache SQLite para uso dos assets.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-CHZApp.AssetSQLiteCache.html">CHZApp\AssetSQLiteCache</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="cssMinify" id="_cssMinify">
 
 		<td class="attributes"><code>
@@ -138,7 +240,7 @@ Compilação de coffeescript e scss</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_cssMinify">#</a>
-		<code><a href="source-class-CHZApp.AssetParser.html#46-58" title="Go to source code">cssMinify</a>( <span>string <var>$css</var></span> )</code>
+		<code><a href="source-class-CHZApp.AssetParser.html#72-84" title="Go to source code">cssMinify</a>( <span>string <var>$css</var></span> )</code>
 
 		<div class="description short">
 			<p>Minifica o conteúdo de css enviado.</p>
@@ -177,7 +279,7 @@ Compilação de coffeescript e scss</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_scss">#</a>
-		<code><a href="source-class-CHZApp.AssetParser.html#60-90" title="Go to source code">scss</a>( <span>string <var>$file</var></span>, <span>boolean <var>$minify</var> = <span class="php-keyword1">true</span></span>, <span>array <var>$vars</var> = []</span>, <span>string <var>$importPath</var> = __DIR__</span> )</code>
+		<code><a href="source-class-CHZApp.AssetParser.html#86-103" title="Go to source code">scss</a>( <span>string <var>$file</var></span>, <span>boolean <var>$minify</var> = <span class="php-keyword1">true</span></span>, <span>array <var>$vars</var> = []</span>, <span>string <var>$importPath</var> = __DIR__</span> )</code>
 
 		<div class="description short">
 			<p>Obtém o arquivo scss para ser compilado e retornado os dados</p>
@@ -210,6 +312,51 @@ Compilação de coffeescript e scss</p>
 		</div>
 		</div></td>
 	</tr>
+	<tr data-order="scssContent" id="_scssContent">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_scssContent">#</a>
+		<code><a href="source-class-CHZApp.AssetParser.html#105-132" title="Go to source code">scssContent</a>( <span>string <var>$fileContent</var></span>, <span>boolean <var>$minify</var> = <span class="php-keyword1">true</span></span>, <span>array <var>$vars</var> = []</span>, <span>string <var>$importPath</var> = __DIR__</span> )</code>
+
+		<div class="description short">
+			<p>Compila o conteudo SCSS e devolve.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Compila o conteudo SCSS e devolve.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fileContent</var></dt>
+					<dd>Conteudo a ser compilado.</dd>
+					<dt><var>$minify</var></dt>
+					<dd>Identifica se o arquivo será minificado.</dd>
+					<dt><var>$vars</var></dt>
+					<dd>Variaveis definidas para troca nos arquivos.</dd>
+					<dt><var>$importPath</var></dt>
+					<dd>Caminho para os arquivos de include</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>SCSS compilado.
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="jsMinify" id="_jsMinify">
 
 		<td class="attributes"><code>
@@ -222,7 +369,7 @@ Compilação de coffeescript e scss</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_jsMinify">#</a>
-		<code><a href="source-class-CHZApp.AssetParser.html#92-104" title="Go to source code">jsMinify</a>( <span>string <var>$javascript</var></span> )</code>
+		<code><a href="source-class-CHZApp.AssetParser.html#134-146" title="Go to source code">jsMinify</a>( <span>string <var>$javascript</var></span> )</code>
 
 		<div class="description short">
 			<p>Minifica o conteúdo do arquivo javascript enviado.</p>
@@ -261,7 +408,7 @@ Compilação de coffeescript e scss</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_coffeeScript">#</a>
-		<code><a href="source-class-CHZApp.AssetParser.html#106-136" title="Go to source code">coffeeScript</a>( <span>string <var>$file</var></span>, <span>boolean <var>$minify</var> = <span class="php-keyword1">true</span></span>, <span>array <var>$options</var> = []</span> )</code>
+		<code><a href="source-class-CHZApp.AssetParser.html#148-178" title="Go to source code">coffeeScript</a>( <span>string <var>$file</var></span>, <span>boolean <var>$minify</var> = <span class="php-keyword1">true</span></span>, <span>array <var>$options</var> = []</span> )</code>
 
 		<div class="description short">
 			<p>Realiza a compilação de um arquivo coffeeScript e retorna
@@ -302,7 +449,29 @@ as informações compiladas.</p>
 		<td><code>
 			<a href="class-CHZApp.Component.html#___construct">__construct()</a>, 
 			<a href="class-CHZApp.Component.html#_getApplication">getApplication()</a>, 
-			<a href="class-CHZApp.Component.html#_init">init()</a>
+			<a href="class-CHZApp.Component.html#_getSession">getSession()</a>, 
+			<a href="class-CHZApp.Component.html#_setApplication">setApplication()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CHZApp.HookHandler.html#methods">CHZApp\HookHandler</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CHZApp.HookHandler.html#___call">__call()</a>, 
+			<a href="class-CHZApp.HookHandler.html#___callHooked">__callHooked()</a>, 
+			<a href="class-CHZApp.HookHandler.html#___get">__get()</a>, 
+			<a href="class-CHZApp.HookHandler.html#___set">__set()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_addEventListener">addEventListener()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_canHook">canHook()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_getHookDir">getHookDir()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_getHookedFiles">getHookedFiles()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_isHookedMethod">isHookedMethod()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_parseEventMethods">parseEventMethods()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_readHookDir">readHookDir()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_removeEventListener">removeEventListener()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_setHookDir">setHookDir()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_trigger">trigger()</a>
 		</code></td>
 	</tr>
 	</table>

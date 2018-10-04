@@ -20,9 +20,16 @@
 			<ul>
 				<li class="active">
 					<a href="namespace-CHZApp.html">
-						CHZApp					</a>
+						CHZApp<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-CHZApp.Interfaces.html">
+						Interfaces					</a>
 
 						</li>
+							</ul></li>
 			</ul>
 		</div>
 
@@ -34,20 +41,32 @@
 			<ul>
 				<li><a href="class-CHZApp.Application.html">Application</a></li>
 				<li><a href="class-CHZApp.AssetParser.html">AssetParser</a></li>
+				<li><a href="class-CHZApp.AssetSQLiteCache.html">AssetSQLiteCache</a></li>
+				<li><a href="class-CHZApp.Cache.html">Cache</a></li>
 				<li><a href="class-CHZApp.Component.html">Component</a></li>
 				<li><a href="class-CHZApp.ConfigComponent.html">ConfigComponent</a></li>
 				<li><a href="class-CHZApp.Controller.html">Controller</a></li>
 				<li><a href="class-CHZApp.EloquentManager.html">EloquentManager</a></li>
+				<li><a href="class-CHZApp.HookHandler.html">HookHandler</a></li>
 				<li><a href="class-CHZApp.HttpClient.html">HttpClient</a></li>
 				<li><a href="class-CHZApp.Mailer.html">Mailer</a></li>
+				<li><a href="class-CHZApp.MemCache.html">MemCache</a></li>
 				<li class="active"><a href="class-CHZApp.Middleware.html">Middleware</a></li>
 				<li><a href="class-CHZApp.Router.html">Router</a></li>
+				<li><a href="class-CHZApp.SchemaValidator.html">SchemaValidator</a></li>
 				<li><a href="class-CHZApp.Session.html">Session</a></li>
 				<li><a href="class-CHZApp.SmartyView.html">SmartyView</a></li>
+				<li><a href="class-CHZApp.SQLiteCache.html">SQLiteCache</a></li>
+				<li><a href="class-CHZApp.XmlJsonConverter.html">XmlJsonConverter</a></li>
 			</ul>
 
 
 
+			<h3>Exceptions</h3>
+			<ul>
+				<li><a href="class-CHZApp.ControllerException.html">ControllerException</a></li>
+				<li><a href="class-CHZApp.SchemaValidatorException.html">SchemaValidatorException</a></li>
+			</ul>
 
 
 		</div>
@@ -91,12 +110,25 @@
 
 	<dl class="tree">
 		<dd style="padding-left:0px">
-			<a href="class-CHZApp.Component.html"><span>CHZApp\Component</span></a>
+			<a href="class-CHZApp.HookHandler.html"><span>CHZApp\HookHandler</span></a>
 			
+			 implements 
+				<a href="class-CHZApp.Interfaces.IEventHandler.html"><span>CHZApp\Interfaces\IEventHandler</span></a>, 
+			
+				<a href="class-CHZApp.Interfaces.IHookHandler.html"><span>CHZApp\Interfaces\IHookHandler</span></a>
 			
 			
 		</dd>
 		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by">
+			<a href="class-CHZApp.Component.html"><span>CHZApp\Component</span></a>
+			
+			 implements 
+				<a href="class-CHZApp.Interfaces.IComponent.html"><span>CHZApp\Interfaces\IComponent</span></a>
+			
+			
+		</dd>
+		<dd style="padding-left:60px">
 			<img src="resources/inherit.png" alt="Extended by">
 <b><span>CHZApp\Middleware</span></b>			
 			
@@ -220,7 +252,30 @@
 	<tr>
 		<td><code>
 			<a href="class-CHZApp.Component.html#_getApplication">getApplication()</a>, 
-			<a href="class-CHZApp.Component.html#_init">init()</a>
+			<a href="class-CHZApp.Component.html#_getSession">getSession()</a>, 
+			<a href="class-CHZApp.Component.html#_init">init()</a>, 
+			<a href="class-CHZApp.Component.html#_setApplication">setApplication()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CHZApp.HookHandler.html#methods">CHZApp\HookHandler</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CHZApp.HookHandler.html#___call">__call()</a>, 
+			<a href="class-CHZApp.HookHandler.html#___callHooked">__callHooked()</a>, 
+			<a href="class-CHZApp.HookHandler.html#___get">__get()</a>, 
+			<a href="class-CHZApp.HookHandler.html#___set">__set()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_addEventListener">addEventListener()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_canHook">canHook()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_getHookDir">getHookDir()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_getHookedFiles">getHookedFiles()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_isHookedMethod">isHookedMethod()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_parseEventMethods">parseEventMethods()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_readHookDir">readHookDir()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_removeEventListener">removeEventListener()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_setHookDir">setHookDir()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_trigger">trigger()</a>
 		</code></td>
 	</tr>
 	</table>

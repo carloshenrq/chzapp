@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Interface CHZApp\Interfaces\IHookHandler</title>
+
+	<link rel="stylesheet" href="resources/style.css?c2f33731c1948fbed7c333554678bfa68d4817da">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-CHZApp.html">
+						CHZApp<span></span>
+					</a>
+
+						<ul>
+				<li class="active">
+					<a href="namespace-CHZApp.Interfaces.html">
+						Interfaces					</a>
+
+						</li>
+							</ul></li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-CHZApp.Interfaces.IApplication.html">IApplication</a></li>
+				<li><a href="class-CHZApp.Interfaces.IComponent.html">IComponent</a></li>
+				<li><a href="class-CHZApp.Interfaces.ICrypto.html">ICrypto</a></li>
+				<li><a href="class-CHZApp.Interfaces.IEventHandler.html">IEventHandler</a></li>
+				<li class="active"><a href="class-CHZApp.Interfaces.IHookHandler.html">IHookHandler</a></li>
+				<li><a href="class-CHZApp.Interfaces.IHttpClient.html">IHttpClient</a></li>
+				<li><a href="class-CHZApp.Interfaces.IMailer.html">IMailer</a></li>
+				<li><a href="class-CHZApp.Interfaces.ISession.html">ISession</a></li>
+				<li><a href="class-CHZApp.Interfaces.IViewer.html">IViewer</a></li>
+			</ul>
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-CHZApp.Interfaces.html" title="Summary of CHZApp\Interfaces"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Interface IHookHandler</h1>
+
+
+	<div class="description">
+	<p>Interface para gerar os métodos de hooking.</p>
+	</div>
+
+
+
+
+
+	<div>
+		<h4>Direct known implementers</h4>
+			<a href="class-CHZApp.HookHandler.html">CHZApp\HookHandler</a>
+	</div>
+
+	<div>
+		<h4>Indirect known implementers</h4>
+			<a href="class-CHZApp.AssetParser.html">CHZApp\AssetParser</a>, 
+			<a href="class-CHZApp.AssetSQLiteCache.html">CHZApp\AssetSQLiteCache</a>, 
+			<a href="class-CHZApp.Middleware.html">CHZApp\Middleware</a>, 
+			<a href="class-CHZApp.Router.html">CHZApp\Router</a>, 
+			<a href="class-CHZApp.SchemaValidator.html">CHZApp\SchemaValidator</a>, 
+			<a href="class-CHZApp.Session.html">CHZApp\Session</a>, 
+			<a href="class-CHZApp.SmartyView.html">CHZApp\SmartyView</a>, 
+			<a href="class-CHZApp.SQLiteCache.html">CHZApp\SQLiteCache</a>, 
+			<a href="class-CHZApp.XmlJsonConverter.html">CHZApp\XmlJsonConverter</a>, 
+			<a href="class-CHZApp.Cache.html">CHZApp\Cache</a>, 
+			<a href="class-CHZApp.Component.html">CHZApp\Component</a>, 
+			<a href="class-CHZApp.ConfigComponent.html">CHZApp\ConfigComponent</a>, 
+			<a href="class-CHZApp.Controller.html">CHZApp\Controller</a>, 
+			<a href="class-CHZApp.EloquentManager.html">CHZApp\EloquentManager</a>, 
+			<a href="class-CHZApp.HttpClient.html">CHZApp\HttpClient</a>, 
+			<a href="class-CHZApp.Mailer.html">CHZApp\Mailer</a>, 
+			<a href="class-CHZApp.MemCache.html">CHZApp\MemCache</a>
+	</div>
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-CHZApp.html">CHZApp</a>\<a href="namespace-CHZApp.Interfaces.html">Interfaces</a><br>
+		
+
+			<b>Located at</b> <a href="source-class-CHZApp.Interfaces.IHookHandler.html#36-124" title="Go to source code">CHZApp/Interfaces/IHookHandler.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="canHook" id="_canHook">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_canHook">#</a>
+		<code><a href="source-class-CHZApp.Interfaces.IHookHandler.html#41-46" title="Go to source code">canHook</a>( )</code>
+
+		<div class="description short">
+			<p>Verifica se o objeto que faz gerança pode ser hookado.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Verifica se o objeto que faz gerança pode ser hookado.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean<br>Verdadeiro se puder receber o hook.
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setHookDir" id="_setHookDir">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setHookDir">#</a>
+		<code><a href="source-class-CHZApp.Interfaces.IHookHandler.html#48-53" title="Go to source code">setHookDir</a>( <span>string <var>$hookDir</var></span> )</code>
+
+		<div class="description short">
+			<p>Define o diretório de onde serão lidos os hooks.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Define o diretório de onde serão lidos os hooks.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$hookDir</var></dt>
+					<dd>Diretório aonde estão os hooks.</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getHookDir" id="_getHookDir">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getHookDir">#</a>
+		<code><a href="source-class-CHZApp.Interfaces.IHookHandler.html#55-60" title="Go to source code">getHookDir</a>( )</code>
+
+		<div class="description short">
+			<p>Obtém o diretório que irá conter os arquivos de hook.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Obtém o diretório que irá conter os arquivos de hook.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>Diretório aonde estão os arquivos de hook.
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="readHookDir" id="_readHookDir">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_readHookDir">#</a>
+		<code><a href="source-class-CHZApp.Interfaces.IHookHandler.html#62-67" title="Go to source code">readHookDir</a>( )</code>
+
+		<div class="description short">
+			<p>Faz uma leitura do arquivo de hooks para procurar
+o arquivo de hook referente a classe que está
+tentando ser hookada</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Faz uma leitura do arquivo de hooks para procurar
+o arquivo de hook referente a classe que está
+tentando ser hookada</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getHookedFiles" id="_getHookedFiles">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getHookedFiles">#</a>
+		<code><a href="source-class-CHZApp.Interfaces.IHookHandler.html#69-75" title="Go to source code">getHookedFiles</a>( )</code>
+
+		<div class="description short">
+			<p>Obtém todos os arquivos que participam do hook
+para o objeto.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Obtém todos os arquivos que participam do hook
+para o objeto.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					array
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="isHookedMethod" id="_isHookedMethod">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_isHookedMethod">#</a>
+		<code><a href="source-class-CHZApp.Interfaces.IHookHandler.html#77-84" title="Go to source code">isHookedMethod</a>( <span>string <var>$method</var></span> )</code>
+
+		<div class="description short">
+			<p>Verifica se o método informado é um método que possui hooking.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Verifica se o método informado é um método que possui hooking.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$method</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean<br>Verdadeiro caso o método esteja hookado.
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__set" id="___set">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___set">#</a>
+		<code><a href="source-class-CHZApp.Interfaces.IHookHandler.html#86-92" title="Go to source code">__set</a>( <span>string <var>$name</var></span>, <span>mixed <var>$value</var></span> )</code>
+
+		<div class="description short">
+			<p>Verifica informações de propriedades não definidas.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Verifica informações de propriedades não definidas.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$name</var></dt>
+					<dd>Propriedade</dd>
+					<dt><var>$value</var></dt>
+					<dd>Valor para a propriedade</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__get" id="___get">
+
+		<td class="attributes"><code>
+			 public 
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___get">#</a>
+		<code><a href="source-class-CHZApp.Interfaces.IHookHandler.html#94-101" title="Go to source code">__get</a>( <span>string <var>$name</var></span> )</code>
+
+		<div class="description short">
+			<p>Obtém informações de propriedades não definidas.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Obtém informações de propriedades não definidas.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$name</var></dt>
+					<dd>Propriedade</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed<br>Valor para a propriedade
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__call" id="___call">
+
+		<td class="attributes"><code>
+			 public 
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___call">#</a>
+		<code><a href="source-class-CHZApp.Interfaces.IHookHandler.html#103-112" title="Go to source code">__call</a>( <span>string <var>$name</var></span>, <span>array <var>$args</var></span> )</code>
+
+		<div class="description short">
+			<p>Executa quando não há metodos definidos para
+a invocação e faz o teste de hook.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Executa quando não há metodos definidos para
+a invocação e faz o teste de hook.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$name</var></dt>
+					<dd>Nome do método</dd>
+					<dt><var>$args</var></dt>
+					<dd>Argumentos de chamada</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed<br>Retorno dos dados
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__callHooked" id="___callHooked">
+
+		<td class="attributes"><code>
+			 public 
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___callHooked">#</a>
+		<code><a href="source-class-CHZApp.Interfaces.IHookHandler.html#114-123" title="Go to source code">__callHooked</a>( <span>string <var>$name</var></span>, <span>array <var>$args</var></span>, <span>boolean <var>$force</var> = <span class="php-keyword1">false</span></span> )</code>
+
+		<div class="description short">
+			<p>Executa a chamada de rotinas hookadas caso existam</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Executa a chamada de rotinas hookadas caso existam</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$name</var></dt>
+					<dd>Nome do método</dd>
+					<dt><var>$args</var></dt>
+					<dd>Argumentos de chamada</dd>
+					<dt><var>$force</var></dt>
+					<dd>Força a chamada</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed<br>Dados de execução hookados
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

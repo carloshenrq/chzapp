@@ -20,9 +20,16 @@
 			<ul>
 				<li class="active">
 					<a href="namespace-CHZApp.html">
-						CHZApp					</a>
+						CHZApp<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-CHZApp.Interfaces.html">
+						Interfaces					</a>
 
 						</li>
+							</ul></li>
 			</ul>
 		</div>
 
@@ -34,20 +41,32 @@
 			<ul>
 				<li><a href="class-CHZApp.Application.html">Application</a></li>
 				<li><a href="class-CHZApp.AssetParser.html">AssetParser</a></li>
+				<li><a href="class-CHZApp.AssetSQLiteCache.html">AssetSQLiteCache</a></li>
+				<li><a href="class-CHZApp.Cache.html">Cache</a></li>
 				<li><a href="class-CHZApp.Component.html">Component</a></li>
 				<li><a href="class-CHZApp.ConfigComponent.html">ConfigComponent</a></li>
 				<li><a href="class-CHZApp.Controller.html">Controller</a></li>
 				<li><a href="class-CHZApp.EloquentManager.html">EloquentManager</a></li>
+				<li><a href="class-CHZApp.HookHandler.html">HookHandler</a></li>
 				<li><a href="class-CHZApp.HttpClient.html">HttpClient</a></li>
 				<li class="active"><a href="class-CHZApp.Mailer.html">Mailer</a></li>
+				<li><a href="class-CHZApp.MemCache.html">MemCache</a></li>
 				<li><a href="class-CHZApp.Middleware.html">Middleware</a></li>
 				<li><a href="class-CHZApp.Router.html">Router</a></li>
+				<li><a href="class-CHZApp.SchemaValidator.html">SchemaValidator</a></li>
 				<li><a href="class-CHZApp.Session.html">Session</a></li>
 				<li><a href="class-CHZApp.SmartyView.html">SmartyView</a></li>
+				<li><a href="class-CHZApp.SQLiteCache.html">SQLiteCache</a></li>
+				<li><a href="class-CHZApp.XmlJsonConverter.html">XmlJsonConverter</a></li>
 			</ul>
 
 
 
+			<h3>Exceptions</h3>
+			<ul>
+				<li><a href="class-CHZApp.ControllerException.html">ControllerException</a></li>
+				<li><a href="class-CHZApp.SchemaValidatorException.html">SchemaValidatorException</a></li>
+			</ul>
 
 
 		</div>
@@ -92,21 +111,36 @@ por e-mail.</p>
 
 	<dl class="tree">
 		<dd style="padding-left:0px">
-			<a href="class-CHZApp.Component.html"><span>CHZApp\Component</span></a>
+			<a href="class-CHZApp.HookHandler.html"><span>CHZApp\HookHandler</span></a>
 			
+			 implements 
+				<a href="class-CHZApp.Interfaces.IEventHandler.html"><span>CHZApp\Interfaces\IEventHandler</span></a>, 
+			
+				<a href="class-CHZApp.Interfaces.IHookHandler.html"><span>CHZApp\Interfaces\IHookHandler</span></a>
 			
 			
 		</dd>
 		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by">
+			<a href="class-CHZApp.Component.html"><span>CHZApp\Component</span></a>
+			
+			 implements 
+				<a href="class-CHZApp.Interfaces.IComponent.html"><span>CHZApp\Interfaces\IComponent</span></a>
+			
+			
+		</dd>
+		<dd style="padding-left:60px">
 			<img src="resources/inherit.png" alt="Extended by">
 			<a href="class-CHZApp.ConfigComponent.html"><span>CHZApp\ConfigComponent</span></a>
 			
 			
 			
 		</dd>
-		<dd style="padding-left:60px">
+		<dd style="padding-left:90px">
 			<img src="resources/inherit.png" alt="Extended by">
 <b><span>CHZApp\Mailer</span></b>			
+			 implements 
+				<a href="class-CHZApp.Interfaces.IMailer.html"><span>CHZApp\Interfaces\IMailer</span></a>
 			
 			
 		</dd>
@@ -125,7 +159,7 @@ por e-mail.</p>
 		<b>Namespace:</b> <a href="namespace-CHZApp.html">CHZApp</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-CHZApp.Mailer.html#40-135" title="Go to source code">CHZApp/Mailer.php</a>
+			<b>Located at</b> <a href="source-class-CHZApp.Mailer.html#42-125" title="Go to source code">CHZApp/Mailer.php</a>
 		<br>
 	</div>
 
@@ -133,7 +167,7 @@ por e-mail.</p>
 
 	<table class="summary methods" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="send" id="_send">
+	<tr data-order="sendFromTemplate" id="_sendFromTemplate">
 
 		<td class="attributes"><code>
 			 public 
@@ -144,35 +178,223 @@ por e-mail.</p>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_send">#</a>
-		<code><a href="source-class-CHZApp.Mailer.html#46-64" title="Go to source code">send</a>( <span>string <var>$subject</var></span>, <span>string <var>$to</var></span>, <span>string <var>$template</var></span>, <span>array <var>$data</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$type</var> = <span class="php-quote">'text/html'</span></span> )</code>
+		<a class="anchor" href="#_sendFromTemplate">#</a>
+		<code><a href="source-class-CHZApp.Mailer.html#48-59" title="Go to source code">sendFromTemplate</a>( <span>string <var>$subject</var></span>, <span>array <var>$to</var></span>, <span>string <var>$template</var></span>, <span>array <var>$data</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$type</var> = <span class="php-quote">'text/html'</span></span> )</code>
 
 		<div class="description short">
-			<p>Realiza o envio do e-mail com os dados informados.</p>
+			
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Realiza o envio do e-mail com os dados informados.</p>
+			
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$subject</var></dt>
-					<dd>Assunto do e-mail</dd>
+					<dd>Assunto do email</dd>
 					<dt><var>$to</var></dt>
-					<dd>$template Arquivo que será renderizado para o envio</dd>
+					<dd>Para quem será enviado os dados</dd>
 					<dt><var>$template</var></dt>
-					<dd>$data Dados para trocar durante o render.</dd>
+					<dd>Caminho para o arquivo de template</dd>
 					<dt><var>$data</var></dt>
-					<dd>$to Destinatário da mensagem.</dd>
+					<dd>Dados que serão usados no template</dd>
 					<dt><var>$type</var></dt>
-					<dd>Tipo de mensagem. HTML ou TEXT</dd>
+					<dd>Tipo de dados para o corpo do e-mail.</dd>
 				</dl></div>
 
 
 
+				<h4>See</h4>
+				<div class="list">
+						IMailer::sendFromTemplate($subject, $to, $template, $data, $type)<br>
+				</div>
 
 
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-CHZApp.Interfaces.IMailer.html#_sendFromTemplate">CHZApp\Interfaces\IMailer::sendFromTemplate()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="send" id="_send">
+
+		<td class="attributes"><code>
+			final public 
+
+			object
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_send">#</a>
+		<code><a href="source-class-CHZApp.Mailer.html#61-68" title="Go to source code">send</a>( <span>string <var>$subject</var></span>, <span>array <var>$to</var></span>, <span>string <var>$body</var></span>, <span>string <var>$type</var> = <span class="php-quote">'text/html'</span></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$subject</var></dt>
+					<dd>Assunto do email</dd>
+					<dt><var>$to</var></dt>
+					<dd>Para quem será enviado os dados</dd>
+					<dt><var>$body</var></dt>
+					<dd>Corpo do email</dd>
+					<dt><var>$type</var></dt>
+					<dd>Tipo de dados para o corpo do e-mail.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					object
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						IMailer::send($subject, $to, $body, $type)<br>
+				</div>
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-CHZApp.Interfaces.IMailer.html#_send">CHZApp\Interfaces\IMailer::send()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="createMessage" id="_createMessage">
+
+		<td class="attributes"><code>
+			final public 
+
+			object
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_createMessage">#</a>
+		<code><a href="source-class-CHZApp.Mailer.html#70-85" title="Go to source code">createMessage</a>( <span>string <var>$subject</var></span>, <span>array <var>$to</var></span>, <span>string <var>$body</var></span>, <span>string <var>$type</var> = <span class="php-quote">'text/html'</span></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$subject</var></dt>
+					<dd>Assunto do email</dd>
+					<dt><var>$to</var></dt>
+					<dd>Para quem será enviado os dados</dd>
+					<dt><var>$body</var></dt>
+					<dd>Corpo do email</dd>
+					<dt><var>$type</var></dt>
+					<dd>Tipo de dados para o corpo do e-mail.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					object
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						IMailer::createMessage($subject, $to, $body, $type)<br>
+				</div>
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-CHZApp.Interfaces.IMailer.html#_createMessage">CHZApp\Interfaces\IMailer::createMessage()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="createMailer" id="_createMailer">
+
+		<td class="attributes"><code>
+			final public 
+
+			object
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_createMailer">#</a>
+		<code><a href="source-class-CHZApp.Mailer.html#87-93" title="Go to source code">createMailer</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					object
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						IMailer::createMailer()<br>
+				</div>
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-CHZApp.Interfaces.IMailer.html#_createMailer">CHZApp\Interfaces\IMailer::createMailer()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="createTransport" id="_createTransport">
+
+		<td class="attributes"><code>
+			final public 
+
+			object
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_createTransport">#</a>
+		<code><a href="source-class-CHZApp.Mailer.html#95-108" title="Go to source code">createTransport</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					object
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						IMailer::createTransport()<br>
+				</div>
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-CHZApp.Interfaces.IMailer.html#_createTransport">CHZApp\Interfaces\IMailer::createTransport()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
@@ -188,7 +410,7 @@ por e-mail.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_parseConfigs">#</a>
-		<code><a href="source-class-CHZApp.Mailer.html#120-134" title="Go to source code">parseConfigs</a>( <span>array <var>$configs</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-CHZApp.Mailer.html#110-124" title="Go to source code">parseConfigs</a>( <span>array <var>$configs</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -230,7 +452,30 @@ por e-mail.</p>
 	<tr>
 		<td><code>
 			<a href="class-CHZApp.Component.html#_getApplication">getApplication()</a>, 
-			<a href="class-CHZApp.Component.html#_init">init()</a>
+			<a href="class-CHZApp.Component.html#_getSession">getSession()</a>, 
+			<a href="class-CHZApp.Component.html#_init">init()</a>, 
+			<a href="class-CHZApp.Component.html#_setApplication">setApplication()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CHZApp.HookHandler.html#methods">CHZApp\HookHandler</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CHZApp.HookHandler.html#___call">__call()</a>, 
+			<a href="class-CHZApp.HookHandler.html#___callHooked">__callHooked()</a>, 
+			<a href="class-CHZApp.HookHandler.html#___get">__get()</a>, 
+			<a href="class-CHZApp.HookHandler.html#___set">__set()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_addEventListener">addEventListener()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_canHook">canHook()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_getHookDir">getHookDir()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_getHookedFiles">getHookedFiles()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_isHookedMethod">isHookedMethod()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_parseEventMethods">parseEventMethods()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_readHookDir">readHookDir()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_removeEventListener">removeEventListener()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_setHookDir">setHookDir()</a>, 
+			<a href="class-CHZApp.HookHandler.html#_trigger">trigger()</a>
 		</code></td>
 	</tr>
 	</table>

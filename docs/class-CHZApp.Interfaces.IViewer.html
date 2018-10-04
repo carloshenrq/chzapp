@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Interface CHZApp\Interfaces\IViewer</title>
+
+	<link rel="stylesheet" href="resources/style.css?c2f33731c1948fbed7c333554678bfa68d4817da">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-CHZApp.html">
+						CHZApp<span></span>
+					</a>
+
+						<ul>
+				<li class="active">
+					<a href="namespace-CHZApp.Interfaces.html">
+						Interfaces					</a>
+
+						</li>
+							</ul></li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-CHZApp.Interfaces.IApplication.html">IApplication</a></li>
+				<li><a href="class-CHZApp.Interfaces.IComponent.html">IComponent</a></li>
+				<li><a href="class-CHZApp.Interfaces.ICrypto.html">ICrypto</a></li>
+				<li><a href="class-CHZApp.Interfaces.IEventHandler.html">IEventHandler</a></li>
+				<li><a href="class-CHZApp.Interfaces.IHookHandler.html">IHookHandler</a></li>
+				<li><a href="class-CHZApp.Interfaces.IHttpClient.html">IHttpClient</a></li>
+				<li><a href="class-CHZApp.Interfaces.IMailer.html">IMailer</a></li>
+				<li><a href="class-CHZApp.Interfaces.ISession.html">ISession</a></li>
+				<li class="active"><a href="class-CHZApp.Interfaces.IViewer.html">IViewer</a></li>
+			</ul>
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-CHZApp.Interfaces.html" title="Summary of CHZApp\Interfaces"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Interface IViewer</h1>
+
+
+
+
+
+
+
+	<div>
+		<h4>Direct known implementers</h4>
+			<a href="class-CHZApp.SmartyView.html">CHZApp\SmartyView</a>
+	</div>
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-CHZApp.html">CHZApp</a>\<a href="namespace-CHZApp.Interfaces.html">Interfaces</a><br>
+		
+
+			<b>Located at</b> <a href="source-class-CHZApp.Interfaces.IViewer.html#36-65" title="Go to source code">CHZApp/Interfaces/IViewer.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="response" id="_response">
+
+		<td class="attributes"><code>
+			 public 
+
+			object
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_response">#</a>
+		<code><a href="source-class-CHZApp.Interfaces.IViewer.html#38-47" title="Go to source code">response</a>( <span>object <var>$response</var></span>, <span>string <var>$template</var></span>, <span>array <var>$data</var> = []</span> )</code>
+
+		<div class="description short">
+			<p>Objeto de resposta com informações de template.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Objeto de resposta com informações de template.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$response</var></dt>
+					<dd>Objeto de resposta.</dd>
+					<dt><var>$template</var></dt>
+					<dd>Arquivo de template.</dd>
+					<dt><var>$data</var></dt>
+					<dd>Dados para preencher o template</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					object<br>Objeto de resposta preenchido.
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="render" id="_render">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_render">#</a>
+		<code><a href="source-class-CHZApp.Interfaces.IViewer.html#49-57" title="Go to source code">render</a>( <span>string <var>$template</var></span>, <span>array <var>$data</var> = []</span> )</code>
+
+		<div class="description short">
+			<p>Faz o tratamento do template e dos dados.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Faz o tratamento do template e dos dados.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$template</var></dt>
+					<dd>Arquivo de template.</dd>
+					<dt><var>$data</var></dt>
+					<dd>Dados para preencher o template</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>Template tratado e pronto para resposta.
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getView" id="_getView">
+
+		<td class="attributes"><code>
+			 public 
+
+			object
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getView">#</a>
+		<code><a href="source-class-CHZApp.Interfaces.IViewer.html#59-64" title="Go to source code">getView</a>( )</code>
+
+		<div class="description short">
+			<p>Obtém o objeto de tratamento para os templates.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Obtém o objeto de tratamento para os templates.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					object
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>
