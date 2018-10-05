@@ -222,7 +222,7 @@ abstract class Application extends App implements IApplication
     {
         // Usado somente para os testes do travis...
         if (getenv('TRAVIS_CI_DEBUG') !== false && getenv('TRAVIS_CI_DEBUG') == 1) {
-            if ($schema->hasTable('travis_ci')) {
+            if (!$schema->hasTable('travis_ci')) {
                 $schema->create('travis_ci', function($table) {
                     $table->engine = 'MyISAM';
                     $table->increments('id');
