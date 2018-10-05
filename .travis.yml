@@ -8,8 +8,9 @@ cache:
     directories:
       - "$HOME/.composer/cache"
 before_install:
+  - apt-get -y install libmemcached-devel zlib-devel
   - pecl channel-update pecl.php.net
-  - pecl install msgpack
+  - pecl install memcached
   - travis_retry composer self-update
   - composer install
 script:
