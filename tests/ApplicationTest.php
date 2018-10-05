@@ -72,6 +72,16 @@ class ApplicationTest extends TestCase
 		$this->assertInstanceOf('\CHZApp\Interfaces\IApplication', $this->appObj);
 	}
 
+	public function testGetSQLiteCache()
+	{
+		$sqlLite = $this->appObj->getSQLiteCache();
+		
+		$this->assertInstanceOf('\CHZApp\Cache', $sqlLite);
+		$this->assertInstanceOf('\CHZApp\ConfigComponent', $sqlLite);
+		$this->assertInstanceOf('\CHZApp\Component', $sqlLite);
+		$this->assertInstanceOf('\CHZApp\Interfaces\IComponent', $sqlLite);
+	}
+
 	public function testHttpClient()
 	{
 		$this->appObj->setHttpClient($this->httpObj);

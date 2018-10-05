@@ -2,12 +2,18 @@ language: php
 php:
   - 7.1
   - 7.2
+services:
+    - memcached
+cache:
+    directories:
+      - "$HOME/.composer/cache"
 before_install:
+  - pecl install memcache
+  - echo "extension=memcache.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
   - travis_retry composer self-update
-  - composer global require phpunit/phpunit
   - composer install
 script:
-  - phpunit --coverage-clover=coverage.xml
-  - phpunit
+  - vendor/bin/phpunit --coverage-clover=coverage.xml
+  - vendor/bin/phpunit
 after_success:
   - bash <(curl -s https://codecov.io/bash)
