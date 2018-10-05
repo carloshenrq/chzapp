@@ -76,6 +76,29 @@ class ApplicationTest extends TestCase
 		$this->assertInstanceOf('\CHZApp\Interfaces\IApplication', $this->appObj);
 	}
 
+	public function testSetCacheConfigs()
+	{
+		$this->assertNull($this->appObj->setCacheConfigs());
+	}
+
+	/**
+	 * @expectedException Error
+	 */
+	public function testCreateCacheInstance()
+	{
+		$memcache = $this->appObj->createCacheInstance();
+	}
+
+	public function testGetAssetParser()
+	{
+		$assetObj = $this->appObj->getAssetParser();
+
+		$this->assertNotNull($assetObj);
+		$this->assertInstanceOf('\CHZApp\AssetParser', $assetObj);
+		$this->assertInstanceOf('\CHZApp\Component', $assetObj);
+		$this->assertInstanceOf('\CHZApp\Interfaces\IComponent', $assetObj);
+	}
+
 	public function testSetEloquentConfigs()
 	{
 		$this->assertNull($this->appObj->setEloquentConfigs());

@@ -345,7 +345,7 @@ abstract class Application extends App implements IApplication
      *
      * @return Cache
      */
-    protected function createCacheInstance($cacheConfigs = [])
+    public function createCacheInstance($cacheConfigs = [])
     {
         return new MemCache($this, $cacheConfigs);
     }
@@ -355,7 +355,7 @@ abstract class Application extends App implements IApplication
      *
      * @param array $cacheConfigs
      */
-    final protected function setCacheConfigs($cacheConfigs = [])
+    final public function setCacheConfigs($cacheConfigs = [])
     {
         // Verifica os dados de configuração de cache.
         if(!is_null($cacheConfigs) && extension_loaded('memcache'))
