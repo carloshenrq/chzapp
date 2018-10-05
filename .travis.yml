@@ -9,8 +9,7 @@ cache:
       - "$HOME/.composer/cache"
 before_install:
   - pecl channel-update pecl.php.net
-  - pecl install memcached-3.0.4
-  - echo "extension=memcached.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+  - echo $(pkg-config libmemcached --variable=prefix) | pecl install memcached
   - travis_retry composer self-update
   - composer install
 script:
