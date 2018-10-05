@@ -14,7 +14,7 @@ before_install:
   - travis_retry composer self-update
   - composer install
   - mysql -e "CREATE USER 'chzapp'@'localhost' IDENTIFIED BY 'chzapp';"
-  - mysql -e "CREATE DATABASE `chzapp`;"
+  - mysql -e "CREATE DATABASE chzapp;"
   - mysql -e "GRANT SELECT ON chzapp TO 'chzapp'@'localhost';"
 script:
   - vendor/bin/phpunit --coverage-clover=coverage.xml
