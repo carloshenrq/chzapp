@@ -11,7 +11,7 @@ before_install:
   - sudo apt-get -y install libmemcached-dev
   - pecl channel-update pecl.php.net
   - pecl install msgpack
-  - echo \n | pecl install memcached
+  - echo no | pecl install memcached
   - travis_retry composer self-update
   - composer install
 script:
