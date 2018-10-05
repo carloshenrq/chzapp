@@ -209,7 +209,28 @@ abstract class Application extends App implements IApplication
      */
     public function installSchema($schema, $name = 'default')
     {
-        return;
+        return;   
+    }
+
+    /**
+     * Rotina de teste para o banco de dados onde será testado
+     * pelo travis
+     * 
+     * @param object $schema
+     */
+    public function installSchemaDefault($schema)
+    {
+        // Usado somente para os testes do travis...
+        if (defined('TRAVIS_CI_DEBUG') && TRAVIS_CI_DEBUG == 1) {
+            if ($schema->hasTable('travis_ci')) {
+                $schema->create('travis_ci', function($table) {
+                    $table->engine = 'MyISAM';
+                    $table->increments('id');
+                    $table->string('test', 20);
+                    $table->timestamps();
+                });
+            }
+        }
     }
 
     /**
