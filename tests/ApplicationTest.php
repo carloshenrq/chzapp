@@ -43,6 +43,8 @@ class ApplicationTest extends TestCase
 	private $xmlJsonObj;
 	private $schemaObj;
 	private $sessionObj;
+	private $viewerObj;
+	private $httpObj;
 
 	public function setUp()
 	{
@@ -50,17 +52,87 @@ class ApplicationTest extends TestCase
 		$this->xmlJsonObj = $this->createMock('\CHZApp\XmlJsonConverter');
 		$this->schemaObj = $this->createMock('\CHZApp\SchemaValidator');
 		$this->sessionObj = $this->createMock('\CHZApp\Session');
+		$this->viewerObj = $this->createMock('\CHZApp\SmartyView');
+		$this->httpObj = $this->createMock('\CHZApp\HttpClient');
 
 		$this->xmlJsonObj->setApplication($this->appObj);
 		$this->appObj->setXmlJsonConverter($this->xmlJsonObj);
 		$this->appObj->setSchemaValidator($this->schemaObj);
 		$this->appObj->setSession($this->sessionObj);
+		$this->appObj->setViewer($this->viewerObj);
+		$this->appObj->setHttpClient($this->httpObj);
+
+		if (!getenv('REMOTE_ADDR'))
+			putenv('REMOTE_ADDR=127.0.0.1');
 	}
 
 	public function testSelf()
 	{
 		$this->assertInstanceOf('\Slim\App', $this->appObj);
 		$this->assertInstanceOf('\CHZApp\Interfaces\IApplication', $this->appObj);
+	}
+
+	public function testHttpClient()
+	{
+		$this->appObj->setHttpClient($this->httpObj);
+		$this->testGetHttpClient();
+	}
+
+	/**
+	 * @expectedException TypeError
+	 */
+	public function testSetHttpClient0()
+	{
+		$this->appObj->setHttpClient(null);
+	}
+
+	/**
+	 * @expectedException TypeError
+	 */
+	public function testSetHttpClient1()
+	{
+		$this->appObj->setHttpClient($this->appObj);
+	}
+
+	public function testGetHttpClient()
+	{
+		$httpObj = $this->appObj->getHttpClient();
+
+		$this->assertInstanceOf('\CHZApp\Interfaces\IHttpClient', $httpObj);
+		$this->assertInstanceOf('\CHZApp\Interfaces\IComponent', $httpObj);
+		$this->assertInstanceOf('\CHZApp\Component', $httpObj);
+	}
+
+	public function testSetViewer()
+	{
+		$this->appObj->setViewer($this->viewerObj);
+		$this->testGetViewer();
+	}
+
+	/**
+	 * @expectedException TypeError
+	 */
+	public function testSetViewer0()
+	{
+		$this->appObj->setViewer(null);
+	}
+
+	/**
+	 * @expectedException TypeError
+	 */
+	public function testSetViewer1()
+	{
+		$this->appObj->setViewer($this->appObj);
+	}
+
+	public function testGetViewer()
+	{
+		$viewerObj = $this->appObj->getViewer();
+
+		$this->assertInstanceOf('\CHZApp\Interfaces\IViewer', $viewerObj);
+		$this->assertInstanceOf('\CHZApp\Interfaces\IComponent', $viewerObj);
+		$this->assertInstanceOf('\CHZApp\ConfigComponent', $viewerObj);
+		$this->assertInstanceOf('\CHZApp\Component', $viewerObj);
 	}
 
 	public function testSetSession()
@@ -101,7 +173,7 @@ class ApplicationTest extends TestCase
 	public function testGetIpAddress()
 	{
 		$ipAddress = $this->appObj->getIpAddress();
-		$this->assertEquals('?.?.?.?', $ipAddress);
+		$this->assertEquals('127.0.0.1', $ipAddress);
 	}
 
 	public function testSetSchemaValidator()
