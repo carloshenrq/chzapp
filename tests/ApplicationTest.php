@@ -76,6 +76,12 @@ class ApplicationTest extends TestCase
 		$this->assertInstanceOf('\CHZApp\Interfaces\IApplication', $this->appObj);
 	}
 
+	public function testGetInstance()
+	{
+		$obj = forward_static_call([$this->appObj, 'getInstance']);
+		$this->assertEquals($obj, $this->appObj);
+	}
+
 	public function testSetCacheConfigs()
 	{
 		$this->assertNull($this->appObj->setCacheConfigs());
