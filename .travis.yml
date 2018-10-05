@@ -8,7 +8,7 @@ cache:
     directories:
       - "$HOME/.composer/cache"
 before_install:
-  - apt-get -y install libmemcached-devel zlib-devel
+  - sudo apt-get -y install libmemcached-devel zlib-devel
   - pecl channel-update pecl.php.net
   - pecl install memcached
   - travis_retry composer self-update
