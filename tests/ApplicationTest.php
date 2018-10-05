@@ -42,22 +42,66 @@ class ApplicationTest extends TestCase
 	private $appObj;
 	private $xmlJsonObj;
 	private $schemaObj;
+	private $sessionObj;
 
 	public function setUp()
 	{
 		$this->appObj = $this->getMockForAbstractClass('\CHZApp\Application');
 		$this->xmlJsonObj = $this->createMock('\CHZApp\XmlJsonConverter');
 		$this->schemaObj = $this->createMock('\CHZApp\SchemaValidator');
+		$this->sessionObj = $this->createMock('\CHZApp\Session');
 
 		$this->xmlJsonObj->setApplication($this->appObj);
 		$this->appObj->setXmlJsonConverter($this->xmlJsonObj);
 		$this->appObj->setSchemaValidator($this->schemaObj);
+		$this->appObj->setSession($this->sessionObj);
 	}
 
 	public function testSelf()
 	{
 		$this->assertInstanceOf('\Slim\App', $this->appObj);
 		$this->assertInstanceOf('\CHZApp\Interfaces\IApplication', $this->appObj);
+	}
+
+	public function testSetSession()
+	{
+		$this->appObj->setSession($this->sessionObj);
+		$this->testGetSession();
+	}
+
+	/**
+	 * @expectedException TypeError
+	 */
+	public function testSetSession0()
+	{
+		$this->appObj->setSession(null);
+	}
+
+	/**
+	 * @expectedException TypeError
+	 */
+	public function testSetSession1()
+	{
+		$this->appObj->setSession($this->appObj);
+	}
+
+
+	public function testGetSession()
+	{
+		$sessObj = $this->appObj->getSession();
+
+		$this->assertInstanceOf('\CHZApp\Interfaces\ICrypto', $sessObj);
+		$this->assertInstanceOf('\CHZApp\Interfaces\ISession', $sessObj);
+		$this->assertInstanceOf('\CHZApp\Interfaces\IComponent', $sessObj);
+		$this->assertInstanceOf('\CHZApp\ConfigComponent', $sessObj);
+		$this->assertInstanceOf('\CHZApp\Component', $sessObj);
+		$this->assertInstanceOf('\CHZApp\Session', $sessObj);
+	}
+
+	public function testGetIpAddress()
+	{
+		$ipAddress = $this->appObj->getIpAddress();
+		$this->assertEquals('?.?.?.?', $ipAddress);
 	}
 
 	public function testSetSchemaValidator()
