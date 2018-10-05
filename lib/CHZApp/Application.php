@@ -189,9 +189,10 @@ abstract class Application extends App implements IApplication
      *
      * @param string $autoloadPath
      */
-    final protected function setHookAutoload($autoloadPath)
+    final public function setHookAutoload($autoloadPath)
     {
-        require_once $autoloadPath;
+        if(file_exists($autoloadPath))
+            require_once $autoloadPath;
     }
 
     /**
@@ -218,7 +219,8 @@ abstract class Application extends App implements IApplication
      */
     public function unInstallSchema($schema, $name = 'default')
     {
-        $tables = $schema->dropAllTables();
+        if (!is_null($schema))
+            $tables = $schema->dropAllTables();
     }
 
     /**
@@ -252,7 +254,7 @@ abstract class Application extends App implements IApplication
      *
      * @return IViewer
      */
-    protected function createViewerInstance($smartyConfigs = [])
+    public function createViewerInstance($smartyConfigs = [])
     {
         return new SmartyView($this, $smartyConfigs);
     }
@@ -262,7 +264,7 @@ abstract class Application extends App implements IApplication
      *
      * @param array $smartyConfigs
      */
-    final protected function setSmartyConfigs($smartyConfigs = [])
+    final public function setSmartyConfigs($smartyConfigs = [])
     {
         // Inicializa informações de smarty.
         if(!is_null($smartyConfigs))
@@ -274,7 +276,7 @@ abstract class Application extends App implements IApplication
      *
      * @param array $mailerConfigs
      */
-    protected function createMailerInstance($mailerConfigs = [])
+    public function createMailerInstance($mailerConfigs = [])
     {
         return new Mailer($this, $mailerConfigs);
     }
@@ -284,7 +286,7 @@ abstract class Application extends App implements IApplication
      *
      * @param array $mailerConfigs
      */
-    final protected function setMailerConfigs($mailerConfigs = [])
+    final public function setMailerConfigs($mailerConfigs = [])
     {
         // Inicializa informações de mailer.
         if(!is_null($mailerConfigs))
