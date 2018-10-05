@@ -4,6 +4,7 @@ php:
   - 7.2
 services:
     - memcached
+    - mysql
 cache:
     directories:
       - "$HOME/.composer/cache"
@@ -12,6 +13,9 @@ before_install:
   - pecl channel-update pecl.php.net
   - travis_retry composer self-update
   - composer install
+  - mysql -e "CREATE USER 'chzapp'@'localhost' IDENTIFIED BY 'chzapp';"
+  - mysql -e "CREATE DATABASE `chzapp`;"
+  - mysql -e "GRANT SELECT ON chzapp TO 'chzapp'@'localhost';"
 script:
   - vendor/bin/phpunit --coverage-clover=coverage.xml
   - vendor/bin/phpunit

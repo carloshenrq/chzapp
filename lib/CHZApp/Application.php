@@ -300,7 +300,7 @@ abstract class Application extends App implements IApplication
      *
      * @return EloquentManager
      */
-    protected function createEloquentInstance($eloquentConfigs = [])
+    public function createEloquentInstance($eloquentConfigs = [])
     {
         return new EloquentManager($this, $eloquentConfigs);
     }
@@ -310,7 +310,7 @@ abstract class Application extends App implements IApplication
      *
      * @param array $eloquentConfigs
      */
-    final protected function setEloquentConfigs($eloquentConfigs = [])
+    final public function setEloquentConfigs($eloquentConfigs = [])
     {
         // Inicializa informações de eloquent.
         if(!is_null($eloquentConfigs))

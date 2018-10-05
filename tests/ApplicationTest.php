@@ -64,6 +64,7 @@ class ApplicationTest extends TestCase
 		$this->appObj->setViewer($this->viewerObj);
 		$this->appObj->setHttpClient($this->httpObj);
 		$this->appObj->setMailer($this->mailerObj);
+		$this->appObj->setEloquentConfigs();
 
 		if (!getenv('REMOTE_ADDR'))
 			putenv('REMOTE_ADDR=127.0.0.1');
@@ -73,6 +74,40 @@ class ApplicationTest extends TestCase
 	{
 		$this->assertInstanceOf('\Slim\App', $this->appObj);
 		$this->assertInstanceOf('\CHZApp\Interfaces\IApplication', $this->appObj);
+	}
+
+	public function testSetEloquentConfigs()
+	{
+		$this->assertNull($this->appObj->setEloquentConfigs());
+		$this->testGetEloquent();
+	}
+
+	public function testCreateEloquentInstance()
+	{
+		$eloquent = $this->appObj->createEloquentInstance();
+		
+		$this->assertInstanceOf('\CHZApp\EloquentManager', $eloquent);
+		$this->assertInstanceOf('\CHZApp\ConfigComponent', $eloquent);
+		$this->assertInstanceOf('\CHZApp\Component', $eloquent);
+		$this->assertInstanceOf('\CHZApp\Interfaces\IComponent', $eloquent);
+	}
+
+	public function testGetEloquent()
+	{
+		$eloquent = $this->appObj->getEloquent();
+
+		$this->assertNotNull($eloquent);
+		$this->assertInstanceOf('\CHZApp\EloquentManager', $eloquent);
+		$this->assertInstanceOf('\CHZApp\ConfigComponent', $eloquent);
+		$this->assertInstanceOf('\CHZApp\Component', $eloquent);
+		$this->assertInstanceOf('\CHZApp\Interfaces\IComponent', $eloquent);
+
+		$manager = $eloquent->getManager();
+		$conn = $manager->getConnection();
+		$pdo = $conn->getPdo();
+
+		$this->assertNotNull($pdo);
+		$this->assertInstanceOf('\PDO', $pdo);
 	}
 
 	public function testSetMailerConfigs()

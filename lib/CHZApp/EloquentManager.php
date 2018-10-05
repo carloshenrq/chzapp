@@ -137,9 +137,9 @@ class EloquentManager extends ConfigComponent
                 'data' => (object)[
                     "driver"    => "mysql",
                     "host"      => "127.0.0.1",
-                    "database"  => "root",
-                    "username"  => "root",
-                    "password"  => "root",
+                    "database"  => "chzapp",
+                    "username"  => "chzapp",
+                    "password"  => "chzapp",
                     "charset"   => "utf8",
                     "collation" => "utf8_swedish_ci",
                     "prefix"    => ""
