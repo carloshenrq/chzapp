@@ -221,7 +221,7 @@ abstract class Application extends App implements IApplication
     public function installSchemaDefault($schema)
     {
         // Usado somente para os testes do travis...
-        if (defined('TRAVIS_CI_DEBUG') && TRAVIS_CI_DEBUG == 1) {
+        if (getenv('TRAVIS_CI_DEBUG') !== false && getenv('TRAVIS_CI_DEBUG') == 1) {
             if ($schema->hasTable('travis_ci')) {
                 $schema->create('travis_ci', function($table) {
                     $table->engine = 'MyISAM';
