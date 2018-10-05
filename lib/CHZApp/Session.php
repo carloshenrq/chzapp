@@ -80,7 +80,7 @@ class Session extends ConfigComponent implements ISession, ICrypto
 
         // Se não houver sessão ativa, então inicializa uma nova sessão
         if($sessionStatus == \PHP_SESSION_NONE)
-            session_start();
+            @session_start();
 
         // Inicializa informações de sessão.
         $this->init();

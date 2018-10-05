@@ -39,100 +39,89 @@ use PHPUnit\Framework\TestCase;
  */
 class ApplicationTest extends TestCase
 {
-	private $object;
+	private $appObj;
+	private $xmlJsonObj;
+	private $schemaObj;
 
 	public function setUp()
 	{
-		$this->object = $this->getMockForAbstractClass('\CHZApp\Application');
+		$this->appObj = $this->getMockForAbstractClass('\CHZApp\Application');
+		$this->xmlJsonObj = $this->createMock('\CHZApp\XmlJsonConverter');
+		$this->schemaObj = $this->createMock('\CHZApp\SchemaValidator');
+
+		$this->xmlJsonObj->setApplication($this->appObj);
+		$this->appObj->setXmlJsonConverter($this->xmlJsonObj);
+		$this->appObj->setSchemaValidator($this->schemaObj);
 	}
 
 	public function testSelf()
 	{
-		$obj = $this->object;
-
-		$this->assertInstanceOf('\Slim\App', $obj);
-		$this->assertInstanceOf('\CHZApp\Interfaces\IApplication', $obj);
+		$this->assertInstanceOf('\Slim\App', $this->appObj);
+		$this->assertInstanceOf('\CHZApp\Interfaces\IApplication', $this->appObj);
 	}
 
-	public function testInstallSchema()
+	public function testSetSchemaValidator()
 	{
-		$this->assertNull($this->object->installSchema(null));
+		$this->appObj->setSchemaValidator($this->schemaObj);
+		$this->testGetSchemaValidator();
 	}
 
-	public function testGetEloquent()
+	/**
+	 * @expectedException TypeError
+	 */
+	public function testFailingSetSchemaValidator0()
 	{
-		$this->assertNull($this->object->getEloquent());
+		$this->appObj->setSchemaValidator(null);
 	}
 
-	public function testGetMailer()
+	/**
+	 * @expectedException TypeError
+	 */
+	public function testFailingSetSchemaValidator1()
 	{
-		$this->assertNull($this->object->getMailer());
-	}
-
-	public function testGetMemCache()
-	{
-		$this->assertNull($this->object->getMemCache());
-	}
-
-	public function testGetViewer()
-	{
-		$this->assertNull($this->object->getViewer());
-	}
-
-	public function testGetSession()
-	{
-		$this->assertNull($this->object->getSession());
-	}
-
-	public function testGetAssetParser()
-	{
-		$parser = $this->object->getAssetParser();
-
-		$this->assertInstanceOf('\CHZApp\Interfaces\IComponent', $parser);
-		$this->assertInstanceOf('\CHZApp\Component', $parser);
-		$this->assertInstanceOf('\CHZApp\AssetParser', $parser);
-	}
-
-	public function testGetSQLiteCache()
-	{
-		$sqlite = $this->object->getSQLiteCache();
-
-		$this->assertInstanceOf('\CHZApp\Interfaces\IComponent', $sqlite);
-		$this->assertInstanceOf('\CHZApp\Component', $sqlite);
-		$this->assertInstanceOf('\CHZApp\ConfigComponent', $sqlite);
-		$this->assertInstanceOf('\CHZApp\Cache', $sqlite);
-		$this->assertInstanceOf('\CHZApp\SQLiteCache', $sqlite);
-	}
-
-	public function testGetHttpClient()
-	{
-		$client = $this->object->getHttpClient();
-
-		$this->assertInstanceOf('\CHZApp\Interfaces\IComponent', $client);
-		$this->assertInstanceOf('\CHZApp\Interfaces\IHttpClient', $client);
-		$this->assertInstanceOf('\CHZApp\Component', $client);
-		$this->assertInstanceOf('\CHZApp\HttpClient', $client);
-	}
-
-	public function testGetXmlJsonConverter()
-	{
-		$obj = $this->object->getXmlJsonConverter();
-
-		$this->assertInstanceOf('\CHZApp\Interfaces\IComponent', $obj);
-		$this->assertInstanceOf('\CHZApp\Component', $obj);
+		$this->appObj->setSchemaValidator($this->appObj);
 	}
 
 	public function testGetSchemaValidator()
 	{
-		$obj = $this->object->getSchemaValidator();
+		$schemaObj = $this->appObj->getSchemaValidator();
 
-		$this->assertInstanceOf('\CHZApp\Interfaces\IComponent', $obj);
-		$this->assertInstanceOf('\CHZApp\Component', $obj);
+		$this->assertInstanceOf('\CHZApp\SchemaValidator', $schemaObj);
+		$this->assertInstanceOf('\CHZApp\Component', $schemaObj);
+		$this->assertInstanceOf('\CHZApp\Interfaces\IComponent', $schemaObj);
+		$this->assertEquals($schemaObj, $this->schemaObj);
 	}
 
-	public function testCanHook()
+	public function testGetXmlJsonConverter()
 	{
-		$this->assertEquals(false, $this->object->canHook());
+		$xmlObj = $this->appObj->getXmlJsonConverter();
+		
+		$this->assertInstanceOf('\CHZApp\XmlJsonConverter', $xmlObj);
+		$this->assertInstanceOf('\CHZApp\Component', $xmlObj);
+		$this->assertInstanceOf('\CHZApp\Interfaces\IComponent', $xmlObj);
+		$this->assertEquals($xmlObj, $this->xmlJsonObj);
+	}
+
+	public function testSetXmlJsonConverter()
+	{
+		$this->appObj->setXmlJsonConverter($this->xmlJsonObj);
+		$this->testGetXmlJsonConverter();
+	}
+
+	/**
+	 * @expectedException TypeError
+	 */
+	public function testFailingSetXmlJsonConverter0()
+	{
+		$this->appObj->setXmlJsonConverter(null);
+	}
+
+	/**
+	 * @expectedException TypeError
+	 */
+	public function testFailingSetXmlJsonConverter1()
+	{
+		$this->appObj->setXmlJsonConverter($this->appObj);
 	}
 }
 

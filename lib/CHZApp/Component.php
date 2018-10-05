@@ -34,6 +34,7 @@
 namespace CHZApp;
 use \CHZApp\Interfaces\IApplication;
 use \CHZApp\Interfaces\IComponent;
+use \CHZApp\Interfaces\ISession;
 
 /**
  * Classe para componenetes da aplicação. Normalmente utilizada
@@ -91,6 +92,8 @@ abstract class Component extends HookHandler implements IComponent
     }
 
     /**
+     * Obtém a sessão de navegador do usuário
+     * @return ISession
      */
     final public function getSession()
     {

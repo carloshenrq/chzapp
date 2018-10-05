@@ -217,9 +217,9 @@ abstract class Application extends App implements IApplication
      * @abstract
      */
     public function unInstallSchema($schema, $name = 'default')
-	{
-		$tables = $schema->dropAllTables();
-	}
+    {
+        $tables = $schema->dropAllTables();
+    }
 
     /**
      * Cria a instância da sessão com as configurações
@@ -228,7 +228,7 @@ abstract class Application extends App implements IApplication
      *
      * @return Session
      */
-    protected function createSessionInstance($sessionConfigs = [])
+    public function createSessionInstance($sessionConfigs = [])
     {
         return new Session($this, $sessionConfigs);
     }
@@ -238,7 +238,7 @@ abstract class Application extends App implements IApplication
      *
      * @param array $sessionConfigs
      */
-    final protected function setSessionConfigs($sessionConfigs = [])
+    final public function setSessionConfigs($sessionConfigs = [])
     {
         // Inicializa informações de sessão.
         if(!is_null($sessionConfigs))
