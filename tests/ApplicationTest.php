@@ -141,7 +141,13 @@ class ApplicationTest extends TestCase
 
 	public function testSetHookAutoload()
 	{
-		$this->assertNull($this->appObj->setHookAutoload('hooks/autoload.php'));
+		$hookAutoload = realpath(join(DIRECTORY_SEPARATOR, [
+			__DIR__,
+			'hooks',
+			'autoload.php'
+		]));
+
+		$this->assertNull($this->appObj->setHookAutoload($hookAutoload));
 	}
 
 	public function testCanHook()
