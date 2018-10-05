@@ -15,7 +15,7 @@ before_install:
   - composer install
   - mysql -e "CREATE USER 'chzapp'@'localhost' IDENTIFIED BY 'chzapp';"
   - mysql -e "CREATE DATABASE chzapp;"
-  - mysql -e "USE chzapp; GRANT SELECT ON chzapp TO 'chzapp'@'localhost';"
+  - mysql -e "GRANT SELECT ON chzapp.* TO 'chzapp'@'localhost';"
 script:
   - vendor/bin/phpunit --coverage-clover=coverage.xml
   - vendor/bin/phpunit
