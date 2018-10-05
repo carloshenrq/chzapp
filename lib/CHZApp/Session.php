@@ -68,7 +68,7 @@ class Session extends ConfigComponent implements ISession, ICrypto
         parent::__construct($application, $configs);
 
         // Remove o limitador de cache para sessões.
-        session_cache_limiter(false);
+        @session_cache_limiter(false);
 
         // Obtém o status de bloqueio de informações de sessão.
         $sessionStatus = session_status();
@@ -80,7 +80,7 @@ class Session extends ConfigComponent implements ISession, ICrypto
 
         // Se não houver sessão ativa, então inicializa uma nova sessão
         if($sessionStatus == \PHP_SESSION_NONE)
-            session_start();
+            @session_start();
 
         // Inicializa informações de sessão.
         $this->init();

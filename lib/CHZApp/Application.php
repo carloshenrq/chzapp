@@ -189,9 +189,10 @@ abstract class Application extends App implements IApplication
      *
      * @param string $autoloadPath
      */
-    final protected function setHookAutoload($autoloadPath)
+    final public function setHookAutoload($autoloadPath)
     {
-        require_once $autoloadPath;
+        if(file_exists($autoloadPath))
+            require_once $autoloadPath;
     }
 
     /**
@@ -208,7 +209,28 @@ abstract class Application extends App implements IApplication
      */
     public function installSchema($schema, $name = 'default')
     {
-        return;
+        return;   
+    }
+
+    /**
+     * Rotina de teste para o banco de dados onde será testado
+     * pelo travis
+     * 
+     * @param object $schema
+     */
+    public function installSchemaDefault($schema)
+    {
+        // Usado somente para os testes do travis...
+        if (getenv('TRAVIS_CI_DEBUG') !== false && getenv('TRAVIS_CI_DEBUG') == 1) {
+            if (!$schema->hasTable('travis_ci')) {
+                $schema->create('travis_ci', function($table) {
+                    $table->engine = 'MyISAM';
+                    $table->increments('id');
+                    $table->string('test', 20);
+                    $table->timestamps();
+                });
+            }
+        }
     }
 
     /**
@@ -217,9 +239,10 @@ abstract class Application extends App implements IApplication
      * @abstract
      */
     public function unInstallSchema($schema, $name = 'default')
-	{
-		$tables = $schema->dropAllTables();
-	}
+    {
+        if (!is_null($schema))
+            $tables = $schema->dropAllTables();
+    }
 
     /**
      * Cria a instância da sessão com as configurações
@@ -228,7 +251,7 @@ abstract class Application extends App implements IApplication
      *
      * @return Session
      */
-    protected function createSessionInstance($sessionConfigs = [])
+    public function createSessionInstance($sessionConfigs = [])
     {
         return new Session($this, $sessionConfigs);
     }
@@ -238,7 +261,7 @@ abstract class Application extends App implements IApplication
      *
      * @param array $sessionConfigs
      */
-    final protected function setSessionConfigs($sessionConfigs = [])
+    final public function setSessionConfigs($sessionConfigs = [])
     {
         // Inicializa informações de sessão.
         if(!is_null($sessionConfigs))
@@ -252,7 +275,7 @@ abstract class Application extends App implements IApplication
      *
      * @return IViewer
      */
-    protected function createViewerInstance($smartyConfigs = [])
+    public function createViewerInstance($smartyConfigs = [])
     {
         return new SmartyView($this, $smartyConfigs);
     }
@@ -262,7 +285,7 @@ abstract class Application extends App implements IApplication
      *
      * @param array $smartyConfigs
      */
-    final protected function setSmartyConfigs($smartyConfigs = [])
+    final public function setSmartyConfigs($smartyConfigs = [])
     {
         // Inicializa informações de smarty.
         if(!is_null($smartyConfigs))
@@ -274,7 +297,7 @@ abstract class Application extends App implements IApplication
      *
      * @param array $mailerConfigs
      */
-    protected function createMailerInstance($mailerConfigs = [])
+    public function createMailerInstance($mailerConfigs = [])
     {
         return new Mailer($this, $mailerConfigs);
     }
@@ -284,7 +307,7 @@ abstract class Application extends App implements IApplication
      *
      * @param array $mailerConfigs
      */
-    final protected function setMailerConfigs($mailerConfigs = [])
+    final public function setMailerConfigs($mailerConfigs = [])
     {
         // Inicializa informações de mailer.
         if(!is_null($mailerConfigs))
@@ -298,7 +321,7 @@ abstract class Application extends App implements IApplication
      *
      * @return EloquentManager
      */
-    protected function createEloquentInstance($eloquentConfigs = [])
+    public function createEloquentInstance($eloquentConfigs = [])
     {
         return new EloquentManager($this, $eloquentConfigs);
     }
@@ -308,7 +331,7 @@ abstract class Application extends App implements IApplication
      *
      * @param array $eloquentConfigs
      */
-    final protected function setEloquentConfigs($eloquentConfigs = [])
+    final public function setEloquentConfigs($eloquentConfigs = [])
     {
         // Inicializa informações de eloquent.
         if(!is_null($eloquentConfigs))
@@ -322,7 +345,7 @@ abstract class Application extends App implements IApplication
      *
      * @return Cache
      */
-    protected function createCacheInstance($cacheConfigs = [])
+    public function createCacheInstance($cacheConfigs = [])
     {
         return new MemCache($this, $cacheConfigs);
     }
@@ -332,7 +355,7 @@ abstract class Application extends App implements IApplication
      *
      * @param array $cacheConfigs
      */
-    final protected function setCacheConfigs($cacheConfigs = [])
+    final public function setCacheConfigs($cacheConfigs = [])
     {
         // Verifica os dados de configuração de cache.
         if(!is_null($cacheConfigs) && extension_loaded('memcache'))

@@ -2,7 +2,7 @@
 /**
  * BSD 3-Clause License
  * 
- * Copyright (c) 2017, Carlos Henrique
+ * Copyright (c) 2018, Carlos Henrique
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -30,73 +30,42 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
-namespace CHZApp;
-use \CHZApp\Interfaces\IApplication;
-use \CHZApp\Interfaces\IComponent;
-use \CHZApp\Interfaces\ISession;
-
 /**
- * Classe para componenetes da aplicação. Normalmente utilizada
- * para aplicação de plugins.
+ * Classe para realizar o autoloading dos dados.
  *
- * @abstract
  */
-abstract class Component extends HookHandler implements IComponent
+final class HAutoload
 {
     /**
-     * Aplicação que é vinculada ao componente.
-     * @var Application
+     * Método para registrar o autoload.
      */
-    private $app;
-
+    public static function register()
+    {
+        // Registra as funções de autoload para que se tenha
+        // o funcionamento das classes do framework.
+        spl_autoload_register([
+            'HAutoload',
+            'loader'
+        ], true, false);
+    }
     /**
-     * Construtor para o componente, deve receber a aplicação.
+     * Método para carregar as classes do framework.
      *
-     * @param Application $application
+     * @param string $className Nome da classe que irá ser carregada
      */
-    public function __construct(IApplication $app)
+    public static function loader($className)
     {
-        // Inicializa informações de hooking e eventos para a classe
-        parent::__construct();
-
-        // Define a aplicação do componente
-        $this->setApplication($app);
-
-        // Após instânciar tudo e definir... chama o inicializador.
-        $this->init();
-    }
-
-    /**
-     * Inicializador para os componentes.
-     */
-    public function init()
-    {
-        return;
-    }
-
-    /**
-     * @see IComponent::setApplication(IApplication $app)
-     */
-    final public function setApplication(IApplication $app)
-    {
-        $this->app = $app;
-    }
-
-    /**
-     * @see IComponent::getApplication()
-     */
-    final public function getApplication()
-    {
-        return $this->app;
-    }
-
-    /**
-     * Obtém a sessão de navegador do usuário
-     * @return ISession
-     */
-    final public function getSession()
-    {
-        return $this->getApplication()->getSession();
+        // Monta o nome do arquivo da classe e logo após
+        // Tenta fazer a inclusão do arquivo
+        $classFile = join(DIRECTORY_SEPARATOR, [
+            __DIR__,
+            $className . '.php'
+        ]);
+        $classFile = str_replace('\\', DIRECTORY_SEPARATOR, $classFile);
+        // Verifica se o arquivo existe se existir inclui o arquivo no código
+        if(file_exists($classFile))
+            require_once $classFile;
     }
 }
+// Registra o autoload para o site.
+HAutoload::register();

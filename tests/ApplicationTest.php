@@ -39,100 +39,408 @@ use PHPUnit\Framework\TestCase;
  */
 class ApplicationTest extends TestCase
 {
-	private $object;
+	private $appObj;
+	private $xmlJsonObj;
+	private $schemaObj;
+	private $sessionObj;
+	private $viewerObj;
+	private $httpObj;
+	private $mailerObj;
 
 	public function setUp()
 	{
-		$this->object = $this->getMockForAbstractClass('\CHZApp\Application');
+		$this->appObj = $this->getMockForAbstractClass('\CHZApp\Application');
+		$this->xmlJsonObj = $this->createMock('\CHZApp\XmlJsonConverter');
+		$this->schemaObj = $this->createMock('\CHZApp\SchemaValidator');
+		$this->sessionObj = $this->createMock('\CHZApp\Session');
+		$this->viewerObj = $this->createMock('\CHZApp\SmartyView');
+		$this->httpObj = $this->createMock('\CHZApp\HttpClient');
+		$this->mailerObj = $this->createMock('\CHZApp\Mailer');
+
+		$this->xmlJsonObj->setApplication($this->appObj);
+		$this->appObj->setXmlJsonConverter($this->xmlJsonObj);
+		$this->appObj->setSchemaValidator($this->schemaObj);
+		$this->appObj->setSession($this->sessionObj);
+		$this->appObj->setViewer($this->viewerObj);
+		$this->appObj->setHttpClient($this->httpObj);
+		$this->appObj->setMailer($this->mailerObj);
+		$this->appObj->setEloquentConfigs();
+
+		if (!getenv('REMOTE_ADDR'))
+			putenv('REMOTE_ADDR=127.0.0.1');
 	}
 
 	public function testSelf()
 	{
-		$obj = $this->object;
-
-		$this->assertInstanceOf('\Slim\App', $obj);
-		$this->assertInstanceOf('\CHZApp\Interfaces\IApplication', $obj);
+		$this->assertInstanceOf('\Slim\App', $this->appObj);
+		$this->assertInstanceOf('\CHZApp\Interfaces\IApplication', $this->appObj);
 	}
 
-	public function testInstallSchema()
+	public function testGetInstance()
 	{
-		$this->assertNull($this->object->installSchema(null));
+		$obj = forward_static_call([$this->appObj, 'getInstance']);
+		$this->assertEquals($obj, $this->appObj);
 	}
 
-	public function testGetEloquent()
+	public function testSetCacheConfigs()
 	{
-		$this->assertNull($this->object->getEloquent());
+		$this->assertNull($this->appObj->setCacheConfigs());
 	}
 
-	public function testGetMailer()
+	/**
+	 * @expectedException Error
+	 */
+	public function testCreateCacheInstance()
 	{
-		$this->assertNull($this->object->getMailer());
-	}
-
-	public function testGetMemCache()
-	{
-		$this->assertNull($this->object->getMemCache());
-	}
-
-	public function testGetViewer()
-	{
-		$this->assertNull($this->object->getViewer());
-	}
-
-	public function testGetSession()
-	{
-		$this->assertNull($this->object->getSession());
+		$memcache = $this->appObj->createCacheInstance();
 	}
 
 	public function testGetAssetParser()
 	{
-		$parser = $this->object->getAssetParser();
+		$assetObj = $this->appObj->getAssetParser();
 
-		$this->assertInstanceOf('\CHZApp\Interfaces\IComponent', $parser);
-		$this->assertInstanceOf('\CHZApp\Component', $parser);
-		$this->assertInstanceOf('\CHZApp\AssetParser', $parser);
+		$this->assertNotNull($assetObj);
+		$this->assertInstanceOf('\CHZApp\AssetParser', $assetObj);
+		$this->assertInstanceOf('\CHZApp\Component', $assetObj);
+		$this->assertInstanceOf('\CHZApp\Interfaces\IComponent', $assetObj);
 	}
 
-	public function testGetSQLiteCache()
+	public function testSetEloquentConfigs()
 	{
-		$sqlite = $this->object->getSQLiteCache();
-
-		$this->assertInstanceOf('\CHZApp\Interfaces\IComponent', $sqlite);
-		$this->assertInstanceOf('\CHZApp\Component', $sqlite);
-		$this->assertInstanceOf('\CHZApp\ConfigComponent', $sqlite);
-		$this->assertInstanceOf('\CHZApp\Cache', $sqlite);
-		$this->assertInstanceOf('\CHZApp\SQLiteCache', $sqlite);
+		$this->assertNull($this->appObj->setEloquentConfigs());
+		$this->testGetEloquent();
 	}
 
-	public function testGetHttpClient()
+	public function testCreateEloquentInstance()
 	{
-		$client = $this->object->getHttpClient();
-
-		$this->assertInstanceOf('\CHZApp\Interfaces\IComponent', $client);
-		$this->assertInstanceOf('\CHZApp\Interfaces\IHttpClient', $client);
-		$this->assertInstanceOf('\CHZApp\Component', $client);
-		$this->assertInstanceOf('\CHZApp\HttpClient', $client);
+		$eloquent = $this->appObj->createEloquentInstance();
+		
+		$this->assertInstanceOf('\CHZApp\EloquentManager', $eloquent);
+		$this->assertInstanceOf('\CHZApp\ConfigComponent', $eloquent);
+		$this->assertInstanceOf('\CHZApp\Component', $eloquent);
+		$this->assertInstanceOf('\CHZApp\Interfaces\IComponent', $eloquent);
 	}
 
-	public function testGetXmlJsonConverter()
+	public function testGetEloquent()
 	{
-		$obj = $this->object->getXmlJsonConverter();
+		$eloquent = $this->appObj->getEloquent();
 
-		$this->assertInstanceOf('\CHZApp\Interfaces\IComponent', $obj);
-		$this->assertInstanceOf('\CHZApp\Component', $obj);
+		$this->assertNotNull($eloquent);
+		$this->assertInstanceOf('\CHZApp\EloquentManager', $eloquent);
+		$this->assertInstanceOf('\CHZApp\ConfigComponent', $eloquent);
+		$this->assertInstanceOf('\CHZApp\Component', $eloquent);
+		$this->assertInstanceOf('\CHZApp\Interfaces\IComponent', $eloquent);
+
+		$manager = $eloquent->getManager();
+		$conn = $manager->getConnection();
+		$pdo = $conn->getPdo();
+
+		$this->assertNotNull($pdo);
+		$this->assertInstanceOf('\PDO', $pdo);
 	}
 
-	public function testGetSchemaValidator()
+	public function testSetMailerConfigs()
 	{
-		$obj = $this->object->getSchemaValidator();
+		$this->assertNull($this->appObj->setMailerConfigs());
+		$this->testGetMailer();
+	}
 
-		$this->assertInstanceOf('\CHZApp\Interfaces\IComponent', $obj);
-		$this->assertInstanceOf('\CHZApp\Component', $obj);
+	public function testCreateMailerInstance()
+	{
+		$mailerObj = $this->appObj->createMailerInstance();
+
+		$this->assertNotNull($mailerObj);
+		$this->assertInstanceOf('\CHZApp\Mailer', $mailerObj);
+		$this->assertInstanceOf('\CHZApp\ConfigComponent', $mailerObj);
+		$this->assertInstanceOf('\CHZApp\Component', $mailerObj);
+		$this->assertInstanceOf('\CHZApp\Interfaces\IMailer', $mailerObj);
+		$this->assertInstanceOf('\CHZApp\Interfaces\IComponent', $mailerObj);
+	}
+
+	public function testSetSmartyConfigs()
+	{
+		$this->assertNull($this->appObj->setSmartyConfigs());
+		$this->testGetViewer();
+	}
+
+	public function testCreateViewerInstance()
+	{
+		$viewerObj = $this->appObj->createViewerInstance();
+
+		$this->assertNotNull($viewerObj);
+		$this->assertInstanceOf('\CHZApp\Interfaces\IViewer', $viewerObj);
+		$this->assertInstanceOf('\CHZApp\Interfaces\IComponent', $viewerObj);
+		$this->assertInstanceOf('\CHZApp\ConfigComponent', $viewerObj);
+		$this->assertInstanceOf('\CHZApp\Component', $viewerObj);
+	}
+
+	public function testSetSessionConfigs()
+	{
+		$this->assertNull($this->appObj->setSessionConfigs());
+		$this->testGetSession();
+	}
+
+	public function testCreateSessionInstance()
+	{
+		$sessObj = $this->appObj->createSessionInstance();
+
+		$this->assertNotNull($sessObj);
+		$this->assertInstanceOf('\CHZApp\Interfaces\ICrypto', $sessObj);
+		$this->assertInstanceOf('\CHZApp\Interfaces\ISession', $sessObj);
+		$this->assertInstanceOf('\CHZApp\Interfaces\IComponent', $sessObj);
+		$this->assertInstanceOf('\CHZApp\ConfigComponent', $sessObj);
+		$this->assertInstanceOf('\CHZApp\Component', $sessObj);
+		$this->assertInstanceOf('\CHZApp\Session', $sessObj);
+	}
+
+	public function testUnInstallSchema()
+	{
+		$this->assertNull($this->appObj->unInstallSchema(null));
+	}
+
+	public function testInstallSchema()
+	{
+		$this->assertNull($this->appObj->installSchema(null));
+	}
+
+	public function testSetHookAutoload()
+	{
+		$hookAutoload = realpath(join(DIRECTORY_SEPARATOR, [
+			__DIR__,
+			'hooks',
+			'autoload.php'
+		]));
+
+		$this->assertNull($this->appObj->setHookAutoload($hookAutoload));
 	}
 
 	public function testCanHook()
 	{
-		$this->assertEquals(false, $this->object->canHook());
+		$this->assertEquals(false, $this->appObj->canHook());
+	}
+
+	public function testSetMailer()
+	{
+		$mailerObj = $this->createMock('\CHZApp\Mailer');
+		$this->appObj->setMailer($mailerObj);
+		$this->testGetMailer();
+	}
+
+	/**
+	 * @expectedException TypeError
+	 */
+	public function testSetMailer0()
+	{
+		$this->appObj->setMailer(null);
+	}
+
+	/**
+	 * @expectedException TypeError
+	 */
+	public function testSetMailer1()
+	{
+		$this->appObj->setMailer($this->appObj);
+	}
+
+	public function testGetMailer()
+	{
+		$mailerObj = $this->appObj->getMailer();
+
+		$this->assertNotNull($mailerObj);
+		$this->assertInstanceOf('\CHZApp\Mailer', $mailerObj);
+		$this->assertInstanceOf('\CHZApp\ConfigComponent', $mailerObj);
+		$this->assertInstanceOf('\CHZApp\Component', $mailerObj);
+		$this->assertInstanceOf('\CHZApp\Interfaces\IMailer', $mailerObj);
+		$this->assertInstanceOf('\CHZApp\Interfaces\IComponent', $mailerObj);
+	}
+
+	public function testGetMemCache()
+	{
+		$this->assertNull($this->appObj->getMemCache());
+	}
+
+	public function testGetSQLiteCache()
+	{
+		$sqlLite = $this->appObj->getSQLiteCache();
+		
+		$this->assertNotNull($sqlLite);
+		$this->assertInstanceOf('\CHZApp\Cache', $sqlLite);
+		$this->assertInstanceOf('\CHZApp\ConfigComponent', $sqlLite);
+		$this->assertInstanceOf('\CHZApp\Component', $sqlLite);
+		$this->assertInstanceOf('\CHZApp\Interfaces\IComponent', $sqlLite);
+	}
+
+	public function testHttpClient()
+	{
+		$this->appObj->setHttpClient($this->httpObj);
+		$this->testGetHttpClient();
+	}
+
+	/**
+	 * @expectedException TypeError
+	 */
+	public function testSetHttpClient0()
+	{
+		$this->appObj->setHttpClient(null);
+	}
+
+	/**
+	 * @expectedException TypeError
+	 */
+	public function testSetHttpClient1()
+	{
+		$this->appObj->setHttpClient($this->appObj);
+	}
+
+	public function testGetHttpClient()
+	{
+		$httpObj = $this->appObj->getHttpClient();
+
+		$this->assertNotNull($httpObj);
+		$this->assertInstanceOf('\CHZApp\Interfaces\IHttpClient', $httpObj);
+		$this->assertInstanceOf('\CHZApp\Interfaces\IComponent', $httpObj);
+		$this->assertInstanceOf('\CHZApp\Component', $httpObj);
+		$this->assertEquals($httpObj, $this->httpObj);
+	}
+
+	public function testSetViewer()
+	{
+		$this->appObj->setViewer($this->viewerObj);
+		$this->testGetViewer();
+	}
+
+	/**
+	 * @expectedException TypeError
+	 */
+	public function testSetViewer0()
+	{
+		$this->appObj->setViewer(null);
+	}
+
+	/**
+	 * @expectedException TypeError
+	 */
+	public function testSetViewer1()
+	{
+		$this->appObj->setViewer($this->appObj);
+	}
+
+	public function testGetViewer()
+	{
+		$viewerObj = $this->appObj->getViewer();
+
+		$this->assertNotNull($viewerObj);
+		$this->assertInstanceOf('\CHZApp\Interfaces\IViewer', $viewerObj);
+		$this->assertInstanceOf('\CHZApp\Interfaces\IComponent', $viewerObj);
+		$this->assertInstanceOf('\CHZApp\ConfigComponent', $viewerObj);
+		$this->assertInstanceOf('\CHZApp\Component', $viewerObj);
+	}
+
+	public function testSetSession()
+	{
+		$this->appObj->setSession($this->sessionObj);
+		$this->testGetSession();
+	}
+
+	/**
+	 * @expectedException TypeError
+	 */
+	public function testSetSession0()
+	{
+		$this->appObj->setSession(null);
+	}
+
+	/**
+	 * @expectedException TypeError
+	 */
+	public function testSetSession1()
+	{
+		$this->appObj->setSession($this->appObj);
+	}
+
+	public function testGetSession()
+	{
+		$sessObj = $this->appObj->getSession();
+
+		$this->assertNotNull($sessObj);
+		$this->assertInstanceOf('\CHZApp\Interfaces\ICrypto', $sessObj);
+		$this->assertInstanceOf('\CHZApp\Interfaces\ISession', $sessObj);
+		$this->assertInstanceOf('\CHZApp\Interfaces\IComponent', $sessObj);
+		$this->assertInstanceOf('\CHZApp\ConfigComponent', $sessObj);
+		$this->assertInstanceOf('\CHZApp\Component', $sessObj);
+		$this->assertInstanceOf('\CHZApp\Session', $sessObj);
+	}
+
+	public function testGetIpAddress()
+	{
+		$ipAddress = $this->appObj->getIpAddress();
+		$this->assertEquals('127.0.0.1', $ipAddress);
+	}
+
+	public function testSetSchemaValidator()
+	{
+		$this->appObj->setSchemaValidator($this->schemaObj);
+		$this->testGetSchemaValidator();
+	}
+
+	/**
+	 * @expectedException TypeError
+	 */
+	public function testFailingSetSchemaValidator0()
+	{
+		$this->appObj->setSchemaValidator(null);
+	}
+
+	/**
+	 * @expectedException TypeError
+	 */
+	public function testFailingSetSchemaValidator1()
+	{
+		$this->appObj->setSchemaValidator($this->appObj);
+	}
+
+	public function testGetSchemaValidator()
+	{
+		$schemaObj = $this->appObj->getSchemaValidator();
+
+		$this->assertNotNull($schemaObj);
+		$this->assertInstanceOf('\CHZApp\SchemaValidator', $schemaObj);
+		$this->assertInstanceOf('\CHZApp\Component', $schemaObj);
+		$this->assertInstanceOf('\CHZApp\Interfaces\IComponent', $schemaObj);
+		$this->assertEquals($schemaObj, $this->schemaObj);
+	}
+
+	public function testGetXmlJsonConverter()
+	{
+		$xmlObj = $this->appObj->getXmlJsonConverter();
+		
+		$this->assertNotNull($xmlObj);
+		$this->assertInstanceOf('\CHZApp\XmlJsonConverter', $xmlObj);
+		$this->assertInstanceOf('\CHZApp\Component', $xmlObj);
+		$this->assertInstanceOf('\CHZApp\Interfaces\IComponent', $xmlObj);
+		$this->assertEquals($xmlObj, $this->xmlJsonObj);
+	}
+
+	public function testSetXmlJsonConverter()
+	{
+		$this->appObj->setXmlJsonConverter($this->xmlJsonObj);
+		$this->testGetXmlJsonConverter();
+	}
+
+	/**
+	 * @expectedException TypeError
+	 */
+	public function testFailingSetXmlJsonConverter0()
+	{
+		$this->appObj->setXmlJsonConverter(null);
+	}
+
+	/**
+	 * @expectedException TypeError
+	 */
+	public function testFailingSetXmlJsonConverter1()
+	{
+		$this->appObj->setXmlJsonConverter($this->appObj);
 	}
 }
 
