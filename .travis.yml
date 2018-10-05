@@ -8,7 +8,8 @@ cache:
     directories:
       - "$HOME/.composer/cache"
 before_install:
-  - pecl install memcache
+  - pecl channel-update pecl.php.net
+  - yes | pecl install memcache
   - echo "extension=memcache.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
   - travis_retry composer self-update
   - composer install
