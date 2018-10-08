@@ -53,6 +53,22 @@ class AssetSQLiteCacheTest extends TestCase
 
     public function testParseFileFromCache()
     {
+        $sTestCompiledScss = join(DIRECTORY_SEPARATOR, [
+            $this->assetDir,
+            'test.scss'
+        ]);
+        $sTestCacheScss = join(DIRECTORY_SEPARATOR, [
+            $this->assetDir,
+            'test-compiled.scss.cache.css'
+        ]);
+
+        $sTestScss = file_get_contents($sTestCompiledScss);
+        $sTestCacheContentScss = file_get_contents($sTestCacheScss);
+
+        $cacheScss = $this->sqlCache->parseFileFromCache($sTestCompiledScss, $sTestScss);
+
+        $this->assertEquals($cacheScss, $sTestCacheContentScss);
+
         $sTestCompiledCss = join(DIRECTORY_SEPARATOR, [
             $this->assetDir,
             'test-compiled.css'
