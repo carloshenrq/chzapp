@@ -76,4 +76,21 @@ class AssetParserTest extends TestCase
 
 		$this->assertEquals($scssComp, $scssCompiled);
 	}
+
+	public function testCoffeeScript()
+	{
+		$coffeeTestFile = join(DIRECTORY_SEPARATOR, [
+			$this->assetDir,
+			'test.coffee'
+		]);
+		$coffeeCompiled = join(DIRECTORY_SEPARATOR, [
+			$this->assetDir,
+			'test-min.js'
+		]);
+
+		$coffee = file_get_contents($coffeeCompiled);
+		$js = $this->obj->coffeeScript($coffeeTestFile);
+
+		$this->assertEquals($js, $coffee);
+	}
 }
