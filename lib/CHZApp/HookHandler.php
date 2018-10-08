@@ -81,6 +81,7 @@ abstract class HookHandler implements IEventHandler, IHookHandler
                 ])));
 
                 $this->readHookDir();
+                $this->readHookDir();
             }
         }
     }
