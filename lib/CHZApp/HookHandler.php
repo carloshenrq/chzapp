@@ -57,6 +57,9 @@ abstract class HookHandler implements IEventHandler, IHookHandler
         // hooks presentes na pasta.
         if($this->canHook())
         {
+            // Inicializa as variaveis de leitura para hooking.
+            $this->hookMethods = $this->hookProperties = $this->hookReadFiles = [];
+
             // Define o local aonde serão lidos os hooks
             $this->setHookDir(realpath(join(DIRECTORY_SEPARATOR, [
                 __DIR__,
@@ -145,7 +148,7 @@ abstract class HookHandler implements IEventHandler, IHookHandler
     final public function readHookDir()
     {
         // Inicializa as variaveis de hooking
-        $_tmpHookFiles = $this->hookMethods = $this->hookProperties = $this->hookReadFiles = [];
+        $_tmpHookFiles = [];
 
         // Se o diretório estiver embranco... então não será executado.
         if(empty($this->getHookDir()))
@@ -180,7 +183,7 @@ abstract class HookHandler implements IEventHandler, IHookHandler
         {
             // Se o arquivo já foi adicionado então, não há sentido
             // adicionar ele novamente.
-            if(in_array($hookFile, $this->hookReadFiles))
+            if(in_array($hookFile, $this->getHookedFiles()))
                 continue;
 
             // Abre os dados de arquivo de hooking
