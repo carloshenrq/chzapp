@@ -53,20 +53,36 @@ class AssetSQLiteCacheTest extends TestCase
 
     public function testParseFileFromCache()
     {
-        $sTestCompiled = join(DIRECTORY_SEPARATOR, [
+        $sTestCompiledCss = join(DIRECTORY_SEPARATOR, [
             $this->assetDir,
             'test-compiled.scss'
         ]);
-        $sTestCache = join(DIRECTORY_SEPARATOR, [
+        $sTestCacheCss = join(DIRECTORY_SEPARATOR, [
             $this->assetDir,
-            'test-compiled.scss.cache'
+            'test-compiled.scss.cache.css'
         ]);
 
-        $sTest = file_get_contents($sTestCompiled);
-        $sTestCacheContent = file_get_contents($sTestCache);
+        $sTestCss = file_get_contents($sTestCompiledCss);
+        $sTestCacheContentCss = file_get_contents($sTestCacheCss);
 
-        $cache = $this->sqlCache->parseFileFromCache($sTestCompiled, $sTest);
-        
-        $this->assertEquals($cache, $sTestCacheContent);
+        $cacheCss = $this->sqlCache->parseFileFromCache($sTestCompiledCss, $sTestCss);
+
+        $this->assertEquals($cacheCss, $sTestCacheContentCss);
+
+        $sTestCompiledJs = join(DIRECTORY_SEPARATOR, [
+            $this->assetDir,
+            'test-min.js'
+        ]);
+        $sTestCacheJs = join(DIRECTORY_SEPARATOR, [
+            $this->assetDir,
+            'test-min.cache.js'
+        ]);
+
+        $sTestJs = file_get_contents($sTestCompiledJs);
+        $sTestCacheContentJs = file_get_contents($sTestCacheJs);
+
+        $cacheJs = $this->sqlCache->parseFileFromCache($sTestCompiledJs, $sTestJs);
+
+        $this->assertEquals($cacheJs, $sTestCacheContentJs);
     }
 }
