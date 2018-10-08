@@ -44,6 +44,8 @@ class AssetParserTest extends TestCase
 	public function setUp()
 	{
 		$this->appObj = $this->getMockForAbstractClass('\CHZApp\Application');
+		$this->appObj->setSession($this->createMock('\CHZApp\Session'));
+
 		$this->obj = $this->appObj->getAssetParser();
 		$this->assetDir = join(DIRECTORY_SEPARATOR, [
 			__DIR__,
@@ -58,6 +60,15 @@ class AssetParserTest extends TestCase
 		$this->assertInstanceOf('\CHZApp\AssetSQLiteCache', $sqlObj);
 		$this->assertInstanceOf('\CHZApp\Component', $sqlObj);
 		$this->assertInstanceOf('\CHZApp\Interfaces\IComponent', $sqlObj);
+
+		$sessObj = $sqlObj->getSession();
+		$this->assertNotNull($sessObj);
+		$this->assertInstanceOf('\CHZApp\Interfaces\ICrypto', $sessObj);
+		$this->assertInstanceOf('\CHZApp\Interfaces\ISession', $sessObj);
+		$this->assertInstanceOf('\CHZApp\Interfaces\IComponent', $sessObj);
+		$this->assertInstanceOf('\CHZApp\ConfigComponent', $sessObj);
+		$this->assertInstanceOf('\CHZApp\Component', $sessObj);
+		$this->assertInstanceOf('\CHZApp\Session', $sessObj);
 	}
 
 	public function testScss()
