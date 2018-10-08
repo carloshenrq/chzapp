@@ -57,6 +57,20 @@ abstract class HookHandler implements IEventHandler, IHookHandler
         // hooks presentes na pasta.
         if($this->canHook())
         {
+            // Define o local aonde serão lidos os hooks
+            $this->setHookDir(realpath(join(DIRECTORY_SEPARATOR, [
+                __DIR__,
+                '..',
+                '..',
+                '..',
+                '..',
+                '..',
+                'hooks'
+            ])));
+
+            // Inicia a leitura dos dados de hook
+            $this->readHookDir();
+
             if (getenv('TRAVIS_CI_DEBUG') !== false && getenv('TRAVIS_CI_DEBUG') == 1) {
                 $this->setHookDir(realpath(join(DIRECTORY_SEPARATOR, [
                     __DIR__,
@@ -65,21 +79,9 @@ abstract class HookHandler implements IEventHandler, IHookHandler
                     'tests',
                     'hooks'
                 ])));
-            } else {
-                // Define o local aonde serão lidos os hooks
-                $this->setHookDir(realpath(join(DIRECTORY_SEPARATOR, [
-                    __DIR__,
-                    '..',
-                    '..',
-                    '..',
-                    '..',
-                    '..',
-                    'hooks'
-                ])));
-            }
 
-            // Inicia a leitura dos dados de hook
-            $this->readHookDir();
+                $this->readHookDir();
+            }
         }
     }
     
