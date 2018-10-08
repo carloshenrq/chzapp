@@ -55,7 +55,7 @@ class AssetSQLiteCacheTest extends TestCase
     {
         $sTestCompiledCss = join(DIRECTORY_SEPARATOR, [
             $this->assetDir,
-            'test-compiled.scss'
+            'test-compiled.css'
         ]);
         $sTestCacheCss = join(DIRECTORY_SEPARATOR, [
             $this->assetDir,

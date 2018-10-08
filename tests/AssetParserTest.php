@@ -68,7 +68,7 @@ class AssetParserTest extends TestCase
 		]);
 		$scssCompiledFile = join(DIRECTORY_SEPARATOR, [
 			$this->assetDir,
-			'test-compiled.scss'
+			'test-compiled.css'
 		]);
 
 		$scssCompiled = file_get_contents($scssCompiledFile);
