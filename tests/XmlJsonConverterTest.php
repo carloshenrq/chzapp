@@ -30,47 +30,38 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+require_once 'lib/autoload.php';
 
-namespace CHZApp;
+use \PHPUnit\Framework\TestCase;
 
-use \DOMDocument;
-
-class SchemaValidator extends Component
+class XmlJsonConverterTest extends TestCase
 {
-	/**
-	 * Validates an xml file against an xsd file.
-	 *
-	 * @param string $sFileXml Full path to xml file.
-	 * @param string $sFileXsd Full path to xsd file
-	 *
-	 * @return boolean True is a valid xml valid
-	 */
-	final public function validateXmlFile($sFileXml, $sFileXsd)
-	{
-		if(!file_exists($sFileXml))
-			throw new SchemaValidatorException('File in \'' . $sFileXml . '\' not found.');
+    private $xmlObj;
 
-		return $this->validateXml(file_get_contents($sFileXml), $sFileXsd);
-	}
+    public function setUp()
+    {
+        $xmlObj = $this->getMockBuilder('\CHZApp\XmlJsonConverter')
+                        ->disableOriginalConstructor()
+                        ->getMock();
+        $this->xmlObj = $xmlObj;
+    }
 
-	/**
-	 * Validates an xml content against an xsd file.
-	 *
-	 * @param string $sXmlContent Xml content to be validate
-	 * @param string $sFileXsd Full path to xsd file
-	 *
-	 * @return boolean True is a valid xml valid
-	 */
-	final public function validateXml($sXmlContent, $sFileXsd)
-	{
-		libxml_use_internal_errors(true);
-		$xml = new DOMDocument;
+    public function testJsonFile2xml()
+    {
+        $jsonFile = join(DIRECTORY_SEPARATOR, [
+            __DIR__,
+            'asset',
+            'test.json'
+        ]);
+        $xmlFile = join(DIRECTORY_SEPARATOR, [
+            __DIR__,
+            'asset',
+            'test.xml'
+        ]);
 
-		if(@$xml->loadXML($sXmlContent) == false)
-			throw new SchemaValidatorException('The xml content is not a valid xml.');
+        $xmlTest = file_get_contents($xmlFile);
+        $xml = $this->xmlObj->jsonFile2xml($jsonFile);
 
-		// Validates the content loaded agains the xsd file.
-		return @$xml->schemaValidate($sFileXsd);
-	}
-
+        $this->assertEquals($xmlTest, $xml);
+    }
 }

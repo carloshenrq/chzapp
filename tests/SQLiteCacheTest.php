@@ -30,47 +30,50 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+require_once 'lib/autoload.php';
 
-namespace CHZApp;
+use PHPUnit\Framework\TestCase;
 
-use \DOMDocument;
-
-class SchemaValidator extends Component
+class SQLiteCacheTest extends TestCase
 {
-	/**
-	 * Validates an xml file against an xsd file.
-	 *
-	 * @param string $sFileXml Full path to xml file.
-	 * @param string $sFileXsd Full path to xsd file
-	 *
-	 * @return boolean True is a valid xml valid
-	 */
-	final public function validateXmlFile($sFileXml, $sFileXsd)
-	{
-		if(!file_exists($sFileXml))
-			throw new SchemaValidatorException('File in \'' . $sFileXml . '\' not found.');
+    private $appObj;
+    private $sqlObj;
 
-		return $this->validateXml(file_get_contents($sFileXml), $sFileXsd);
-	}
+    public function setUp()
+    {
+        $this->appObj = $this->getMockForAbstractClass('\CHZApp\Application');
+        $this->sqlObj = $this->appObj->getSQLiteCache();
+    }
 
-	/**
-	 * Validates an xml content against an xsd file.
-	 *
-	 * @param string $sXmlContent Xml content to be validate
-	 * @param string $sFileXsd Full path to xsd file
-	 *
-	 * @return boolean True is a valid xml valid
-	 */
-	final public function validateXml($sXmlContent, $sFileXsd)
-	{
-		libxml_use_internal_errors(true);
-		$xml = new DOMDocument;
+    public function testRemove()
+    {
+        $affected = $this->sqlObj->remove('test_0');
+        $this->assertEquals(true, $affected);
+    }
 
-		if(@$xml->loadXML($sXmlContent) == false)
-			throw new SchemaValidatorException('The xml content is not a valid xml.');
+    public function testCreate()
+    {
+        $cache = hash('md5', microtime(true));
+        $cached = $this->sqlObj->create('test_0', $cache, 60);
 
-		// Validates the content loaded agains the xsd file.
-		return @$xml->schemaValidate($sFileXsd);
-	}
+        $this->assertEquals($cache, $cached);
+    }
 
+    public function testGet()
+    {
+        $cache = $this->sqlObj->get('test_1');
+        $this->assertNull($cache);
+    }
+
+    public function testParse()
+    {
+        $cache = hash('md5', microtime(true));
+        $cached = $this->sqlObj->parse('test_2', $cache, 60, true);
+
+        $this->assertEquals($cache, $cached);
+        unset($cached);
+
+        $cached = $this->sqlObj->parse('test_2', $cache, 60);
+        $this->assertEquals($cache, $cached);
+    }
 }

@@ -1,0 +1,9 @@
+{
+    "test" : {
+        "testElement" : "now this is a test",
+        "-testAttr" : "this is a attribute",
+        "testChild" : {
+            "newTesting" : "it's ok"
+        }
+    }
+}

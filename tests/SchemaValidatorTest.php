@@ -30,47 +30,54 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+require_once 'lib/autoload.php';
 
-namespace CHZApp;
+use \PHPUnit\Framework\TestCase;
 
-use \DOMDocument;
-
-class SchemaValidator extends Component
+class SchemaValidatorTest extends TestCase
 {
-	/**
-	 * Validates an xml file against an xsd file.
-	 *
-	 * @param string $sFileXml Full path to xml file.
-	 * @param string $sFileXsd Full path to xsd file
-	 *
-	 * @return boolean True is a valid xml valid
-	 */
-	final public function validateXmlFile($sFileXml, $sFileXsd)
-	{
-		if(!file_exists($sFileXml))
-			throw new SchemaValidatorException('File in \'' . $sFileXml . '\' not found.');
+    private $schema;
+    private $xml;
+    private $xsd;
 
-		return $this->validateXml(file_get_contents($sFileXml), $sFileXsd);
-	}
+    public function setUp()
+    {
+        $this->schema = $this->createMock('\CHZApp\SchemaValidator');
+        $this->xml = join(DIRECTORY_SEPARATOR, [
+            __DIR__,
+            'asset',
+            'test.xml'
+        ]);
+        $this->xsd = join(DIRECTORY_SEPARATOR, [
+            __DIR__,
+            'asset',
+            'test.xsd'
+        ]);
+    }
 
-	/**
-	 * Validates an xml content against an xsd file.
-	 *
-	 * @param string $sXmlContent Xml content to be validate
-	 * @param string $sFileXsd Full path to xsd file
-	 *
-	 * @return boolean True is a valid xml valid
-	 */
-	final public function validateXml($sXmlContent, $sFileXsd)
-	{
-		libxml_use_internal_errors(true);
-		$xml = new DOMDocument;
+    public function testValidateXmlFile()
+    {
+        $result = $this->schema->validateXmlFile($this->xml, $this->xsd);
+        $this->assertTrue($result);
+    }
 
-		if(@$xml->loadXML($sXmlContent) == false)
-			throw new SchemaValidatorException('The xml content is not a valid xml.');
+    /**
+     * @expectedException \CHZApp\SchemaValidatorException
+     */
+    public function testValidateXmlFile0()
+    {
+        $this->schema->validateXmlFile('test.xml', $this->xsd);
+    }
 
-		// Validates the content loaded agains the xsd file.
-		return @$xml->schemaValidate($sFileXsd);
-	}
-
+    /**
+     * @expectedException \CHZApp\SchemaValidatorException
+     */
+    public function testValidateXmlFile1()
+    {
+        $this->schema->validateXmlFile(join(DIRECTORY_SEPARATOR, [
+            __DIR__,
+            'asset',
+            'test1.xml'
+        ]), $this->xsd);
+    }
 }

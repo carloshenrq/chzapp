@@ -30,47 +30,28 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+require_once 'lib/autoload.php';
 
-namespace CHZApp;
+use \PHPUnit\Framework\TestCase;
+use \GuzzleHttp\Client;
 
-use \DOMDocument;
-
-class SchemaValidator extends Component
+class HttpClientTest extends TestCase
 {
-	/**
-	 * Validates an xml file against an xsd file.
-	 *
-	 * @param string $sFileXml Full path to xml file.
-	 * @param string $sFileXsd Full path to xsd file
-	 *
-	 * @return boolean True is a valid xml valid
-	 */
-	final public function validateXmlFile($sFileXml, $sFileXsd)
-	{
-		if(!file_exists($sFileXml))
-			throw new SchemaValidatorException('File in \'' . $sFileXml . '\' not found.');
+    private $httpObj;
 
-		return $this->validateXml(file_get_contents($sFileXml), $sFileXsd);
-	}
+    public function setUp()
+    {
+        $this->httpObj = $this->createMock('\CHZApp\HttpClient');
+    }
 
-	/**
-	 * Validates an xml content against an xsd file.
-	 *
-	 * @param string $sXmlContent Xml content to be validate
-	 * @param string $sFileXsd Full path to xsd file
-	 *
-	 * @return boolean True is a valid xml valid
-	 */
-	final public function validateXml($sXmlContent, $sFileXsd)
-	{
-		libxml_use_internal_errors(true);
-		$xml = new DOMDocument;
-
-		if(@$xml->loadXML($sXmlContent) == false)
-			throw new SchemaValidatorException('The xml content is not a valid xml.');
-
-		// Validates the content loaded agains the xsd file.
-		return @$xml->schemaValidate($sFileXsd);
-	}
-
+    public function testCreateClient()
+    {
+        $resp = $this->httpObj->createClient()
+                    ->get('http://clients3.google.com/generate_204')
+                    ->getBody()
+                    ->getContents();
+        
+        $this->assertNotNull($resp);
+        $this->assertEquals(strlen($resp), 0);
+    }
 }
