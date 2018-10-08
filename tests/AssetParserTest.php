@@ -37,60 +37,43 @@ use \MatthiasMullie\Minify;
 
 class AssetParserTest extends TestCase
 {
+	private $appObj;
 	private $obj;
+	private $assetDir;
 
 	public function setUp()
 	{
-		$this->obj = $this->createMock('\CHZApp\AssetParser');
+		$this->appObj = $this->getMockForAbstractClass('\CHZApp\Application');
+		$this->obj = $this->appObj->getAssetParser();
+		$this->assetDir = join(DIRECTORY_SEPARATOR, [
+			__DIR__,
+			'asset'
+		]);
 	}
 
 	public function testGetSqlCache()
 	{
-		$this->assertNull($this->obj->getSqlCache());
+		$sqlObj = $this->obj->getSqlCache();
+		$this->assertNotNull($sqlObj);
+		$this->assertInstanceOf('\CHZApp\AssetSQLiteCache', $sqlObj);
+		$this->assertInstanceOf('\CHZApp\Component', $sqlObj);
+		$this->assertInstanceOf('\CHZApp\Interfaces\IComponent', $sqlObj);
 	}
 
-	public function testCssMinify()
+	public function testScss()
 	{
-		$cssFile = realpath(join(DIRECTORY_SEPARATOR, [
-			__DIR__,
-			'asset',
-			'test.css'
-		]));
-		$cssFileMin = realpath(join(DIRECTORY_SEPARATOR, [
-			__DIR__,
-			'asset',
-			'test-min.css'
-		]));
+		$scssTestFile = join(DIRECTORY_SEPARATOR, [
+			$this->assetDir,
+			'test.scss'
+		]);
+		$scssCompiledFile = join(DIRECTORY_SEPARATOR, [
+			$this->assetDir,
+			'test-compiled.scss'
+		]);
 
-		$css = file_get_contents($cssFile);
-		$cssMin = file_get_contents($cssFileMin);
+		$scssCompiled = file_get_contents($scssCompiledFile);
+		$scssComp = $this->obj->scss($scssTestFile);
 
-		$minify = new \MatthiasMullie\Minify\CSS;
-		$minify->add($css);
-
-		$this->assertEquals($minify->minify(), $cssMin);
+		$this->assertEquals($scssComp, $scssCompiled);
 	}
-
-	public function testJsMinify()
-	{
-		$jsFile = realpath(join(DIRECTORY_SEPARATOR, [
-			__DIR__,
-			'asset',
-			'test.js'
-		]));
-		$jsFileMin = realpath(join(DIRECTORY_SEPARATOR, [
-			__DIR__,
-			'asset',
-			'test-min.js'
-		]));
-
-		$js = file_get_contents($jsFile);
-		$jsMin = file_get_contents($jsFileMin);
-
-		$minify = new \MatthiasMullie\Minify\JS;
-		$minify->add($js);
-
-		$this->assertEquals($minify->minify(), $jsMin);
-	}
-
 }
