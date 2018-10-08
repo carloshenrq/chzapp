@@ -75,7 +75,7 @@ class EloquentManager extends ConfigComponent
         $manager->setAsGlobal();
         $manager->bootEloquent();
 
-        $this->manager = $manager;
+        $this->setManager($manager);
 		
         // Automaticamente instala o banco de dados da aplicação.
         foreach($this->schemas as $name)
