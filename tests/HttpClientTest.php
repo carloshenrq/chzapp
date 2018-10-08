@@ -30,23 +30,28 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+require_once 'lib/autoload.php';
 
-namespace CHZApp\Interfaces;
+use \PHPUnit\Framework\TestCase;
+use \GuzzleHttp\Client;
 
-/**
- * Interface para conexões com outros serviços de HTTP
- */
-interface IHttpClient
+class HttpClientTest extends TestCase
 {
-    /**
-     * Cria o cliente de conexão com o URL informado para realizar
-     * chamadas.
-     *
-     * @param string $url Caminho que será chamado.
-     * @param bool $verify Caso for HTTPS verificar o certificado.
-     * @param array $options Opções do client guzzle.
-     *
-     * @return \GuzzleHttp\Client
-     */
-    public function createClient($url = '', $verify = false, $options = []);
+    private $httpObj;
+
+    public function setUp()
+    {
+        $this->httpObj = $this->createMock('\CHZApp\HttpClient');
+    }
+
+    public function testCreateClient()
+    {
+        $resp = $this->httpObj->createClient()
+                    ->get('http://clients3.google.com/generate_204')
+                    ->getBody()
+                    ->getContents();
+        
+        $this->assertNotNull($resp);
+        $this->assertEquals(strlen($resp), 0);
+    }
 }

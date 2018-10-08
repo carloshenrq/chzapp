@@ -42,61 +42,9 @@ use \CHZApp\Interfaces\IHttpClient;
 class HttpClient extends Component implements IHttpClient
 {
     /**
-     * Realiza uma requisição para obter o endereço ip de internet
-     * o servidor que está sendo executado.
-     *
-     * @return string Endereço ip.
+     * @see IHttpClient::createClient()
      */
-    public function getServerIpAddress()
-    {
-        $serverResponse = $this->createClient()
-                                ->get('https://api.ipify.org/')
-                                ->getBody()
-                                ->getContents();
-        return $serverResponse;
-    }
-
-    /**
-     * Realiza a verificação de componente do reCaptcha solicitado.
-     *
-     * @param string $challengeResponse Retorno do desafio em tela preenchido pelo usuário.
-     * @param string $secretKey Chave secreta para comunicação direta com o google.
-     *
-     * @return bool Verdadeiro caso os dados estejam validos.
-     */
-    public function verifyRecaptcha($challengeResponse, $secretKey)
-    {
-        // Obtém a resposta da google quanto a chave informada
-        // e o desafio realizado.
-        $googleResponse = $this->createClient()
-                                ->post('https://www.google.com/recaptcha/api/siteverify', [
-                                    'form_params'   => [
-                                        'secret'    => $secretKey,
-                                        'response'  => $challengeResponse
-                                    ]
-                                ])
-                                ->getBody()
-                                ->getContents();
-        // Retorna os dados em json
-        $googleJson = json_decode($googleResponse);
-
-        // Caso haja sucesso na validação dos dados, 
-        // Então retornará 1. (Dando verdadeiro no retorno)
-        return ($googleJson->success == 1);
-    }
-
-
-    /**
-     * Cria o cliente de conexão com o URL informado para realizar
-     * chamadas.
-     *
-     * @param string $url Caminho que será chamado.
-     * @param bool $verify Caso for HTTPS verificar o certificado.
-     * @param array $options Opções do client guzzle.
-     *
-     * @return \GuzzleHttp\Client
-     */
-    public function createClient($url = '', $verify = false, $options = [])
+    final public function createClient($url = '', $verify = false, $options = [])
     {
         return new Client(array_merge([
             'base_uri'      => $url,
