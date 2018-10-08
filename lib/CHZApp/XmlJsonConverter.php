@@ -45,7 +45,7 @@ class XmlJsonConverter extends Component
 	 *
 	 * @return string the xml mounted
 	 */
-	public function jsonFile2xml($jsonFile)
+	final public function jsonFile2xml($jsonFile)
 	{
 		return $this->jsonString2xml(file_get_contents($jsonFile));
 	}
@@ -57,7 +57,7 @@ class XmlJsonConverter extends Component
 	 *
 	 * @return string the xml mounted
 	 */
-	public function jsonString2xml($jsonString)
+	final public function jsonString2xml($jsonString)
 	{
 		return $this->json2xml(json_decode($jsonString));
 	}
@@ -69,7 +69,7 @@ class XmlJsonConverter extends Component
 	 *
 	 * @return string The xml mounted
 	 */
-	public function json2xml($jsonData)
+	final public function json2xml($jsonData)
 	{
 		return $this->array2xml(json_decode(json_encode($jsonData), true));
 	}
@@ -82,7 +82,7 @@ class XmlJsonConverter extends Component
 	 *
 	 * @return string Xml as string
 	 */
-	public function array2xml($array, SimpleXMLElement $xml = null)
+	final public function array2xml($array, SimpleXMLElement $xml = null)
 	{
         if(is_null($xml))
         {

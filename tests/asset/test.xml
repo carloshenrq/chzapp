@@ -1,0 +1,2 @@
+<?xml version="1.0"?>
+<test testAttr="this is a attribute"><testElement>now this is a test</testElement><testChild><newTesting>it's ok</newTesting></testChild></test>
