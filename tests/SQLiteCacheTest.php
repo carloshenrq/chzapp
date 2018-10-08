@@ -73,7 +73,7 @@ class SQLiteCacheTest extends TestCase
         $this->assertEquals($cache, $cached);
         unset($cached);
 
-        $cached = $this->sqlObj->parse('test_2', $cache, 60, true);
+        $cached = $this->sqlObj->parse('test_2', $cache, 60);
         $this->assertEquals($cache, $cached);
     }
 }
