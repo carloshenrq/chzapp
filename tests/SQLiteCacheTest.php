@@ -52,11 +52,11 @@ class SQLiteCacheTest extends TestCase
 
     public function testEventsRemoveListener()
     {
-        $this->sqlObj->removeEventListener('test');
-        $this->sqlObj->addEventListener('test', function() {
+        $this->assertNull($this->sqlObj->removeEventListener('test'));
+        $this->assertNull($this->sqlObj->addEventListener('test', function() {
             return;
-        });
-        $this->sqlObj->removeEventListener('test');
+        }));
+        $this->assertNull($this->sqlObj->removeEventListener('test'));
     }
 
     /**
