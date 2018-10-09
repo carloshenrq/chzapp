@@ -43,6 +43,7 @@ class SQLiteCacheTest extends TestCase
     {
         $this->appObj = $this->getMockForAbstractClass('\CHZApp\Application');
         $this->sqlObj = $this->appObj->getSQLiteCache();
+        $this->sqlObj->init();
     }
 
     public function testHooks()

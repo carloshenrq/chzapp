@@ -170,7 +170,7 @@ abstract class HookHandler implements IEventHandler, IHookHandler
                     $this->getHookDir(),
                     $fHook->getFilename()
                 ]);
-            }   
+            }
         }
 
         // Se não houver hooks, ignora a leitura e passa para o próximo.
@@ -193,29 +193,31 @@ abstract class HookHandler implements IEventHandler, IHookHandler
             $this->hookReadFiles[] = $hookFile;
 
             // Possui os métodos para adicionar os hooks?
-            if(isset($hookContent['methods']))
-            {
+            if(isset($hookContent['methods'])) {
                 foreach($hookContent['methods'] as $method => $callback)
                     $this->hookMethods[$method] = $callback;
             }
 
             // Possui os propriedades para adicionar os hooks?
-            if(isset($hookContent['properties']))
-            {
-                foreach($hookContent['properties'] as $propertyName => $propertyValue)
-                    $this->hookProperties[$propertyName] = $propertyValue;
+            if(isset($hookContent['properties'])) {
+                foreach($hookContent['properties'] as $propertyName => $propertyValue) {
+                    $this->hookProperties[$propertyName] = null;
+                    $this->{$propertyName} = $propertyValue;
+
+                    if($this->{$propertyName} == $propertyValue) {
+                        // @todo: hooking property
+                    }
+                }
             }
 
             // Adicionado a leitura de tags de evento
-            if(isset($hookContent['events']))
-            {
+            if(isset($hookContent['events'])) {
                 foreach($hookContent['events'] as $event => $eventCallback)
                     $this->addEventListener($event, $eventCallback);
             }
 
             // Verifica se existe os dados para execução inicial do plugin
-            if(isset($hookContent['init']))
-            {
+            if(isset($hookContent['init'])) {
                 $closureObj = \Closure::bind($hookContent['init'], $this);
                 call_user_func($closureObj);
             }
@@ -317,7 +319,7 @@ abstract class HookHandler implements IEventHandler, IHookHandler
         {
             // Se não encontrar o evento, continua a busca dos métodos seguintes...
             if(!preg_match('/^on_([a-zA-Z0-9\_]+)$/i', $method, $match))
-                continue;
+            continue;
 
             $event = $match[1];
             $this->addEventListener($event, [$this, $method]);
@@ -357,12 +359,12 @@ abstract class HookHandler implements IEventHandler, IHookHandler
 
     /**
      * @see IEventHandler::trigger($event)
-	 * @final
+     * @final
      */
     final public function trigger($event)
     {
-		$args = func_get_args();
-		array_shift($args);
+        $args = func_get_args();
+        array_shift($args);
 		
         $this->dispatchEvent($event, $args);
     }
