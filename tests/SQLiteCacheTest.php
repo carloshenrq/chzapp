@@ -50,6 +50,13 @@ class SQLiteCacheTest extends TestCase
                             ->getMock();
     }
 
+    public function testTriggerEvents()
+    {
+        $this->assertNull($this->sqlObj->trigger('testThisEvent'));
+        $this->assertNull($this->sqlObj->addEventListener('testThisEvent', [$this->sqlObj, 'on_init']));
+        $this->assertNull($this->sqlObj->trigger('testThisEvent'));
+    }
+
     public function testEventsRemoveListener()
     {
         $this->assertNull($this->sqlObj->removeEventListener('test'));
