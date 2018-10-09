@@ -69,18 +69,7 @@ class Session extends ConfigComponent implements ISession, ICrypto
 
         // Remove o limitador de cache para sessões.
         @session_cache_limiter(false);
-
-        // Obtém o status de bloqueio de informações de sessão.
-        $sessionStatus = session_status();
-
-        // Se as sessões do PHP estiverem desabilitadas, então lançara
-        // uma exception para que não continue apartir daqui.
-        if($sessionStatus == \PHP_SESSION_DISABLED)
-            throw new \Exception('Impossível iniciar sessão. Sessões desabilitadas em configuração.');
-
-        // Se não houver sessão ativa, então inicializa uma nova sessão
-        if($sessionStatus == \PHP_SESSION_NONE)
-            @session_start();
+        @session_start();
 
         // Inicializa informações de sessão.
         $this->init();
@@ -182,7 +171,7 @@ class Session extends ConfigComponent implements ISession, ICrypto
      */
     public function recreate($deleteOldSession = false)
     {
-        return session_regenerate_id($deleteOldSession);
+        return @session_regenerate_id($deleteOldSession);
     }
 
     /**
