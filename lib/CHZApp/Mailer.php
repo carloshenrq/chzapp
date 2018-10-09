@@ -52,7 +52,7 @@ class Mailer extends ConfigComponent implements IMailer
     {
         // Renderiza os dados da mensagem para envio.
         $body = $this->getApplication()
-                    ->getView()
+                    ->getViewer()
                     ->render($template, $data);
         // Envia os dados.
         return $this->send($subject, $to, $body, $type);
@@ -121,6 +121,18 @@ class Mailer extends ConfigComponent implements IMailer
             'from'      => null,
             'name'      => null
         ], $configs);
+
+        if (getenv('TRAVIS_CI_DEBUG') !== false && getenv('TRAVIS_CI_DEBUG') == 1) {
+            $this->configs = array_merge($this->configs, [
+                'host'      => 'localhost',
+                'port'      => 1025,
+                'encrypt'   => null,
+                'user'      => '',
+                'pass'      => '',
+                'from'      => 'chzapp@localhost.loc',
+                'name'      => 'chzapp'
+            ]);
+        }
     }
 }
 
