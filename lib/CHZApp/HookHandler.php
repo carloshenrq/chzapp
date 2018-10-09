@@ -334,8 +334,8 @@ abstract class HookHandler implements IEventHandler, IHookHandler
 	 * @see IEventHandler::addEventListener($event, $callback)
 	 * @final
 	 */
-	final public function addEventListener($event, $callback)
-	{
+    final public function addEventListener($event, $callback)
+    {
         // Se callback não puder ser chamado, então...
         if(!is_callable($callback))
             throw new \Exception('The content from "$callback" is not a valid callable function/method.');
@@ -346,7 +346,7 @@ abstract class HookHandler implements IEventHandler, IHookHandler
 
         // Adiciona o evento a fila de eventos...
         $this->events[$event][] = $callback;
-	}
+    }
 
     /**
      * @see IEventHandler::removeEventListener($event)

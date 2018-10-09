@@ -140,6 +140,15 @@ class SQLiteCache extends Cache
             \PDO::ATTR_PERSISTENT       => true
         ]);
 
+        // Dispara eventos init
+        $this->trigger('init');
+    }
+
+    /**
+     * Evento a ser disparado quando se inicia o objeto.
+     */
+    public function on_init()
+    {
         $this->getConnection()->beginTransaction();
 
         // Realiza a instalação do banco de dados SQLite
