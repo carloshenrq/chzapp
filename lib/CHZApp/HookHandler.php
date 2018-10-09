@@ -50,6 +50,9 @@ abstract class HookHandler implements IEventHandler, IHookHandler
         // Inicializa vetor de eventos para os hooks.
         $this->events = [];
 
+        // Inicializa as variaveis de leitura para hooking.
+        $this->hookMethods = $this->hookProperties = $this->hookReadFiles = [];
+
 		// Faz a leitura dos métodos que são eventos da propria classe.
         $this->parseEventMethods();
         
@@ -146,9 +149,6 @@ abstract class HookHandler implements IEventHandler, IHookHandler
     {
         // Inicializa as variaveis de hooking
         $_tmpHookFiles = [];
-
-        // Inicializa as variaveis de leitura para hooking.
-        $this->hookMethods = $this->hookProperties = $this->hookReadFiles = [];
 
         // Se o diretório estiver embranco... então não será executado.
         if(empty($this->getHookDir()))

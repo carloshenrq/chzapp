@@ -64,6 +64,23 @@ class SQLiteCacheTest extends TestCase
     /**
      * @expectedException \Exception
      */
+    public function testHooksException2()
+    {
+        if ($this->sqlObj->key2)
+            return;
+    }
+
+    /**
+     * @expectedException \Exception
+     */
+    public function testHooksException1()
+    {
+        $this->sqlObj->key2 = true;
+    }
+
+    /**
+     * @expectedException \Exception
+     */
     public function testHooksException0()
     {
         $this->sqlObj->__callHooked('performClean', [], false);
