@@ -192,13 +192,8 @@ abstract class HookHandler implements IEventHandler, IHookHandler
             if(in_array($hookFile, $this->getHookedFiles()))
                 continue;
 
-            // Abre o arquivo de hooking e faz a leitura...
-            $hookFileContent = file_get_contents($hookFile);
-
-            ob_start();
-            eval('$hookContent = ' . $hookFileContent);
-            $output = ob_get_contents();
-            ob_end_clean();
+            // Abre os dados de arquivo de hooking
+            $hookContent = @include($hookFile);
 
             // Coloca o arquivo de hook em memória.
             $this->hookReadFiles[] = $hookFile;

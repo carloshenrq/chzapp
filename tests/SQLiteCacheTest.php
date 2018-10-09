@@ -53,12 +53,18 @@ class SQLiteCacheTest extends TestCase
     public function testHooks()
     {
         $this->assertNull($this->sqlObj->__callHooked('init', [], false));
+        $this->assertTrue($this->sqlObj->testHook());
+
+        $this->assertEquals($this->sqlObj->key1, 'value1');
+        
+        $this->sqlObj->key1 = 'value2';
+        $this->assertNotEquals($this->sqlObj->key1, 'value1');
     }
 
     /**
      * @expectedException \Exception
      */
-    public function testHooksException()
+    public function testHooksException0()
     {
         $this->sqlObj->__callHooked('performClean', [], false);
     }
