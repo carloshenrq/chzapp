@@ -59,12 +59,20 @@ class MemCacheTest extends TestCase
 
         $this->assertEquals($cacheString, $cachedString);
 
+        $cachedString = $this->cacheObj->create('test_index1', $cacheString, 60);
+        
         $cacheGetString = $this->cacheObj->get('test_index1');
         $this->assertEquals($cacheGetString, $cachedString);
         $this->assertEquals($cacheGetString, $cacheString);
 
         $cachedRemove = $this->cacheObj->remove('test_index1');
         $this->assertTrue($cachedRemove);
+
+        $cachedString = $this->cacheObj->create('test_index1', function() use ($cacheString) {
+            return $cacheString;
+        }, 60);
+
+        $this->assertEquals($cacheString, $cachedString);
     }
 
     public function testRemove()
