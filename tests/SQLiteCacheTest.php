@@ -45,6 +45,19 @@ class SQLiteCacheTest extends TestCase
         $this->sqlObj = $this->appObj->getSQLiteCache();
     }
 
+    public function testHooks()
+    {
+        $this->assertNull($this->sqlObj->__callHooked('init', [], false));
+    }
+
+    /**
+     * @expectedException \Exception
+     */
+    public function testHooksException()
+    {
+        $this->sqlObj->__callHooked('performInstall', [], false);
+    }
+
     public function testRemove()
     {
         $affected = $this->sqlObj->remove('test_0');
