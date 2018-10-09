@@ -42,7 +42,72 @@ class SQLiteCacheTest extends TestCase
     public function setUp()
     {
         $this->appObj = $this->getMockForAbstractClass('\CHZApp\Application');
-        $this->sqlObj = $this->appObj->getSQLiteCache();
+        $this->sqlObj = $this->getMockBuilder('\CHZApp\SQLiteCache')
+                            ->enableOriginalConstructor()
+                            ->setConstructorArgs([$this->appObj, []])
+                            ->enableProxyingToOriginalMethods()
+                            ->setMethods(['getException'])
+                            ->getMock();
+    }
+
+    public function testTriggerEvents()
+    {
+        $this->assertNull($this->sqlObj->trigger('testThisEvent'));
+        $this->assertNull($this->sqlObj->addEventListener('testThisEvent', [$this->sqlObj, 'on_init']));
+        $this->assertNull($this->sqlObj->trigger('testThisEvent'));
+    }
+
+    public function testEventsRemoveListener()
+    {
+        $this->assertNull($this->sqlObj->removeEventListener('test'));
+        $this->assertNull($this->sqlObj->addEventListener('test', function() {
+            return;
+        }));
+        $this->assertNull($this->sqlObj->removeEventListener('test'));
+    }
+
+    /**
+     * @expectedException \Exception
+     */
+    public function testEventsException0()
+    {
+        $this->sqlObj->addEventListener('test', 'huehuebr');
+    }
+
+    public function testHooks()
+    {
+        $this->assertNull($this->sqlObj->__callHooked('init', [], false));
+        $this->assertTrue($this->sqlObj->testHook());
+
+        $this->assertEquals($this->sqlObj->key1, 'value1');
+        
+        $this->sqlObj->key1 = 'value2';
+        $this->assertNotEquals($this->sqlObj->key1, 'value1');
+    }
+
+    /**
+     * @expectedException \Exception
+     */
+    public function testHooksException2()
+    {
+        if ($this->sqlObj->key2)
+            return;
+    }
+
+    /**
+     * @expectedException \Exception
+     */
+    public function testHooksException1()
+    {
+        $this->sqlObj->key2 = true;
+    }
+
+    /**
+     * @expectedException \Exception
+     */
+    public function testHooksException0()
+    {
+        $this->sqlObj->__callHooked('performClean', [], false);
     }
 
     public function testRemove()

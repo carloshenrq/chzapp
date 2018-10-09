@@ -245,6 +245,14 @@ abstract class Application extends App implements IApplication
     }
 
     /**
+     * Adicionado rotina para desinstalar informações de banco de dados.
+     */
+    public function unInstallSchemaDefault($schema)
+    {
+        $this->unInstallSchema($schema);
+    }
+
+    /**
      * Cria a instância da sessão com as configurações
      *
      * @param array $sessionConfigs

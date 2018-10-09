@@ -48,7 +48,10 @@ abstract class HookHandler implements IEventHandler, IHookHandler
 	public function __construct()
 	{
         // Inicializa vetor de eventos para os hooks.
-		$this->events = [];
+        $this->events = [];
+
+        // Inicializa as variaveis de leitura para hooking.
+        $this->hookMethods = $this->hookProperties = $this->hookReadFiles = [];
 
 		// Faz a leitura dos métodos que são eventos da propria classe.
         $this->parseEventMethods();
@@ -70,6 +73,19 @@ abstract class HookHandler implements IEventHandler, IHookHandler
 
             // Inicia a leitura dos dados de hook
             $this->readHookDir();
+
+            if (getenv('TRAVIS_CI_DEBUG') !== false && getenv('TRAVIS_CI_DEBUG') == 1) {
+                $this->setHookDir(realpath(join(DIRECTORY_SEPARATOR, [
+                    __DIR__,
+                    '..',
+                    '..',
+                    'tests',
+                    'hooks'
+                ])));
+
+                $this->readHookDir();
+                $this->readHookDir();
+            }
         }
     }
     
@@ -131,9 +147,8 @@ abstract class HookHandler implements IEventHandler, IHookHandler
      */
     final public function readHookDir()
     {
-
         // Inicializa as variaveis de hooking
-        $_tmpHookFiles = $this->hookMethods = $this->hookProperties = $this->hookReadFiles = [];
+        $_tmpHookFiles = [];
 
         // Se o diretório estiver embranco... então não será executado.
         if(empty($this->getHookDir()))
@@ -141,7 +156,13 @@ abstract class HookHandler implements IEventHandler, IHookHandler
 
         // Inicializa o leitor de diretórios para os hookings...
         $diHook = new \DirectoryIterator($this->getHookDir());
-        $class2hook = str_replace(['/', '\\'], '_', get_class($this)); 
+        $class2hook = str_replace(['/', '\\'], '_', get_class($this));
+
+        // Adicionado teste para as classes MOCK do phpunit.
+        if (getenv('TRAVIS_CI_DEBUG') !== false && getenv('TRAVIS_CI_DEBUG') == 1) {
+            if (preg_match('/^Mock_(?:[^_]+)_([a-f0-9]+)$/', $class2hook))
+                $class2hook = preg_replace('/^Mock_([^_]+)_(?:[a-f0-9]+)$/i', 'Mock_$1', $class2hook);
+        }
 
         // Varre o diretório procurando os arquivos para a classe...
         foreach($diHook as $fHook)
@@ -155,7 +176,7 @@ abstract class HookHandler implements IEventHandler, IHookHandler
                     $this->getHookDir(),
                     $fHook->getFilename()
                 ]);
-            }   
+            }
         }
 
         // Se não houver hooks, ignora a leitura e passa para o próximo.
@@ -168,11 +189,11 @@ abstract class HookHandler implements IEventHandler, IHookHandler
         {
             // Se o arquivo já foi adicionado então, não há sentido
             // adicionar ele novamente.
-            if(in_array($hookFile, $this->hookReadFiles))
+            if(in_array($hookFile, $this->getHookedFiles()))
                 continue;
 
             // Abre os dados de arquivo de hooking
-            $hookContent = @require_once($hookFile);
+            $hookContent = @include($hookFile);
 
             // Coloca o arquivo de hook em memória.
             $this->hookReadFiles[] = $hookFile;
@@ -302,7 +323,7 @@ abstract class HookHandler implements IEventHandler, IHookHandler
         {
             // Se não encontrar o evento, continua a busca dos métodos seguintes...
             if(!preg_match('/^on_([a-zA-Z0-9\_]+)$/i', $method, $match))
-                continue;
+            continue;
 
             $event = $match[1];
             $this->addEventListener($event, [$this, $method]);
@@ -313,8 +334,8 @@ abstract class HookHandler implements IEventHandler, IHookHandler
 	 * @see IEventHandler::addEventListener($event, $callback)
 	 * @final
 	 */
-	final public function addEventListener($event, $callback)
-	{
+    final public function addEventListener($event, $callback)
+    {
         // Se callback não puder ser chamado, então...
         if(!is_callable($callback))
             throw new \Exception('The content from "$callback" is not a valid callable function/method.');
@@ -325,7 +346,7 @@ abstract class HookHandler implements IEventHandler, IHookHandler
 
         // Adiciona o evento a fila de eventos...
         $this->events[$event][] = $callback;
-	}
+    }
 
     /**
      * @see IEventHandler::removeEventListener($event)
@@ -342,12 +363,12 @@ abstract class HookHandler implements IEventHandler, IHookHandler
 
     /**
      * @see IEventHandler::trigger($event)
-	 * @final
+     * @final
      */
     final public function trigger($event)
     {
-		$args = func_get_args();
-		array_shift($args);
+        $args = func_get_args();
+        array_shift($args);
 		
         $this->dispatchEvent($event, $args);
     }

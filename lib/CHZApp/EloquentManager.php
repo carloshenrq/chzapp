@@ -75,7 +75,7 @@ class EloquentManager extends ConfigComponent
         $manager->setAsGlobal();
         $manager->bootEloquent();
 
-        $this->manager = $manager;
+        $this->setManager($manager);
 		
         // Automaticamente instala o banco de dados da aplicação.
         foreach($this->schemas as $name)
@@ -146,6 +146,25 @@ class EloquentManager extends ConfigComponent
                 ]
             ]
         ], (array)$configs);
+
+        // Caso travisCi esteja instalado, então
+        // será usado para testar as outras condições
+        if (getenv('TRAVIS_CI_DEBUG') !== false && getenv('TRAVIS_CI_DEBUG') == 1) {
+            $this->configs = array_merge([
+                'default0' => (object)[
+                    'data' => (object)[
+                        "driver"    => "mysql",
+                        "host"      => "127.0.0.1",
+                        "database"  => "chzapp",
+                        "username"  => "chzapp",
+                        "password"  => "chzapp",
+                        "charset"   => "utf8",
+                        "collation" => "utf8_swedish_ci",
+                        "prefix"    => ""
+                    ]
+                ]
+            ], $this->configs);
+        }
     }
 }
 
