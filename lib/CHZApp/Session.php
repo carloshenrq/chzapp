@@ -35,6 +35,7 @@ namespace CHZApp;
 
 use \CHZApp\Interfaces\ICrypto;
 use \CHZApp\Interfaces\ISession;
+use \CHZApp\Interfaces\IApplication;
 
 /**
  * Classe para gerenciamento de sessões.
@@ -62,7 +63,7 @@ class Session extends ConfigComponent implements ISession, ICrypto
     /**
      * @see Component::__construct()
      */
-    public function __construct(Application $application, $configs = array())
+    public function __construct(IApplication $application, $configs = array())
     {
         // Faz a chamada do construtor herdado.
         parent::__construct($application, $configs);

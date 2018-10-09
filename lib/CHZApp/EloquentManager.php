@@ -36,6 +36,7 @@ namespace CHZApp;
 use \Illuminate\Events\Dispatcher;
 use \Illuminate\Container\Container;
 use \Illuminate\Database\Capsule\Manager;
+use \CHZApp\Interfaces\IApplication;
 
 /**
  * Adicionado classe para gerenciador do eloquent.
@@ -57,7 +58,7 @@ class EloquentManager extends ConfigComponent
     /**
      * @see Component::__construct()
      */
-    public function __construct(Application $application, $configs = array())
+    public function __construct(IApplication $application, $configs = array())
     {
         parent::__construct($application, $configs);
         $this->schemas = [];

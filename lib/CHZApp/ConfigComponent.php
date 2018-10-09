@@ -33,6 +33,8 @@
 
 namespace CHZApp;
 
+use \CHZApp\Interfaces\IApplication;
+
 /**
  * Classe para componentes que necessitam de vetor para configuração.
  *
@@ -50,10 +52,10 @@ abstract class ConfigComponent extends Component
     /**
      * Construtor para componentes de configuração.
      *
-     * @param Application $application
+     * @param IApplication $application
      * @param array $configs
      */
-    public function __construct(Application $application, $configs = array())
+    public function __construct(IApplication $application, $configs = array())
     {
         $this->parseConfigs($configs);
 
