@@ -59,6 +59,16 @@ class SessionTest extends TestCase
         // Dados para criptografar.
         $dataToCipher = base64_encode(openssl_random_pseudo_bytes(rand(8, 32)));
 
+        // Testes para saber o que está retornando
+        // quando não há dados de criptografia definidos.
+        $cipherTest = $this->sessObj->encrypt($dataToCipher);
+        $decipherTest = $this->sessObj->decrypt($cipherTest);
+
+        // Enquanto não houver as chaves de criptografia
+        // irá retornar false os testes...
+        $this->assertFalse($cipherTest);
+        $this->assertFalse($decipherTest);
+
         // Define informações de criptografia.
         $this->sessObj->setCryptInfo($algo, $key, $iv);
 
