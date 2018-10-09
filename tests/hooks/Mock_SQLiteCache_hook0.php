@@ -49,12 +49,12 @@ return [
     ],
 
     'init' => function() {
-
     },
 
     'methods' => [
         'performInstall' => function()
         {
+            $this->trigger('testEvent');
         }
     ]
 ];

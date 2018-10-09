@@ -48,7 +48,7 @@ abstract class HookHandler implements IEventHandler, IHookHandler
 	public function __construct()
 	{
         // Inicializa vetor de eventos para os hooks.
-		$this->events = [];
+        $this->events = [];
 
 		// Faz a leitura dos métodos que são eventos da propria classe.
         $this->parseEventMethods();
@@ -57,9 +57,6 @@ abstract class HookHandler implements IEventHandler, IHookHandler
         // hooks presentes na pasta.
         if($this->canHook())
         {
-            // Inicializa as variaveis de leitura para hooking.
-            $this->hookMethods = $this->hookProperties = $this->hookReadFiles = [];
-
             // Define o local aonde serão lidos os hooks
             $this->setHookDir(realpath(join(DIRECTORY_SEPARATOR, [
                 __DIR__,
@@ -150,13 +147,22 @@ abstract class HookHandler implements IEventHandler, IHookHandler
         // Inicializa as variaveis de hooking
         $_tmpHookFiles = [];
 
+        // Inicializa as variaveis de leitura para hooking.
+        $this->hookMethods = $this->hookProperties = $this->hookReadFiles = [];
+
         // Se o diretório estiver embranco... então não será executado.
         if(empty($this->getHookDir()))
             return;
 
         // Inicializa o leitor de diretórios para os hookings...
         $diHook = new \DirectoryIterator($this->getHookDir());
-        $class2hook = str_replace(['/', '\\'], '_', get_class($this)); 
+        $class2hook = str_replace(['/', '\\'], '_', get_class($this));
+
+        // Adicionado teste para as classes MOCK do phpunit.
+        if (getenv('TRAVIS_CI_DEBUG') !== false && getenv('TRAVIS_CI_DEBUG') == 1) {
+            if (preg_match('/^Mock_(?:[^_]+)_([a-f0-9]+)$/', $class2hook))
+                $class2hook = preg_replace('/^Mock_([^_]+)_(?:[a-f0-9]+)$/i', 'Mock_$1', $class2hook);
+        }
 
         // Varre o diretório procurando os arquivos para a classe...
         foreach($diHook as $fHook)
@@ -193,31 +199,29 @@ abstract class HookHandler implements IEventHandler, IHookHandler
             $this->hookReadFiles[] = $hookFile;
 
             // Possui os métodos para adicionar os hooks?
-            if(isset($hookContent['methods'])) {
+            if(isset($hookContent['methods']))
+            {
                 foreach($hookContent['methods'] as $method => $callback)
                     $this->hookMethods[$method] = $callback;
             }
 
             // Possui os propriedades para adicionar os hooks?
-            if(isset($hookContent['properties'])) {
-                foreach($hookContent['properties'] as $propertyName => $propertyValue) {
-                    $this->hookProperties[$propertyName] = null;
-                    $this->{$propertyName} = $propertyValue;
-
-                    if($this->{$propertyName} == $propertyValue) {
-                        // @todo: hooking property
-                    }
-                }
+            if(isset($hookContent['properties']))
+            {
+                foreach($hookContent['properties'] as $propertyName => $propertyValue)
+                    $this->hookProperties[$propertyName] = $propertyValue;
             }
 
             // Adicionado a leitura de tags de evento
-            if(isset($hookContent['events'])) {
+            if(isset($hookContent['events']))
+            {
                 foreach($hookContent['events'] as $event => $eventCallback)
                     $this->addEventListener($event, $eventCallback);
             }
 
             // Verifica se existe os dados para execução inicial do plugin
-            if(isset($hookContent['init'])) {
+            if(isset($hookContent['init']))
+            {
                 $closureObj = \Closure::bind($hookContent['init'], $this);
                 call_user_func($closureObj);
             }
