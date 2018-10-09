@@ -48,7 +48,6 @@ class SQLiteCacheTest extends TestCase
                             ->enableProxyingToOriginalMethods()
                             ->setMethods(['getException'])
                             ->getMock();
-        var_dump($this->sqlObj);
     }
 
     public function testHooks()
@@ -61,7 +60,7 @@ class SQLiteCacheTest extends TestCase
      */
     public function testHooksException()
     {
-        $this->sqlObj->__callHooked('performInstall', [], false);
+        $this->sqlObj->__callHooked('performClean', [], false);
     }
 
     public function testRemove()
