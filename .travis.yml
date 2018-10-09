@@ -21,6 +21,5 @@ before_install:
   - mailcatcher --smtp-port 1025
 script:
   - vendor/bin/phpunit --coverage-clover=coverage.xml
-  - vendor/bin/phpunit
 after_success:
   - bash <(curl -s https://codecov.io/bash)
