@@ -49,6 +49,46 @@ class SessionTest extends TestCase
                             ->getMock();
     }
 
+    public function testCryptoInfos()
+    {
+        $key = base64_encode(openssl_random_pseudo_bytes(32));
+        $algo = 'aes-256-ecb';
+        $ivLen = openssl_cipher_iv_length($algo);
+        $iv = openssl_random_pseudo_bytes($ivLen);
+
+        // Dados para criptografar.
+        $dataToCipher = base64_encode(openssl_random_pseudo_bytes(rand(8, 32)));
+
+        // Testes para saber o que está retornando
+        // quando não há dados de criptografia definidos.
+        $cipherTest = $this->sessObj->encrypt($dataToCipher);
+        $decipherTest = $this->sessObj->decrypt($cipherTest);
+
+        // Enquanto não houver as chaves de criptografia
+        // irá retornar false os testes...
+        $this->assertFalse($cipherTest);
+        $this->assertFalse($decipherTest);
+
+        // Define informações de criptografia.
+        $this->sessObj->setCryptInfo($algo, $key, $iv);
+
+        // Criptografa os dados e grava informações.
+        $cipherSessKey = $this->sessObj->encrypt('testCipher');
+        $cipherData = $this->sessObj->encrypt($dataToCipher);
+
+        // Joga os dados na sessão de forma criptografada.
+        $this->sessObj->testCipher = $dataToCipher;
+
+        // Verifica se existe a chave criptografada na sessão
+        // e se o dado é igual ao enviado.
+        $this->assertTrue(isset($_SESSION[$cipherSessKey]));
+        $this->assertEquals($_SESSION[$cipherSessKey], $cipherData);
+
+        // Verifica também se os dados de criptografia, voltam de acordo.
+        $this->assertTrue(isset($this->sessObj->testCipher));
+        $this->assertEquals($this->sessObj->testCipher, $dataToCipher);
+    }
+
     public function testUnset()
     {
         unset($this->sessObj->CHZApp_SessionTimeout);

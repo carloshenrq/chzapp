@@ -150,7 +150,7 @@ class EloquentManager extends ConfigComponent
         // Caso travisCi esteja instalado, então
         // será usado para testar as outras condições
         if (getenv('TRAVIS_CI_DEBUG') !== false && getenv('TRAVIS_CI_DEBUG') == 1) {
-            $this->configs = array_merge([
+            $this->configs = array_merge($this->configs, [
                 'default0' => (object)[
                     'data' => (object)[
                         "driver"    => "mysql",
@@ -163,7 +163,7 @@ class EloquentManager extends ConfigComponent
                         "prefix"    => ""
                     ]
                 ]
-            ], $this->configs);
+            ]);
         }
     }
 }
