@@ -366,7 +366,7 @@ abstract class Application extends App implements IApplication
     final public function setCacheConfigs($cacheConfigs = [])
     {
         // Verifica os dados de configuração de cache.
-        if(!is_null($cacheConfigs) && extension_loaded('memcache'))
+        if(!is_null($cacheConfigs))
             $this->memcache = $this->createCacheInstance($cacheConfigs);
     }
 

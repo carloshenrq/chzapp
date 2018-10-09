@@ -87,12 +87,15 @@ class ApplicationTest extends TestCase
 		$this->assertNull($this->appObj->setCacheConfigs());
 	}
 
-	/**
-	 * @expectedException Error
-	 */
 	public function testCreateCacheInstance()
 	{
 		$memcache = $this->appObj->createCacheInstance();
+		$this->assertNotNull($memcache);
+		$this->assertInstanceOf('\CHZApp\MemCache', $memcache);
+		$this->assertInstanceOf('\CHZApp\Cache', $memcache);
+		$this->assertInstanceOf('\CHZApp\ConfigComponent', $memcache);
+		$this->assertInstanceOf('\CHZApp\Component', $memcache);
+		$this->assertInstanceOf('\CHZApp\Interfaces\IComponent', $memcache);
 	}
 
 	public function testGetAssetParser()

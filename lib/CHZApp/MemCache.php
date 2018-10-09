@@ -33,6 +33,8 @@
 
 namespace CHZApp;
 
+use \Clickalicious\Memcached\Client;
+
 /**
  * Class to management memcache server
  */
@@ -95,11 +97,7 @@ class MemCache extends Cache
     public function init()
     {
         // Defines the memcache client to connect on the server.
-        $this->client = new \Memcache;
-
-        // Try to connect on memcache server
-        if(!$this->client->connect($this->configs['host'], $this->configs['port'], $this->configs['timeout']))
-            throw new \Exception('Cannot connect on memcache server.');
+        $this->client = new Client($this->configs['host'], $this->configs['port'], $this->configs['timeout']);
     }
 
     /**
