@@ -20,7 +20,8 @@
         "leafo/scssphp":"0.7.5",
         "matthiasmullie/minify":"1.3.60",
         "kylekatarnls/coffeescript":"1.3.4",
-        "dompdf/dompdf":"0.8.2"
+        "dompdf/dompdf":"0.8.2",
+		"clickalicious/memcached.php":"1.0.1"
     },
     "autoload" : {
         "files" : ["lib/autoload.php"]
