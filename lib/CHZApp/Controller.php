@@ -35,6 +35,7 @@ namespace CHZApp;
 
 use \Psr\Http\Message\ServerRequestInterface;
 use \Psr\Http\Message\ResponseInterface;
+use \CHZApp\Interfaces\IApplication;
 
 /**
  * Classe padrão para os controllers da aplicação.
@@ -83,9 +84,9 @@ abstract class Controller extends Component
      * Construtor para a classe de controller.
      * Recebe os posts, get e arquivos.
      *
-     * @param Application $application
+     * @param IApplication $application
      */
-    public function __construct(Application $application)
+    public function __construct(IApplication $application)
     {
         // Inicializa as variaveis de rotas customizadas e 
         // restrições de rota.

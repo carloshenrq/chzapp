@@ -46,7 +46,7 @@ abstract class Component extends HookHandler implements IComponent
 {
     /**
      * Aplicação que é vinculada ao componente.
-     * @var Application
+     * @var IApplication
      */
     private $app;
 

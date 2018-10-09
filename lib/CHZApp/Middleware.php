@@ -35,6 +35,7 @@ namespace CHZApp;
 
 use \Psr\Http\Message\ServerRequestInterface;
 use \Psr\Http\Message\ResponseInterface;
+use \CHZApp\Interfaces\IApplication;
 
 /**
  * Classe de middleware para componente da aplicação.
@@ -46,7 +47,7 @@ abstract class Middleware extends Component
     /**
      * @see Component::__construct()
      */
-    public function __construct(Application $application)
+    public function __construct(IApplication $application)
     {
         parent::__construct($application);
     }

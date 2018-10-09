@@ -550,7 +550,7 @@ abstract class Application extends App implements IApplication
     /**
      * Instância global da aplicção.
      *
-     * @return Application
+     * @return IApplication
      */
     public static function getInstance()
     {

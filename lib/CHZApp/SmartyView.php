@@ -33,6 +33,7 @@
 
 namespace CHZApp;
 
+use \CHZApp\Interfaces\IApplication;
 use \CHZApp\Interfaces\IViewer;
 use \Smarty;
 
@@ -53,7 +54,7 @@ class SmartyView extends ConfigComponent implements IViewer
      * @param Application $application
      * @param array $configs
      */
-    public function __construct(Application $application, $configs = array())
+    public function __construct(IApplication $application, $configs = array())
     {
         parent::__construct($application, $configs);
 
