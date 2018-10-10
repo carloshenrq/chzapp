@@ -34,53 +34,29 @@ require_once 'lib/autoload.php';
 
 use PHPUnit\Framework\TestCase;
 
-class MemCacheTest extends TestCase
+class WebTest extends TestCase
 {
-    private $cacheObj;
+    private $appObj;
+    private $httpObj;
 
     public function setUp()
     {
         $this->appObj = $this->getMockForAbstractClass('\CHZApp\Application');
-        $this->cacheObj = $this->getMockBuilder('\CHZApp\MemCache')
+        $this->httpObj = $this->getMockBuilder('\CHZApp\HttpClient')
                             ->enableOriginalConstructor()
-                            ->setConstructorArgs([$this->appObj, []])
+                            ->setConstructorArgs([$this->appObj])
                             ->enableProxyingToOriginalMethods()
                             ->setMethods(['getException'])
                             ->getMock();
-        
-        $this->cacheObj->remove('test_index0');
-        $this->cacheObj->remove('test_index1');
     }
 
-    public function testGet()
+    public function testRequest()
     {
-        $response = $this->cacheObj->get('test_index1');
-        $this->assertNull($response);
-
-        $cacheString = base64_encode(openssl_random_pseudo_bytes(32));
-        $cachedString = $this->cacheObj->create('test_index1', $cacheString, 60);
-
-        $this->assertEquals($cacheString, $cachedString);
-
-        $cachedString = $this->cacheObj->create('test_index1', $cacheString, 60);
+        $resp = $this->httpObj->createClient()
+                     ->get('http://127.0.0.1/')
+                     ->getBody()
+                     ->getContents();
         
-        $cacheGetString = $this->cacheObj->get('test_index1');
-        $this->assertEquals($cacheGetString, $cachedString);
-        $this->assertEquals($cacheGetString, $cacheString);
-
-        $cachedRemove = $this->cacheObj->remove('test_index1');
-        $this->assertTrue($cachedRemove);
-
-        $cachedString = $this->cacheObj->create('test_index1', function() use ($cacheString) {
-            return $cacheString;
-        }, 60);
-
-        $this->assertEquals($cacheString, $cachedString);
-    }
-
-    public function testRemove()
-    {
-        $response = $this->cacheObj->remove('test_index0');
-        $this->assertFalse($response);
+        $this->assertEquals('hello world', $resp);
     }
 }
