@@ -53,7 +53,7 @@ class WebTest extends TestCase
     public function testRequest()
     {
         $resp = $this->httpObj->createClient()
-                     ->get('http://127.0.0.1/index.php')
+                     ->get('http://127.0.0.1/')
                      ->getBody()
                      ->getContents();
         
