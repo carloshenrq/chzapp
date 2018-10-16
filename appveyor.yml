@@ -60,6 +60,10 @@ install:
     - SET COMPOSER_ROOT_VERSION=
 
 before_test:
+    - ruby -v
+    - gem -v
+    - bundle -v
+    - php -v
     - mysql -uroot -pPassword12! -e "CREATE USER 'chzapp'@'localhost' IDENTIFIED BY 'chzapp';"
     - mysql -uroot -pPassword12! -e "CREATE DATABASE chzapp;"
     - mysql -uroot -pPassword12! -e "GRANT SELECT ON chzapp.* TO 'chzapp'@'localhost';"
