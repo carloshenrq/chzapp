@@ -18,7 +18,16 @@ environment:
   MYSQL_PORT: tcp://localhost:3306
   MYSQL_PATH: C:\Program Files\MySql\MySQL Server 5.7
   MYSQL_PWD: Password12!
-
+  CODECOV_TOKEN:
+    secure: hr0bSBbOvb9owKukcjgR0BmK3TRtz+jVz8EO3fakXbnwOC/A3Br9AFvtvkRAOiqe
+  REMOTE_ADDR: 127.0.0.1
+  TRAVIS_CI_DEBUG: 1
+  MAILTRAP_HOST: smtp.mailtrap.io
+  MAILTRAP_PORT: 2525
+  MAILTRAP_USER:
+    secure: 2nEFnDbtNsVK8adsBDiLpA==
+  MAILTRAP_PASS:
+    secure: QAtDBdqFaSkP0TK2PygWDQ==
 install:
     - mkdir c:\memcached && cd c:\memcached
     - appveyor DownloadFile https://github.com/carloshenrq/chzapp/releases/download/v0.1.2/memcached-win32-1.4.4-14.zip
