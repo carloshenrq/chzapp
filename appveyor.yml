@@ -11,7 +11,7 @@ cache:
     - c:\projects\chzapp\composer.phar
 
 init:
-    - SET PATH=c:\php;%PATH%
+    - SET PATH=c:\php;C:\Program Files\MySQL\MySQL Server 5.7\bin\;%PATH%
     - SET COMPOSER_NO_INTERACTION=1
     - SET ANSICON=121x90 (121x90)
     - REG ADD "HKEY_CURRENT_USER\Software\Microsoft\Command Processor" /v DelayedExpansion /t REG_DWORD /d 1 /f
@@ -27,9 +27,9 @@ install:
     - 7z x php_apcu-5.1.8-7.1-ts-vc14-x86.zip -y >nul
     - del /Q *.zip
     - cd ..
-    - mysql -e "CREATE USER 'chzapp'@'localhost' IDENTIFIED BY 'chzapp';"
-    - mysql -e "CREATE DATABASE chzapp;"
-    - mysql -e "GRANT SELECT ON chzapp.* TO 'chzapp'@'localhost';"
+    - mysql -uroot -pPassword12 -e "CREATE USER 'chzapp'@'localhost' IDENTIFIED BY 'chzapp';"
+    - mysql -uroot -pPassword12 -e "CREATE DATABASE chzapp;"
+    - mysql -uroot -pPassword12 -e "GRANT SELECT ON chzapp.* TO 'chzapp'@'localhost';"
     - gem install mailcatcher
     - mailcatcher --smtp-port 1025
     - copy /Y php.ini-development php.ini
