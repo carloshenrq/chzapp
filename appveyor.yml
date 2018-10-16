@@ -90,5 +90,4 @@ test_script:
 
 after_test:
     - cd c:\projects\chzapp
-    - Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
-    - bash codecov.sh -f "coverage.xml"
+    - bash <(curl -s https://codecov.io/bash)
