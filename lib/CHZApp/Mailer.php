@@ -124,11 +124,11 @@ class Mailer extends ConfigComponent implements IMailer
 
         if (getenv('TRAVIS_CI_DEBUG') !== false && getenv('TRAVIS_CI_DEBUG') == 1) {
             $this->configs = array_merge($this->configs, [
-                'host'      => 'localhost',
-                'port'      => 9963,
+                'host'      => 'smtp.mailtrap.io',
+                'port'      => 2525,
                 'encrypt'   => null,
-                'user'      => '',
-                'pass'      => '',
+                'user'      => '221c664abf3240',
+                'pass'      => 'd8df08c9850f26',
                 'from'      => 'chzapp@localhost.loc',
                 'name'      => 'chzapp'
             ]);

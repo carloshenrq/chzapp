@@ -67,8 +67,6 @@ install:
     - SET COMPOSER_ROOT_VERSION=
     - gem update --system
     - gem install mime-types -v 2.99.1
-    - gem install mailcatcher
-    - start mailcatcher --smtp-port 9963
 
 before_test:
     - ruby -v
