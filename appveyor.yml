@@ -27,6 +27,7 @@ install:
     - 7z x php_apcu-5.1.8-7.1-ts-vc14-x86.zip -y >nul
     - del /Q *.zip
     - cd ..
+    - gem install mime-types -v 2.99.1
     - gem install mailcatcher
     - copy /Y php.ini-development php.ini
     - echo max_execution_time=1200 >> php.ini
