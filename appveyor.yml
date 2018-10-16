@@ -68,7 +68,6 @@ before_test:
     - gem -v
     - bundle -v
     - php -v
-    - mailcatcher --smtp-port 1025
     - mysql -e "CREATE USER 'chzapp'@'localhost' IDENTIFIED BY 'chzapp';" --user=root
     - mysql -e "CREATE DATABASE chzapp;" --user=root
     - mysql -e "GRANT SELECT ON chzapp.* TO 'chzapp'@'localhost';" --user=root
