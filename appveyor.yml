@@ -64,7 +64,6 @@ before_test:
     - gem -v
     - bundle -v
     - php -v
-    - SET MYSQL_PWD="Password12!"
     - mysql -uroot -e "CREATE USER 'chzapp'@'localhost' IDENTIFIED BY 'chzapp';"
     - mysql -uroot -e "CREATE DATABASE chzapp;"
     - mysql -uroot -e "GRANT SELECT ON chzapp.* TO 'chzapp'@'localhost';"
