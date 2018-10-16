@@ -23,17 +23,14 @@ install:
     - update_rubygems
     - cd ..
     - rmdir /s /q c:\rubyupdate
-    - gem update --system
-    - gem install mime-types -v 2.99.1
-    - gem install mailcatcher
     - mkdir c:\php && cd c:\php
     - appveyor DownloadFile https://raw.githubusercontent.com/symfony/binary-utils/master/cacert.pem
     - appveyor DownloadFile https://windows.php.net/downloads/releases/php-7.1.23-Win32-VC14-x86.zip
     - 7z x php-7.1.23-Win32-VC14-x86.zip -y >nul
     - del /Q *.zip
     - cd ext
-    - appveyor DownloadFile https://github.com/symfony/binary-utils/releases/download/v0.1/php_apcu-5.1.8-7.1-ts-vc14-x86.zip
-    - 7z x php_apcu-5.1.8-7.1-ts-vc14-x86.zip -y >nul
+    - appveyor DownloadFile https://windows.php.net/downloads/pecl/releases/apcu/5.1.12/php_apcu-5.1.12-7.1-ts-vc14-x86.zip
+    - 7z x php_apcu-5.1.12-7.1-ts-vc14-x86.zip -y >nul
     - del /Q *.zip
     - cd ..
     - copy /Y php.ini-development php.ini
@@ -58,6 +55,9 @@ install:
     - IF %APPVEYOR_REPO_BRANCH%==master (SET COMPOSER_ROOT_VERSION=dev-master) ELSE (SET COMPOSER_ROOT_VERSION=%APPVEYOR_REPO_BRANCH%.x-dev)
     - php composer.phar update --no-progress --ansi
     - SET COMPOSER_ROOT_VERSION=
+    - gem update --system
+    - gem install mime-types -v 2.99.1
+    - gem install mailcatcher
 
 before_test:
     - ruby -v
