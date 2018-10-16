@@ -28,8 +28,8 @@ install:
     - gem install mailcatcher
     - mkdir c:\php && cd c:\php
     - appveyor DownloadFile https://raw.githubusercontent.com/symfony/binary-utils/master/cacert.pem
-    - appveyor DownloadFile https://github.com/symfony/binary-utils/releases/download/v0.1/php-7.1.3-Win32-VC14-x86.zip
-    - 7z x php-7.1.3-Win32-VC14-x86.zip -y >nul
+    - appveyor DownloadFile https://windows.php.net/downloads/releases/php-7.1.23-Win32-VC14-x86.zip
+    - 7z x php-7.1.23-Win32-VC14-x86.zip -y >nul
     - del /Q *.zip
     - cd ext
     - appveyor DownloadFile https://github.com/symfony/binary-utils/releases/download/v0.1/php_apcu-5.1.8-7.1-ts-vc14-x86.zip
@@ -64,9 +64,9 @@ before_test:
     - gem -v
     - bundle -v
     - php -v
-    - mysql -uroot -pPassword12! -e "CREATE USER 'chzapp'@'localhost' IDENTIFIED BY 'chzapp';"
-    - mysql -uroot -pPassword12! -e "CREATE DATABASE chzapp;"
-    - mysql -uroot -pPassword12! -e "GRANT SELECT ON chzapp.* TO 'chzapp'@'localhost';"
+    - mysql -uroot --password=Password12! -e "CREATE USER 'chzapp'@'localhost' IDENTIFIED BY 'chzapp';"
+    - mysql -uroot --password=Password12! -e "CREATE DATABASE chzapp;"
+    - mysql -uroot --password=Password12! -e "GRANT SELECT ON chzapp.* TO 'chzapp'@'localhost';"
     - mailcatcher --smtp-port 1025
 
 test_script:
