@@ -2,6 +2,10 @@ build: false
 clone_depth: 1
 clone_folder: c:\projects\chzapp
 
+services:
+  - mysql
+  - memcached
+
 cache:
     - '%LOCALAPPDATA%\Composer\files'
     - c:\projects\chzapp\composer.phar
@@ -23,6 +27,11 @@ install:
     - 7z x php_apcu-5.1.8-7.1-ts-vc14-x86.zip -y >nul
     - del /Q *.zip
     - cd ..
+    - mysql -e "CREATE USER 'chzapp'@'localhost' IDENTIFIED BY 'chzapp';"
+    - mysql -e "CREATE DATABASE chzapp;"
+    - mysql -e "GRANT SELECT ON chzapp.* TO 'chzapp'@'localhost';"
+    - gem install mailcatcher
+    - mailcatcher --smtp-port 1025
     - copy /Y php.ini-development php.ini
     - echo max_execution_time=1200 >> php.ini
     - echo date.timezone="America/Sao_Paulo" >> php.ini
@@ -45,7 +54,6 @@ install:
     - IF %APPVEYOR_REPO_BRANCH%==master (SET COMPOSER_ROOT_VERSION=dev-master) ELSE (SET COMPOSER_ROOT_VERSION=%APPVEYOR_REPO_BRANCH%.x-dev)
     - php composer.phar update --no-progress --ansi
     - SET COMPOSER_ROOT_VERSION=
-    - vendor\bin\phpunit install
 
 test_script:
     - cd c:\projects\chzapp
