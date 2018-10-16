@@ -22,8 +22,8 @@ install:
     - gem install --local rubygems-update-2.7.7.gem
     - update_rubygems
     - appveyor DownloadFile https://raw.githubusercontent.com/rubygems/rubygems/master/lib/rubygems/ssl_certs/index.rubygems.org/GlobalSignRootCA.pem
-    - mkdir C:\Ruby193\lib\ruby\2.7.7\rubygems\ssl_certs\index.rubygems.org
-    - copy /Y GlobalSignRootCA.pem c:\Ruby193\lib\ruby\2.7.7\rubygems\ssl_certs\index.rubygems.org\GlobalSignRootCA.pem
+    - mkdir C:\Ruby193\bin\gem\ssl_certs\index.rubygems.org
+    - copy /Y GlobalSignRootCA.pem C:\Ruby193\bin\gem\ssl_certs\index.rubygems.org\GlobalSignRootCA.pem
     - cd ..
     - rmdir /s /q c:\rubyupdate
     - gem update --system
