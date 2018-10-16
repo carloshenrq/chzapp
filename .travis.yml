@@ -20,7 +20,7 @@ before_install:
   - mysql -e "CREATE USER 'chzapp'@'localhost' IDENTIFIED BY 'chzapp';"
   - mysql -e "CREATE DATABASE chzapp;"
   - mysql -e "GRANT SELECT ON chzapp.* TO 'chzapp'@'localhost';"
-  - mailcatcher --smtp-port 1025
+  - mailcatcher --smtp-port 9963
   - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
   - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.d/www.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.d/www.conf
   - sudo a2enmod rewrite actions fastcgi alias

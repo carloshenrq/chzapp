@@ -125,7 +125,7 @@ class Mailer extends ConfigComponent implements IMailer
         if (getenv('TRAVIS_CI_DEBUG') !== false && getenv('TRAVIS_CI_DEBUG') == 1) {
             $this->configs = array_merge($this->configs, [
                 'host'      => 'localhost',
-                'port'      => 1025,
+                'port'      => 9963,
                 'encrypt'   => null,
                 'user'      => '',
                 'pass'      => '',
