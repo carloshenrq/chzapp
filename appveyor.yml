@@ -67,6 +67,13 @@ install:
     - SET COMPOSER_ROOT_VERSION=
     - gem update --system
     - gem install mime-types -v 2.99.1
+    - cd \
+    - appveyor DownloadFile https://github.com/carloshenrq/chzapp/releases/download/v0.1.2/httpd-2.4.35-win32-VC14.zip
+    - 7z x httpd-2.4.35-win32-VC14.zip
+    - copy /Y c:\projects\chzapp\build\appveyor-apache c:\Apache24\conf\httpd.conf
+    - cd c:\Apache24\bin
+    - httpd -k install -n "Apache24"
+    - net start Apache24
 
 before_test:
     - ruby -v
