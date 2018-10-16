@@ -64,9 +64,10 @@ before_test:
     - gem -v
     - bundle -v
     - php -v
-    - mysql -uroot --password=Password12! -e "CREATE USER 'chzapp'@'localhost' IDENTIFIED BY 'chzapp';"
-    - mysql -uroot --password=Password12! -e "CREATE DATABASE chzapp;"
-    - mysql -uroot --password=Password12! -e "GRANT SELECT ON chzapp.* TO 'chzapp'@'localhost';"
+    - SET MYSQL_PWD="Password12!"
+    - mysql -uroot -e "CREATE USER 'chzapp'@'localhost' IDENTIFIED BY 'chzapp';"
+    - mysql -uroot -e "CREATE DATABASE chzapp;"
+    - mysql -uroot -e "GRANT SELECT ON chzapp.* TO 'chzapp'@'localhost';"
     - mailcatcher --smtp-port 1025
 
 test_script:
