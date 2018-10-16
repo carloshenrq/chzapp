@@ -11,19 +11,17 @@ cache:
     - c:\projects\chzapp\composer.phar
 
 init:
-    - SET PATH=c:\php;C:\Program Files\MySQL\MySQL Server 5.7\bin\;%PATH%
+    - SET PATH=c:\php;C:\Program Files\MySQL\MySQL Server 5.7\bin\;C:\Ruby22\bin;%PATH%
     - SET COMPOSER_NO_INTERACTION=1
     - SET ANSICON=121x90 (121x90)
     - REG ADD "HKEY_CURRENT_USER\Software\Microsoft\Command Processor" /v DelayedExpansion /t REG_DWORD /d 1 /f
 
 install:
+    - bundle install
     - mkdir c:\rubyupdate && cd c:\rubyupdate
     - appveyor DownloadFile https://rubygems.org/gems/rubygems-update-2.7.7.gem
     - gem install --local rubygems-update-2.7.7.gem
     - update_rubygems
-    - appveyor DownloadFile https://raw.githubusercontent.com/rubygems/rubygems/master/lib/rubygems/ssl_certs/index.rubygems.org/GlobalSignRootCA.pem
-    - mkdir C:\Ruby193\bin\gem\ssl_certs\index.rubygems.org
-    - copy /Y GlobalSignRootCA.pem C:\Ruby193\bin\gem\ssl_certs\index.rubygems.org\GlobalSignRootCA.pem
     - cd ..
     - rmdir /s /q c:\rubyupdate
     - gem update --system
