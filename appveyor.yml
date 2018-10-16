@@ -17,7 +17,12 @@ init:
     - REG ADD "HKEY_CURRENT_USER\Software\Microsoft\Command Processor" /v DelayedExpansion /t REG_DWORD /d 1 /f
 
 install:
-    - brew install ruby
+    - mkdir c:\rubyupdate && cd c:\rubyupdate
+    - appveyor DownloadFile https://rubygems.org/gems/rubygems-update-2.7.7.gem
+    - gem install --local rubygems-update-2.7.7.gem
+    - update_rubygems
+    - cd ..
+    - rmdir /s /q c:\rubyupdate
     - gem update --system
     - gem install mime-types -v 2.99.1
     - gem install mailcatcher
