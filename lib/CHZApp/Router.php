@@ -61,11 +61,15 @@ class Router extends Middleware
         // Classe para o controller.
         $controllerClass = '\\Controller\\' . ucfirst($controller);
 
-        // Cria a instância do controller.
-        $obj = new $controllerClass($this->getApplication());
+        // Verifica se a classe do controller existe
+        // se não existir, então, passara a execução de forma normal.
+        if (class_exists($controllerClass)) {
+            // Cria a instância do controller.
+            $obj = new $controllerClass($this->getApplication());
 
-        // Define a rota de execução.
-        $this->getApplication()->any($obj->parseRoute($path), [$obj, '__router']);
+            // Define a rota de execução.
+            $this->getApplication()->any($obj->parseRoute($path), [$obj, '__router']);
+        }
 
         // Retorna para a execução seguinte.
         return parent::__invoke($request, $response, $next);
