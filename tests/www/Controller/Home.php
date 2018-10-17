@@ -35,6 +35,13 @@ namespace Controller;
 
 class Home extends \CHZApp\Controller
 {
+    public function init()
+    {
+        $this->applyRestrictionOnAllRoutes(function() {
+            return true;
+        }, ['test_GET']);
+    }
+
     public function index_GET($response, $args)
     {
         return $response->write('hello world');
