@@ -45,8 +45,26 @@ class RouterTest extends TestCase
         $container = $this->appObj->getContainer();
         $container['settings']['displayErrorDetails'] = false;
         $container['settings']['outputBuffering'] = false;
+        $container['notFoundHandler'] = function($c) {
+            return function($request, $response) {
+                return $response->write('Page not found');
+            };
+        };
         $environment = $container['environment'];
         $environment['REQUEST_METHOD'] = 'GET';
+    }
+
+    public function testInvokeStatus()
+    {
+        $container = $this->appObj->getContainer();
+        $environment = $container['environment'];
+
+        // Ambiente padrão para execução do URI.
+        $environment['REQUEST_URI'] = '/home/test';
+        $response = $this->appObj->run();
+
+        $body = $this->appObj->getBodyContent();
+        $this->assertEquals('error messagePage not found', $body);
     }
 
     public function testInvokeHome()

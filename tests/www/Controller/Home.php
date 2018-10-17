@@ -39,4 +39,9 @@ class Home extends \CHZApp\Controller
     {
         return $response->write('hello world');
     }
+
+    public function test_GET($response, $args)
+    {
+        return $response->write('error message')->withStatus(404);
+    }
 }
