@@ -46,6 +46,8 @@ class Home extends \CHZApp\Controller
         });
 
         $this->addRoute('brbr_GET', true);
+
+        $this->addRouteRegexp('/^\/home\/template\/(.*)$/i', '/home/template/{file}');
     }
 
     public function index_GET($response, $args)
@@ -56,5 +58,18 @@ class Home extends \CHZApp\Controller
     public function test_GET($response, $args)
     {
         return $response->write('error message')->withStatus(404);
+    }
+
+    public function template_GET($response, $args)
+    {
+        $file = $args['file'];
+
+        if ($this->verifyKeysPost(['test', 'br']))
+            return $response->withStatus(404);
+
+        if (!$this->verifyKeysGet(['test', 'br']))
+            return $response->withStatus(404);
+
+        return $this->response($response, $file, []);
     }
 }

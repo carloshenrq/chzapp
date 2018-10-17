@@ -38,6 +38,7 @@ use PHPUnit\Framework\TestCase;
 class RouterTest extends TestCase
 {
     private $appObj;
+    private $templateDir;
 
     public function setUp()
     {
@@ -52,6 +53,40 @@ class RouterTest extends TestCase
         };
         $environment = $container['environment'];
         $environment['REQUEST_METHOD'] = 'GET';
+
+        $viewer = $this->getMockBuilder('\CHZApp\SmartyView')
+                    ->enableOriginalConstructor()
+                    ->setConstructorArgs([$this->appObj, []])
+                    ->enableProxyingToOriginalMethods()
+                    ->setMethods(['getException'])
+                    ->getMock();
+
+        $smarty = $viewer->getView();
+
+        $this->templateDir = realpath(join(DIRECTORY_SEPARATOR, [
+            __DIR__,
+            'view'
+        ]));
+
+        $smarty->setTemplateDir($this->templateDir);
+        $this->appObj->setViewer($viewer);
+    }
+
+    public function testInvokeTemplate()
+    {
+        $container = $this->appObj->getContainer();
+        $environment = $container['environment'];
+
+        // Ambiente padrão para execução do URI.
+        $environment['REQUEST_URI'] = '/home/template/mail.html';
+        $environment['QUERY_STRING'] = 'test=true&br=true';
+        $response = $this->appObj->run();
+
+        $body = $this->appObj->getBodyContent();
+        $viewer = $this->appObj->getViewer();
+        $template = $viewer->render('mail.html', []);
+
+        $this->assertEquals($template, $body);
     }
 
     public function testInvokeCustom()
