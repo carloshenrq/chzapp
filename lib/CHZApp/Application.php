@@ -40,6 +40,8 @@ use \CHZApp\Interfaces\IMailer;
 use \CHZApp\Interfaces\ISession;
 use \CHZApp\Interfaces\IViewer;
 
+use \Psr\Http\Message\ResponseInterface;
+
 /**
  * Classe principal para realizar os tratamentos de aplicação
  * e gerenciamento de sessão, usuários, e renderização.
@@ -133,6 +135,12 @@ abstract class Application extends App implements IApplication
      * @var string
      */
     private $hookAutoload;
+
+    /**
+     * Corpo que será escrito para ser testado.
+     * @var string
+     */
+    private $bodyContent;
 
     /**
      * Construtor para a classe de aplicação
@@ -551,6 +559,44 @@ abstract class Application extends App implements IApplication
     public function setXmlJsonConverter(XmlJsonConverter $xmlJsonConverter)
     {
         $this->xmlJsonConverter = $xmlJsonConverter;
+    }
+
+    /**
+     * Define o conteúdo do corpo que será escrito em tela.
+     * @param string $content
+     */
+    public function setBodyContent($content)
+    {
+        $this->bodyContent = $content;
+    }
+
+    /**
+     * Obtém o conteudo do corpo que será escrito...
+     * @return string
+     */
+    public function getBodyContent()
+    {
+        return $this->bodyContent;
+    }
+
+    /**
+     * Verifica informações do retorno para 
+     */
+    public function respond(ResponseInterface $response)
+    {
+        if (!$this->isEmptyResponse($response)) {
+            $body = $response->getBody();
+            $body->rewind();
+
+            $bodySize = $body->getSize();
+            $this->setBodyContent($body->read($bodySize));
+
+            if (getenv('TRAVIS_CI_DEBUG') !== false && getenv('TRAVIS_CI_DEBUG') == 1) {
+                $body->detach();
+            }
+        }
+
+        parent::respond($response);
     }
 
     /**

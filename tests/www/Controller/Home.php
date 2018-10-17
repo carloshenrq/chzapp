@@ -30,33 +30,46 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-require_once 'lib/autoload.php';
 
-use PHPUnit\Framework\TestCase;
+namespace Controller;
 
-class WebTest extends TestCase
+class Home extends \CHZApp\Controller
 {
-    private $appObj;
-    private $httpObj;
-
-    public function setUp()
+    public function init()
     {
-        $this->appObj = $this->getMockForAbstractClass('\CHZApp\Application');
-        $this->httpObj = $this->getMockBuilder('\CHZApp\HttpClient')
-                            ->enableOriginalConstructor()
-                            ->setConstructorArgs([$this->appObj])
-                            ->enableProxyingToOriginalMethods()
-                            ->setMethods(['getException'])
-                            ->getMock();
+        $this->applyRestrictionOnAllRoutes(function() {
+            return true;
+        }, ['test_GET']);
+
+        $this->addRoute('route_GET', function($response, $args) {
+            return $response->write('it works!');
+        });
+
+        $this->addRoute('brbr_GET', true);
+
+        $this->addRouteRegexp('/^\/home\/template\/(.*)$/i', '/home/template/{file}');
     }
 
-    public function testRequest()
+    public function index_GET($response, $args)
     {
-        $resp = $this->httpObj->createClient()
-                     ->get('http://127.0.0.1/')
-                     ->getBody()
-                     ->getContents();
-        
-        $this->assertEquals('hello world', $resp);
+        return $response->write('hello world');
+    }
+
+    public function test_GET($response, $args)
+    {
+        return $response->write('error message')->withStatus(404);
+    }
+
+    public function template_GET($response, $args)
+    {
+        $file = $args['file'];
+
+        if ($this->verifyKeysPost(['test', 'br']))
+            return $response->withStatus(404);
+
+        if (!$this->verifyKeysGet(['test', 'br']))
+            return $response->withStatus(404);
+
+        return $this->response($response, $file, []);
     }
 }

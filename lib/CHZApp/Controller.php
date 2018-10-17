@@ -320,6 +320,9 @@ abstract class Controller extends Component
      */
     protected function verifyKeys($keys, $vector)
     {
+        if (is_null($vector))
+            $vector = [];
+
         // Verre todas as chaves e testa o vetor,
         // caso não exista, será retornado false.
         foreach($keys as $key)
