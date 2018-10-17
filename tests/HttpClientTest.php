@@ -47,11 +47,11 @@ class HttpClientTest extends TestCase
     public function testCreateClient()
     {
         $resp = $this->httpObj->createClient()
-                    ->get('http://clients3.google.com/generate_204')
+                    ->get('http://127.0.0.1/')
                     ->getBody()
                     ->getContents();
         
         $this->assertNotNull($resp);
-        $this->assertEquals(strlen($resp), 0);
+        $this->assertEquals('hello world', $resp);
     }
 }
