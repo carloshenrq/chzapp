@@ -54,6 +54,32 @@ class RouterTest extends TestCase
         $environment['REQUEST_METHOD'] = 'GET';
     }
 
+    public function testInvokeCustom()
+    {
+        $container = $this->appObj->getContainer();
+        $environment = $container['environment'];
+
+        // Ambiente padrão para execução do URI.
+        $environment['REQUEST_URI'] = '/home/route';
+        $response = $this->appObj->run();
+
+        $body = $this->appObj->getBodyContent();
+        $this->assertEquals('it works!', $body);
+    }
+
+    public function testInvokeError0()
+    {
+        $container = $this->appObj->getContainer();
+        $environment = $container['environment'];
+
+        // Ambiente padrão para execução do URI.
+        $environment['REQUEST_URI'] = '/home/notfound';
+        $response = $this->appObj->run();
+
+        $body = $this->appObj->getBodyContent();
+        $this->assertEquals('Page not found', $body);
+    }
+
     public function testInvokeStatus()
     {
         $container = $this->appObj->getContainer();

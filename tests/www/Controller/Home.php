@@ -40,6 +40,12 @@ class Home extends \CHZApp\Controller
         $this->applyRestrictionOnAllRoutes(function() {
             return true;
         }, ['test_GET']);
+
+        $this->addRoute('route_GET', function($response, $args) {
+            return $response->write('it works!');
+        });
+
+        $this->addRoute('brbr_GET', true);
     }
 
     public function index_GET($response, $args)
