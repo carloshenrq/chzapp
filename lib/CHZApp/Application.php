@@ -240,8 +240,14 @@ abstract class Application extends App implements IApplication
      */
     public function unInstallSchema($schema, $name = 'default')
     {
-        if (!is_null($schema))
-            $tables = $schema->dropAllTables();
+        if (!is_null($schema)) {
+            $pdo = $schema->getConnection()->getPdo();
+            $stmt = $pdo->query("SHOW TABLES");
+            $tables = $stmt->fetchAll();
+
+            // echo get_class($schema);
+            // $tables = $schema->listTableNames();
+        }
     }
 
     /**

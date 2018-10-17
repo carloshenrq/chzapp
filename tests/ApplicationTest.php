@@ -229,22 +229,6 @@ class ApplicationTest extends TestCase
 		$this->testGetMailer();
 	}
 
-	/**
-	 * @expectedException TypeError
-	 */
-	public function testSetMailer0()
-	{
-		$this->appObj->setMailer(null);
-	}
-
-	/**
-	 * @expectedException TypeError
-	 */
-	public function testSetMailer1()
-	{
-		$this->appObj->setMailer($this->appObj);
-	}
-
 	public function testGetMailer()
 	{
 		$mailerObj = $this->appObj->getMailer();
@@ -279,22 +263,6 @@ class ApplicationTest extends TestCase
 		$this->testGetHttpClient();
 	}
 
-	/**
-	 * @expectedException TypeError
-	 */
-	public function testSetHttpClient0()
-	{
-		$this->appObj->setHttpClient(null);
-	}
-
-	/**
-	 * @expectedException TypeError
-	 */
-	public function testSetHttpClient1()
-	{
-		$this->appObj->setHttpClient($this->appObj);
-	}
-
 	public function testGetHttpClient()
 	{
 		$httpObj = $this->appObj->getHttpClient();
@@ -312,22 +280,6 @@ class ApplicationTest extends TestCase
 		$this->testGetViewer();
 	}
 
-	/**
-	 * @expectedException TypeError
-	 */
-	public function testSetViewer0()
-	{
-		$this->appObj->setViewer(null);
-	}
-
-	/**
-	 * @expectedException TypeError
-	 */
-	public function testSetViewer1()
-	{
-		$this->appObj->setViewer($this->appObj);
-	}
-
 	public function testGetViewer()
 	{
 		$viewerObj = $this->appObj->getViewer();
@@ -343,22 +295,6 @@ class ApplicationTest extends TestCase
 	{
 		$this->appObj->setSession($this->sessionObj);
 		$this->testGetSession();
-	}
-
-	/**
-	 * @expectedException TypeError
-	 */
-	public function testSetSession0()
-	{
-		$this->appObj->setSession(null);
-	}
-
-	/**
-	 * @expectedException TypeError
-	 */
-	public function testSetSession1()
-	{
-		$this->appObj->setSession($this->appObj);
 	}
 
 	public function testGetSession()
@@ -384,22 +320,6 @@ class ApplicationTest extends TestCase
 	{
 		$this->appObj->setSchemaValidator($this->schemaObj);
 		$this->testGetSchemaValidator();
-	}
-
-	/**
-	 * @expectedException TypeError
-	 */
-	public function testFailingSetSchemaValidator0()
-	{
-		$this->appObj->setSchemaValidator(null);
-	}
-
-	/**
-	 * @expectedException TypeError
-	 */
-	public function testFailingSetSchemaValidator1()
-	{
-		$this->appObj->setSchemaValidator($this->appObj);
 	}
 
 	public function testGetSchemaValidator()
@@ -428,22 +348,6 @@ class ApplicationTest extends TestCase
 	{
 		$this->appObj->setXmlJsonConverter($this->xmlJsonObj);
 		$this->testGetXmlJsonConverter();
-	}
-
-	/**
-	 * @expectedException TypeError
-	 */
-	public function testFailingSetXmlJsonConverter0()
-	{
-		$this->appObj->setXmlJsonConverter(null);
-	}
-
-	/**
-	 * @expectedException TypeError
-	 */
-	public function testFailingSetXmlJsonConverter1()
-	{
-		$this->appObj->setXmlJsonConverter($this->appObj);
 	}
 }
 
