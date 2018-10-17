@@ -2,6 +2,12 @@ build: false
 clone_depth: 1
 clone_folder: c:\projects\chzapp
 
+configuration:
+- php56
+- php70
+- php71
+- php72
+
 services:
   - mysql
 
@@ -18,16 +24,6 @@ environment:
   MYSQL_PORT: tcp://localhost:3306
   MYSQL_PATH: C:\Program Files\MySql\MySQL Server 5.7
   MYSQL_PWD: Password12!
-  CODECOV_TOKEN:
-    secure: hr0bSBbOvb9owKukcjgR0BmK3TRtz+jVz8EO3fakXbnwOC/A3Br9AFvtvkRAOiqe
-  REMOTE_ADDR: 127.0.0.1
-  TRAVIS_CI_DEBUG: 1
-  MAILTRAP_HOST: smtp.mailtrap.io
-  MAILTRAP_PORT: 2525
-  MAILTRAP_USER:
-    secure: 2nEFnDbtNsVK8adsBDiLpA==
-  MAILTRAP_PASS:
-    secure: QAtDBdqFaSkP0TK2PygWDQ==
 install:
     - mkdir c:\memcached && cd c:\memcached
     - appveyor DownloadFile https://github.com/carloshenrq/chzapp/releases/download/v0.1.2/memcached-win32-1.4.4-14.zip
@@ -41,39 +37,13 @@ install:
     - update_rubygems
     - cd ..
     - rmdir /s /q c:\rubyupdate
-    - mkdir c:\php && cd c:\php
-    - appveyor DownloadFile https://raw.githubusercontent.com/symfony/binary-utils/master/cacert.pem
-    - appveyor DownloadFile https://github.com/carloshenrq/chzapp/releases/download/v0.1.2/php-7.1.23-Win32-VC14-x86.zip
-    - 7z x php-7.1.23-Win32-VC14-x86.zip -y >nul
-    - del /Q *.zip
-    - cd ext
-    - appveyor DownloadFile https://github.com/carloshenrq/chzapp/releases/download/v0.1.2/php_apcu-5.1.8-7.1-ts-vc14-x86.zip
-    - 7z x php_apcu-5.1.8-7.1-ts-vc14-x86.zip -y >nul
-    - del /Q *.zip
-    - appveyor DownloadFile https://github.com/carloshenrq/chzapp/releases/download/v0.1.2/php_xdebug-2.6.1-7.1-ts-vc14-x86.zip
-    - 7z x php_xdebug-2.6.1-7.1-ts-vc14-x86.zip -y >nul
-    - del /Q *.zip
-    - cd ..
-    - copy /Y php.ini-development php.ini
-    - echo max_execution_time=1200 >> php.ini
-    - echo date.timezone="America/Sao_Paulo" >> php.ini
-    - echo extension_dir=ext >> php.ini
-    - echo zend_extension=php_opcache.dll >> php.ini
-    - echo opcache.enable_cli=1 >> php.ini
-    - echo extension=php_openssl.dll >> php.ini
-    - echo extension=php_apcu.dll >> php.ini
-    - echo apc.enable_cli=1 >> php.ini
-    - echo extension=php_intl.dll >> php.ini
-    - echo extension=php_mbstring.dll >> php.ini
-    - echo extension=php_fileinfo.dll >> php.ini
-    - echo extension=php_pdo_sqlite.dll >> php.ini
-    - echo extension=php_curl.dll >> php.ini
-    - echo extension=php_gd2.dll >> php.ini
-    - echo extension=php_pdo_mysql.dll >> php.ini
-    - echo zend_extension=php_xdebug.dll >> php.ini
-    - echo curl.cainfo=c:\php\cacert.pem >> php.ini
     - cd \
-    - php -v
+    - appveyor DownloadFile https://github.com/carloshenrq/chzapp/releases/download/v0.1.2/%CONFIGURATION%.zip
+    - 7z x %CONFIGURATION%.zip -y >nul
+    - del /Q *.zip
+    - cd c:\php
+    - appveyor DownloadFile https://raw.githubusercontent.com/symfony/binary-utils/master/cacert.pem
+    - echo curl.cainfo=c:\php\cacert.pem >> php.ini
     - cd c:\projects\chzapp
     - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
     - php composer-setup.php
@@ -83,10 +53,6 @@ install:
     - SET COMPOSER_ROOT_VERSION=
     - gem update --system
     - gem install mime-types -v 2.99.1
-    - cd \
-    - appveyor DownloadFile https://github.com/carloshenrq/chzapp/releases/download/v0.1.2/httpd-2.4.35-win32-VC14.zip
-    - 7z x httpd-2.4.35-win32-VC14.zip
-    - copy /Y c:\projects\chzapp\build\appveyor-apache c:\Apache24\conf\httpd.conf
     - cd c:\Apache24\bin
     - httpd -k install -n "Apache24"
     - net start Apache24
