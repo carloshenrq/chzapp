@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="robots" content="noindex">
 
-	<title>File CHZApp/SchemaValidator.php</title>
+	<title>File SchemaValidator.php</title>
 
 	<link rel="stylesheet" href="resources/style.css?c2f33731c1948fbed7c333554678bfa68d4817da">
 
@@ -160,7 +160,7 @@
 </span></span><span id="45" class="l"><span class="php-comment">     *
 </span></span><span id="46" class="l"><span class="php-comment">     * @return boolean True is a valid xml valid
 </span></span><span id="47" class="l"><span class="php-comment">     */</span>
-</span><span id="48" class="l">    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> validateXmlFile(<span class="php-var">$sFileXml</span>, <span class="php-var">$sFileXsd</span>)
+</span><span id="48" class="l">    <span class="php-keyword1">final</span> <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> validateXmlFile(<span class="php-var">$sFileXml</span>, <span class="php-var">$sFileXsd</span>)
 </span><span id="49" class="l">    {
 </span><span id="50" class="l">        <span class="php-keyword1">if</span>(!<span class="php-keyword2">file_exists</span>(<span class="php-var">$sFileXml</span>))
 </span><span id="51" class="l">            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> SchemaValidatorException(<span class="php-quote">'File in \''</span> . <span class="php-var">$sFileXml</span> . <span class="php-quote">'\' not found.'</span>);
@@ -176,7 +176,7 @@
 </span></span><span id="61" class="l"><span class="php-comment">     *
 </span></span><span id="62" class="l"><span class="php-comment">     * @return boolean True is a valid xml valid
 </span></span><span id="63" class="l"><span class="php-comment">     */</span>
-</span><span id="64" class="l">    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> validateXml(<span class="php-var">$sXmlContent</span>, <span class="php-var">$sFileXsd</span>)
+</span><span id="64" class="l">    <span class="php-keyword1">final</span> <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> validateXml(<span class="php-var">$sXmlContent</span>, <span class="php-var">$sFileXsd</span>)
 </span><span id="65" class="l">    {
 </span><span id="66" class="l">        <span class="php-keyword2">libxml_use_internal_errors</span>(<span class="php-keyword1">true</span>);
 </span><span id="67" class="l">        <span class="php-var">$xml</span> = <span class="php-keyword1">new</span> DOMDocument;
@@ -196,7 +196,7 @@
 	</div>
 </div>
 </div>
-<script src="resources/combined.js?eb867bb2c29ab62dfb6ee905fe808fc5167c5481"></script>
+<script src="resources/combined.js?20f8e5bce83a26be302096500780d537b5ee10f4"></script>
 <script src="elementlist.js?ea866278a10a64523125eabca78c98c81045eaf3"></script>
 </body>
 </html>

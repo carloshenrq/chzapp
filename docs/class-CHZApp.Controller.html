@@ -149,7 +149,7 @@
 		<b>Namespace:</b> <a href="namespace-CHZApp.html">CHZApp</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-CHZApp.Controller.html#39-390" title="Go to source code">CHZApp/Controller.php</a>
+			<b>Located at</b> <a href="source-class-CHZApp.Controller.html#40-394" title="Go to source code">Controller.php</a>
 		<br>
 	</div>
 
@@ -169,7 +169,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-CHZApp.Controller.html#82-98" title="Go to source code">__construct</a>( <span><code><a href="class-CHZApp.Application.html">CHZApp\Application</a></code> <var>$application</var></span> )</code>
+		<code><a href="source-class-CHZApp.Controller.html#83-99" title="Go to source code">__construct</a>( <span><code><a href="class-CHZApp.Interfaces.IApplication.html">CHZApp\Interfaces\IApplication</a></code> <var>$application</var></span> )</code>
 
 		<div class="description short">
 			<p>Construtor para a classe de controller.
@@ -208,7 +208,7 @@ Recebe os posts, get e arquivos.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_response">#</a>
-		<code><a href="source-class-CHZApp.Controller.html#100-115" title="Go to source code">response</a>( <span>Psr\Http\Message\ResponseInterface <var>$response</var></span>, <span>string <var>$template</var></span>, <span>array <var>$data</var> = []</span> )</code>
+		<code><a href="source-class-CHZApp.Controller.html#101-116" title="Go to source code">response</a>( <span>Psr\Http\Message\ResponseInterface <var>$response</var></span>, <span>string <var>$template</var></span>, <span>array <var>$data</var> = []</span> )</code>
 
 		<div class="description short">
 			<p>Renderiza o template e retorna os dados para a tela.</p>
@@ -251,7 +251,7 @@ Recebe os posts, get e arquivos.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_applyRestrictionOnAllRoutes">#</a>
-		<code><a href="source-class-CHZApp.Controller.html#131-149" title="Go to source code">applyRestrictionOnAllRoutes</a>( <span>callable <var>$callBack</var></span>, <span>array <var>$skipRoutes</var> = []</span> )</code>
+		<code><a href="source-class-CHZApp.Controller.html#132-150" title="Go to source code">applyRestrictionOnAllRoutes</a>( <span>callable <var>$callBack</var></span>, <span>array <var>$skipRoutes</var> = []</span> )</code>
 
 		<div class="description short">
 			<p>Aplica em todas as rotas somente pula algumas rotas.</p>
@@ -288,7 +288,7 @@ Recebe os posts, get e arquivos.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getAllRoutes">#</a>
-		<code><a href="source-class-CHZApp.Controller.html#151-167" title="Go to source code">getAllRoutes</a>( )</code>
+		<code><a href="source-class-CHZApp.Controller.html#152-168" title="Go to source code">getAllRoutes</a>( )</code>
 
 		<div class="description short">
 			<p>Obtém todas as rotas para o controller</p>
@@ -322,7 +322,7 @@ Recebe os posts, get e arquivos.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addRouteRegexp">#</a>
-		<code><a href="source-class-CHZApp.Controller.html#169-180" title="Go to source code">addRouteRegexp</a>( <span>string <var>$routeRegexp</var></span>, <span>string <var>$routeSlim</var></span> )</code>
+		<code><a href="source-class-CHZApp.Controller.html#170-181" title="Go to source code">addRouteRegexp</a>( <span>string <var>$routeRegexp</var></span>, <span>string <var>$routeSlim</var></span> )</code>
 
 		<div class="description short">
 			<p>Adiciona a expressão regular.</p>
@@ -359,7 +359,7 @@ Recebe os posts, get e arquivos.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addRoute">#</a>
-		<code><a href="source-class-CHZApp.Controller.html#182-194" title="Go to source code">addRoute</a>( <span>string <var>$route</var></span>, <span>callable <var>$callback</var></span> )</code>
+		<code><a href="source-class-CHZApp.Controller.html#183-195" title="Go to source code">addRoute</a>( <span>string <var>$route</var></span>, <span>callable <var>$callback</var></span> )</code>
 
 		<div class="description short">
 			<p>Adiciona uma nova rota ao controller.</p>
@@ -396,7 +396,7 @@ Recebe os posts, get e arquivos.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addRouteRestriction">#</a>
-		<code><a href="source-class-CHZApp.Controller.html#196-209" title="Go to source code">addRouteRestriction</a>( <span>string <var>$route</var></span>, <span>callable <var>$callback</var></span> )</code>
+		<code><a href="source-class-CHZApp.Controller.html#197-210" title="Go to source code">addRouteRestriction</a>( <span>string <var>$route</var></span>, <span>callable <var>$callback</var></span> )</code>
 
 		<div class="description short">
 			<p>Adiciona uma nova rota ao controller.</p>
@@ -433,7 +433,7 @@ Recebe os posts, get e arquivos.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_parseRoute">#</a>
-		<code><a href="source-class-CHZApp.Controller.html#269-286" title="Go to source code">parseRoute</a>( <span>string <var>$route</var></span> )</code>
+		<code><a href="source-class-CHZApp.Controller.html#270-287" title="Go to source code">parseRoute</a>( <span>string <var>$route</var></span> )</code>
 
 		<div class="description short">
 			<p>Faz o tratamento da rota e retorna o caminho correto
@@ -473,7 +473,7 @@ Recebe os posts, get e arquivos.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_verifyKeysPost">#</a>
-		<code><a href="source-class-CHZApp.Controller.html#288-298" title="Go to source code">verifyKeysPost</a>( <span>array <var>$keys</var></span> )</code>
+		<code><a href="source-class-CHZApp.Controller.html#289-299" title="Go to source code">verifyKeysPost</a>( <span>array <var>$keys</var></span> )</code>
 
 		<div class="description short">
 			<p>Verifica as chaves no vetor POST</p>
@@ -512,7 +512,7 @@ Recebe os posts, get e arquivos.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_verifyKeysGet">#</a>
-		<code><a href="source-class-CHZApp.Controller.html#300-310" title="Go to source code">verifyKeysGet</a>( <span>array <var>$keys</var></span> )</code>
+		<code><a href="source-class-CHZApp.Controller.html#301-311" title="Go to source code">verifyKeysGet</a>( <span>array <var>$keys</var></span> )</code>
 
 		<div class="description short">
 			<p>Verifica as chaves no vetor GET</p>
@@ -551,7 +551,7 @@ Recebe os posts, get e arquivos.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_verifyKeys">#</a>
-		<code><a href="source-class-CHZApp.Controller.html#312-331" title="Go to source code">verifyKeys</a>( <span>array <var>$keys</var></span>, <span>array <var>$vector</var></span> )</code>
+		<code><a href="source-class-CHZApp.Controller.html#313-335" title="Go to source code">verifyKeys</a>( <span>array <var>$keys</var></span>, <span>array <var>$vector</var></span> )</code>
 
 		<div class="description short">
 			<p>Verifica chaves de um vetor, caso todas as chaves estejam presentes.</p>
@@ -592,7 +592,7 @@ Recebe os posts, get e arquivos.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___router">#</a>
-		<code><a href="source-class-CHZApp.Controller.html#333-389" title="Go to source code">__router</a>( <span>Psr\Http\Message\ServerRequestInterface <var>$request</var></span>, <span>Psr\Http\Message\ResponseInterface <var>$response</var></span>, <span>array <var>$args</var></span> )</code>
+		<code><a href="source-class-CHZApp.Controller.html#337-393" title="Go to source code">__router</a>( <span>Psr\Http\Message\ServerRequestInterface <var>$request</var></span>, <span>Psr\Http\Message\ResponseInterface <var>$response</var></span>, <span>array <var>$args</var></span> )</code>
 
 		<div class="description short">
 			<p>Método para realizar o tratamento de chamada de rota.</p>
@@ -677,7 +677,7 @@ Recebe os posts, get e arquivos.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-CHZApp.Controller.html#64-68" title="Go to source code"><var>$get</var></a>
+				<a href="source-class-CHZApp.Controller.html#65-69" title="Go to source code"><var>$get</var></a>
 
 			<div class="description short">
 				<p>Array com o conteúdo de $_GET</p>
@@ -702,7 +702,7 @@ Recebe os posts, get e arquivos.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-CHZApp.Controller.html#70-74" title="Go to source code"><var>$post</var></a>
+				<a href="source-class-CHZApp.Controller.html#71-75" title="Go to source code"><var>$post</var></a>
 
 			<div class="description short">
 				<p>Array com o conteúdo de $_POST</p>
@@ -727,7 +727,7 @@ Recebe os posts, get e arquivos.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-CHZApp.Controller.html#76-80" title="Go to source code"><var>$files</var></a>
+				<a href="source-class-CHZApp.Controller.html#77-81" title="Go to source code"><var>$files</var></a>
 
 			<div class="description short">
 				<p>Array com o conteúdo de $_FILES.</p>

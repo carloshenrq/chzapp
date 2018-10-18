@@ -151,7 +151,7 @@
 		<b>Namespace:</b> <a href="namespace-CHZApp.html">CHZApp</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-CHZApp.HttpClient.html#39-106" title="Go to source code">CHZApp/HttpClient.php</a>
+			<b>Located at</b> <a href="source-class-CHZApp.HttpClient.html#39-54" title="Go to source code">HttpClient.php</a>
 		<br>
 	</div>
 
@@ -159,87 +159,10 @@
 
 	<table class="summary methods" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="getServerIpAddress" id="_getServerIpAddress">
-
-		<td class="attributes"><code>
-			 public 
-
-			string
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getServerIpAddress">#</a>
-		<code><a href="source-class-CHZApp.HttpClient.html#44-57" title="Go to source code">getServerIpAddress</a>( )</code>
-
-		<div class="description short">
-			<p>Realiza uma requisição para obter o endereço ip de internet
-o servidor que está sendo executado.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Realiza uma requisição para obter o endereço ip de internet
-o servidor que está sendo executado.</p>
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					string<br>Endereço ip.
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="verifyRecaptcha" id="_verifyRecaptcha">
-
-		<td class="attributes"><code>
-			 public 
-
-			boolean
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_verifyRecaptcha">#</a>
-		<code><a href="source-class-CHZApp.HttpClient.html#59-86" title="Go to source code">verifyRecaptcha</a>( <span>string <var>$challengeResponse</var></span>, <span>string <var>$secretKey</var></span> )</code>
-
-		<div class="description short">
-			<p>Realiza a verificação de componente do reCaptcha solicitado.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Realiza a verificação de componente do reCaptcha solicitado.</p>
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$challengeResponse</var></dt>
-					<dd>Retorno do desafio em tela preenchido pelo usuário.</dd>
-					<dt><var>$secretKey</var></dt>
-					<dd>Chave secreta para comunicação direta com o google.</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					boolean<br>Verdadeiro caso os dados estejam validos.
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
 	<tr data-order="createClient" id="_createClient">
 
 		<td class="attributes"><code>
-			 public 
+			final public 
 
 			GuzzleHttp\Client
 			
@@ -248,16 +171,14 @@ o servidor que está sendo executado.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_createClient">#</a>
-		<code><a href="source-class-CHZApp.HttpClient.html#89-105" title="Go to source code">createClient</a>( <span>string <var>$url</var> = <span class="php-quote">''</span></span>, <span>boolean <var>$verify</var> = <span class="php-keyword1">false</span></span>, <span>array <var>$options</var> = []</span> )</code>
+		<code><a href="source-class-CHZApp.HttpClient.html#44-53" title="Go to source code">createClient</a>( <span>string <var>$url</var> = <span class="php-quote">''</span></span>, <span>boolean <var>$verify</var> = <span class="php-keyword1">false</span></span>, <span>array <var>$options</var> = []</span> )</code>
 
 		<div class="description short">
-			<p>Cria o cliente de conexão com o URL informado para realizar
-chamadas.</p>
+			
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Cria o cliente de conexão com o URL informado para realizar
-chamadas.</p>
+			
 
 
 				<h4>Parameters</h4>
@@ -276,8 +197,14 @@ chamadas.</p>
 				</div>
 
 
+				<h4>See</h4>
+				<div class="list">
+						IHttpClient::createClient()<br>
+				</div>
 
 
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-CHZApp.Interfaces.IHttpClient.html#_createClient">CHZApp\Interfaces\IHttpClient::createClient()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
