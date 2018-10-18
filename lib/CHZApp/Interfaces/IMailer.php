@@ -43,8 +43,9 @@ interface IMailer
      * @param string $template Caminho para o arquivo de template
      * @param array $data Dados que serão usados no template
      * @param string $type Tipo de dados para o corpo do e-mail.
+     * @param array $attach Arquivos deverão ser anexados ao email
      */
-    public function sendFromTemplate($subject, $to, $template, $data = array(), $type = 'text/html');
+    public function sendFromTemplate($subject, $to, $template, $data = array(), $type = 'text/html', $attach = array());
 
     /**
      * Envia o email (criando a mensagem)
@@ -53,10 +54,11 @@ interface IMailer
      * @param array $to Para quem será enviado os dados
      * @param string $body Corpo do email
      * @param string $type Tipo de dados para o corpo do e-mail.
+     * @param array $attach Arquivos deverão ser anexados ao email
      * 
      * @return object
      */
-    public function send($subject, $to, $body, $type = 'text/html');
+    public function send($subject, $to, $body, $type = 'text/html', $attach = array());
 
     /**
      * Cria o objeto de mensagem, que será enviado pelo 'IMailer::createMailer()'
@@ -65,10 +67,11 @@ interface IMailer
      * @param array $to Para quem será enviado os dados
      * @param string $body Corpo do email
      * @param string $type Tipo de dados para o corpo do e-mail.
+     * @param array $attach Arquivos deverão ser anexados ao email
      * 
      * @return object
      */
-    public function createMessage($subject, $to, $body, $type = 'text/html');
+    public function createMessage($subject, $to, $body, $type = 'text/html', $attach = array());
 
     /**
      * Cria o objeto que irá ser o responsavel pelo envio dos dados.

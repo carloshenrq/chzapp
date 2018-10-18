@@ -38,6 +38,7 @@ use \CHZApp\Interfaces\IMailer;
 use \Swift_SmtpTransport;
 use \Swift_Mailer;
 use \Swift_Message;
+use \Swift_Attachment;
 
 /**
  * Componente responsavel pelo envio de informações
@@ -48,7 +49,7 @@ class Mailer extends ConfigComponent implements IMailer
     /**
      * @see IMailer::sendFromTemplate($subject, $to, $template, $data, $type)
      */
-    public function sendFromTemplate($subject, $to, $template, $data = array(), $type = 'text/html')
+    public function sendFromTemplate($subject, $to, $template, $data = array(), $type = 'text/html', $attach = array())
     {
         // Renderiza os dados da mensagem para envio.
         $body = $this->getApplication()
@@ -61,7 +62,7 @@ class Mailer extends ConfigComponent implements IMailer
     /**
      * @see IMailer::send($subject, $to, $body, $type)
      */
-    final public function send($subject, $to, $body, $type = 'text/html')
+    final public function send($subject, $to, $body, $type = 'text/html', $attach = array())
     {
         $message = $this->createMessage($subject, $to, $body, $type);
         return $this->createMailer()->send($message);
@@ -70,7 +71,7 @@ class Mailer extends ConfigComponent implements IMailer
     /**
      * @see IMailer::createMessage($subject, $to, $body, $type)
      */
-    final public function createMessage($subject, $to, $body, $type = 'text/html')
+    final public function createMessage($subject, $to, $body, $type = 'text/html', $attach = array())
     {
         // Cria o objeto da mensagem para envio.
         $message = new Swift_Message($subject);
