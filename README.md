@@ -1,43 +1,118 @@
-# CHZApp [![Build Status](https://travis-ci.com/carloshenrq/chzapp.svg?branch=master)](https://travis-ci.com/carloshenrq/chzapp) [![GitHub issues](https://img.shields.io/github/issues/carloshenrq/chzapp.svg)](https://github.com/carloshenrq/chzapp/issues) [![GitHub forks](https://img.shields.io/github/forks/carloshenrq/chzapp.svg)](https://github.com/carloshenrq/chzapp/network) [![GitHub stars](https://img.shields.io/github/stars/carloshenrq/chzapp.svg)](https://github.com/carloshenrq/chzapp/stargazers) [![GitHub license](https://img.shields.io/github/license/carloshenrq/chzapp.svg)](https://github.com/carloshenrq/chzapp/blob/master/LICENSE) [![codecov](https://codecov.io/gh/carloshenrq/chzapp/branch/master/graph/badge.svg)](https://codecov.io/gh/carloshenrq/chzapp) [![Build status](https://ci.appveyor.com/api/projects/status/mf73tqydrwalg8gw?svg=true)](https://ci.appveyor.com/project/carloshenrq/chzapp)
+# CHZApp [![GitHub license](https://img.shields.io/github/license/carloshenrq/chzapp.svg)](https://github.com/carloshenrq/chzapp/blob/master/LICENSE)
 
+[![Build Status](https://travis-ci.com/carloshenrq/chzapp.svg?branch=master)](https://travis-ci.com/carloshenrq/chzapp) [![Build status](https://ci.appveyor.com/api/projects/status/mf73tqydrwalg8gw/branch/master?svg=true)](https://ci.appveyor.com/project/carloshenrq/chzapp/branch/master) [![codecov](https://codecov.io/gh/carloshenrq/chzapp/branch/master/graph/badge.svg)](https://codecov.io/gh/carloshenrq/chzapp) [![Packagist](https://img.shields.io/packagist/v/carloshlfz/framework.svg)](https://packagist.org/packages/carloshlfz/framework) [![GitHub release](https://img.shields.io/github/release/carloshenrq/chzapp.svg)](https://github.com/carloshenrq/chzapp/releases) [![GitHub issues](https://img.shields.io/github/issues/carloshenrq/chzapp.svg)](https://github.com/carloshenrq/chzapp/issues)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/carloshenrq/chzapp.svg)](https://github.com/carloshenrq/chzapp/pulls)
 
 É um pequeno framework de uso pessoal que estou disponibilizando aqui no github. Facilitou alguns serviços meus, claro que de outras formas, mas esta versão deve ajudar alguém que possa estar precisando também.
 
-### Conjunto de Bibliotecas
+### Informações de versão
 
-É compatível apartir da versão **PHP 5.6.4** e testado até a versão **PHP 7.1.5** (2017-05)
+Este framework é compatível com as versões de PHP 5.6, 7.0, 7.1 e 7.2
 
-* Slim Framework (v3.8.1)
-* Client IP address middleware (v0.5)
-* Smarty 3 template engine (v3.1.31)
-* Guzzle, PHP HTTP client (v6.2.3)
-* Illuminate Database (v5.4.19)
-* Swift Mailer (v5.4.8)
-* scssphp (v0.6.7)
-* Minify (v1.3.44)
-* coffeescript (v1.3.4)
+### Dependências
 
-*Todas as bibliotecas acima, podem ser encontradas dentro do arquivo 'composer.json'*
+* slim/slim: 3.9.1
+* akrabat/ip-address-middleware: 0.6
+* smarty/smarty: 3.1.33
+* guzzlehttp/guzzle: 6.3.3
+* illuminate/database: 5.4.36
+* illuminate/events: 5.4.36
+* swiftmailer/swiftmailer: 5.4.12
+* leafo/scssphp: 0.7.5
+* matthiasmullie/minify: 1.3.60
+* kylekatarnls/coffeescript: 1.3.4
+* dompdf/dompdf: 0.8.2
+* clickalicious/memcached.php: 1.0.1
 
 ## Instalação
 
 Para fazer a instalação basta rodar no composer o comando:
 
-    composer require carloshlfz/framework --prefer-dist dev-master
+    composer require carloshlfz/framework
 
-Ou se você preferir, adicione a suas depêndencias...
+## Como Usar
 
+Basicamente, você irá preciar iniciar a aplicação e para iniciar, você pode usar o seguinte código:
+
+    <?php
+
+    require_once 'vendor/autoload.php';
+
+    class App extends CHZApp\Application
     {
-        "require" : {
-            "carloshlfz/framework":"dev-master"
+        /**
+         * @see CHZApp\Application::init()
+         */
+        public function init()
+        {
+
         }
     }
 
-## Como usar
+    $app = new App;
+    $app->run();
 
-Para utilizar, é bem tranquilo, primeiramente, tenha em mente em ter seu arquivo ***.htaccess*** já configurado e pronto para usar.
+Isso deixará sua aplicação em pleno funcionamento e permitirá fazer as chamadas dos controllers de forma automática.
 
-Eu gosto de usar este aqui como base:
+Os controllers devem estar no namespace `Controller`
+Exemplo:
+
+    <?php
+
+    namespace Controller;
+
+    class Home extends \CHZApp\Controller
+    {
+        public function index_GET($response, $args)
+        {
+            return $response->write('hello world');
+        }
+    }
+
+Por padrão, as rotas são definidas pelo action da sequinte forma:
+
+    http://127.0.0.1/
+    http://127.0.0.1/home
+    http://127.0.0.1/home/index
+
+Será usado o `Controller\Home` na rota `index_GET`
+
+Para colocar novos controllers, basta herdar `CHZApp\Controller` e colocar o nome de seu controller corretamente e realizar as chamadas.
+
+    http://127.0.0.1/test/hello
+
+Será usado o `Controller\Test` na rota `hello_GET`
+
+    http://127.0.0.1/test/hello/new/user
+
+Será usado o `Controller\Test` na rota `hello_new_user_GET`
+
+O Mesmo vale para rotas do tipo post, o final será trocado de GET para POST.
+
+As variáveis `$_POST, $_GET e $_REQUEST` podem ser acessadas dentro do controller da seguinte forma:
+
+    <?php
+
+    namespace Controller;
+
+    class Home extends \CHZApp\Controller
+    {
+        public function index_GET($response, $args)
+        {
+            $name = $this->get['name'];
+
+            return $response->write('hello world');
+        }
+
+        public function index_POST($response, $args)
+        {
+            $name = $this->post['name'];
+
+            return $response->write('hello world');
+        }
+    }
+
+Para que as rotas funcionem de acordo, é necessário que seu `.htaccess` também esteja de acordo. Recomendo usar:
 
     RewriteEngine On
 
@@ -53,75 +128,4 @@ Eu gosto de usar este aqui como base:
 
     Options -Indexes
 
-### Iniciando a Aplicação
-
-Tendo o framework instalado e tudo em mãos... você deverá criar a classe de execução da aplicação.
-
-    <?php
-    // Carrega o framework e suas dependencias utilizando o composer.
-    require_once 'vendor/autoload.php';
-
-    // Cria a classe com herança em application
-    class MyApp extends CHZApp\Application
-    {
-        public function __construct()
-        {
-            parent::__construct(true, // true: Modo desenvolvedor ligado
-                [], // Configurações de sessão.
-                [], // Configurações do smarty.
-                [], // Configurações do swift-mailer
-                []  // Configurações de conexão para o eloquent (essas, são de forma literal,
-                                                                 todas as configurações do proprio eloquent)
-            );
-        }
-    }
-
-    // Cria a instância de MyApp
-    $obj = new MyApp;
-    // Inicia a execução da aplicação.
-    $obj->run();
-
-### Rotas e Controllers
-
-Para criar as rotas você deve ter em mente que quando sua aplicação faz a chamada da rota da seguinte forma:
-
-    /home/index
-
-Ele irá chamar a classe ***Controller\Home*** e a ação ***index***, o tipo de requisição é definido ao final do nome da ação como sulfixo, pode ser: ***_GET, _POST, _PUT, etc...***
-
-Então, se você fizer a chamada acima, com ***_GET*** a chamada será ***Controller\Home->index_GET()***
-
-    <?php
-
-    namespace Controller;
-
-    class Home extends \CHZApp\Controller
-    {
-        public function index_GET(\Psr\Http\Message\ResponseInterface $response, $args)
-        {
-
-            // Processamento de rota
-
-            return $response;
-        }
-    }
-
-Para criar rotas como:
-
-    /home/teste/huehue/br
-
-Adicione separadores ***_*** entre os actions...
-
-    public function teste_huehue_br_GET();
-
-***Sempre, por padrão, quando for chamado apenas o controller pela requisição, a rota chamada será index_GET()***
-
-Explicando a afirmação acima...
-
-    /home/
-
-Irá realizar a chamada de ***\Controller\Home->index_GET***
-
-    /perfil/
-
-Irá realizar a chamada de ***\Controller\Perfil->index_GET***
+Este `.htaccess` funciona muito bem com o framework.
