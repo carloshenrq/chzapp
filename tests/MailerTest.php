@@ -74,6 +74,7 @@ class MailerTest extends TestCase
 
         $response = $this->mailerObj->sendFromTemplate('Test', ['chzapp@localhost.loc' => 'chzapp'],
             'mail.html',
+            [],
             'text/html',
             ['test-compiled.css' => $css]
         );
