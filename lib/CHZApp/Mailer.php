@@ -38,6 +38,7 @@ use \CHZApp\Interfaces\IMailer;
 use \Swift_SmtpTransport;
 use \Swift_Mailer;
 use \Swift_Message;
+use \Swift_Attachment;
 
 /**
  * Componente responsavel pelo envio de informações
@@ -48,33 +49,37 @@ class Mailer extends ConfigComponent implements IMailer
     /**
      * @see IMailer::sendFromTemplate($subject, $to, $template, $data, $type)
      */
-    public function sendFromTemplate($subject, $to, $template, $data = array(), $type = 'text/html')
+    public function sendFromTemplate($subject, $to, $template, $data = array(), $type = 'text/html', $attach = array())
     {
         // Renderiza os dados da mensagem para envio.
         $body = $this->getApplication()
                     ->getViewer()
                     ->render($template, $data);
         // Envia os dados.
-        return $this->send($subject, $to, $body, $type);
+        return $this->send($subject, $to, $body, $type, $attach);
     }
 
     /**
      * @see IMailer::send($subject, $to, $body, $type)
      */
-    final public function send($subject, $to, $body, $type = 'text/html')
+    final public function send($subject, $to, $body, $type = 'text/html', $attach = array())
     {
-        $message = $this->createMessage($subject, $to, $body, $type);
+        $message = $this->createMessage($subject, $to, $body, $type, $attach);
         return $this->createMailer()->send($message);
     }
 
     /**
      * @see IMailer::createMessage($subject, $to, $body, $type)
      */
-    final public function createMessage($subject, $to, $body, $type = 'text/html')
+    final public function createMessage($subject, $to, $body, $type = 'text/html', $attach = array())
     {
         // Cria o objeto da mensagem para envio.
         $message = new Swift_Message($subject);
 		
+        foreach($attach as $name => $file) {
+        	$message->attach(Swift_Attachment::fromPath($file)->setFilename($name));
+        }
+
 		$message->setFrom([$this->configs['from'] => $this->configs['name']])
 				->setTo($to);
         // Define os dados da mensagem com o conteúdo.
