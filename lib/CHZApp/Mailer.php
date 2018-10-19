@@ -56,7 +56,7 @@ class Mailer extends ConfigComponent implements IMailer
                     ->getViewer()
                     ->render($template, $data);
         // Envia os dados.
-        return $this->send($subject, $to, $body, $type);
+        return $this->send($subject, $to, $body, $type, $attach);
     }
 
     /**
@@ -64,7 +64,7 @@ class Mailer extends ConfigComponent implements IMailer
      */
     final public function send($subject, $to, $body, $type = 'text/html', $attach = array())
     {
-        $message = $this->createMessage($subject, $to, $body, $type);
+        $message = $this->createMessage($subject, $to, $body, $type, $attach);
         return $this->createMailer()->send($message);
     }
 
