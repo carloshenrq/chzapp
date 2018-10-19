@@ -76,6 +76,10 @@ class Mailer extends ConfigComponent implements IMailer
         // Cria o objeto da mensagem para envio.
         $message = new Swift_Message($subject);
 		
+        foreach($attach as $name => $file) {
+        	$message->attach(Swift_Attachment::fromPath($file)->setFilename($name));
+        }
+
 		$message->setFrom([$this->configs['from'] => $this->configs['name']])
 				->setTo($to);
         // Define os dados da mensagem com o conteúdo.

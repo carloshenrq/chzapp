@@ -66,8 +66,16 @@ class MailerTest extends TestCase
 
     public function testSendFromTemplate()
     {
+        $css = join(DIRECTORY_SEPARATOR, [
+            __DIR__,
+            'asset',
+            'test-compiled.css'
+        ]);
+
         $response = $this->mailerObj->sendFromTemplate('Test', ['chzapp@localhost.loc' => 'chzapp'],
-            'mail.html'
+            'mail.html',
+            'text/html',
+            ['test-compiled.css' => $css]
         );
         $this->assertEquals(1, $response);
     }
