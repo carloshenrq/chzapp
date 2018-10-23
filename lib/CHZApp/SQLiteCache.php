@@ -149,16 +149,23 @@ class SQLiteCache extends Cache
      */
     public function on_init()
     {
-        $this->getConnection()->beginTransaction();
+        try
+        {
+            $this->getConnection()->beginTransaction();
 
-        // Realiza a instalação do banco de dados SQLite
-        $this->performInstall();
+            // Realiza a instalação do banco de dados SQLite
+            $this->performInstall();
 
-        // Realiza a limpeza dos dados de cache no banco de dados
-        $this->performClean();
+            // Realiza a limpeza dos dados de cache no banco de dados
+            $this->performClean();
 
-        // Comita as alterações no cache
-        $this->getConnection()->commit();
+            // Comita as alterações no cache
+            $this->getConnection()->commit();
+        }
+        catch(\Exception $ex)
+        {
+            
+        }
     }
 
     /**
