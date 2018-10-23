@@ -64,8 +64,15 @@ class Mailer extends ConfigComponent implements IMailer
      */
     final public function send($subject, $to, $body, $type = 'text/html', $attach = array())
     {
-        $message = $this->createMessage($subject, $to, $body, $type, $attach);
-        return $this->createMailer()->send($message);
+        try
+        {
+            return $this->__callHooked('send', [$subject, $to, $body, $type, $attach], true);
+        }
+        catch(\Exception $ex)
+        {
+            $message = $this->createMessage($subject, $to, $body, $type, $attach);
+            return $this->createMailer()->send($message);
+        }
     }
 
     /**
@@ -73,20 +80,27 @@ class Mailer extends ConfigComponent implements IMailer
      */
     final public function createMessage($subject, $to, $body, $type = 'text/html', $attach = array())
     {
-        // Cria o objeto da mensagem para envio.
-        $message = new Swift_Message($subject);
-		
-        foreach($attach as $name => $file) {
-        	$message->attach(Swift_Attachment::fromPath($file)->setFilename($name));
+        try
+        {
+            return $this->__callHooked('createMessage', [$subject, $to, $body, $type, $attach], true);
         }
+        catch(\Exception $ex)
+        {
+            // Cria o objeto da mensagem para envio.
+            $message = new Swift_Message($subject);
+    		
+            foreach($attach as $name => $file) {
+            	$message->attach(Swift_Attachment::fromPath($file)->setFilename($name));
+            }
 
-		$message->setFrom([$this->configs['from'] => $this->configs['name']])
-				->setTo($to);
-        // Define os dados da mensagem com o conteúdo.
-        $message->setBody($body, $type);
+    		$message->setFrom([$this->configs['from'] => $this->configs['name']])
+    				->setTo($to);
+            // Define os dados da mensagem com o conteúdo.
+            $message->setBody($body, $type);
 
-        // Retorna a mensagem pronta para o envio.
-        return $message;
+            // Retorna a mensagem pronta para o envio.
+            return $message;
+        }
     }
 
     /**
