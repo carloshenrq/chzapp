@@ -7,6 +7,7 @@ configuration:
 - php70
 - php71
 - php72
+- php73
 
 services:
   - mysql
