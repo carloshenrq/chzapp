@@ -140,4 +140,17 @@ class RouterTest extends TestCase
         $body = $this->appObj->getBodyContent();
         $this->assertEquals('hello world', $body);
     }
+
+    public function testInvokeHomeAction()
+    {
+        $container = $this->appObj->getContainer();
+        $environment = $container['environment'];
+
+        // Ambiente padrão para execução do URI.
+        $environment['REQUEST_URI'] = '/home/action';
+        $response = $this->appObj->run();
+
+        $body = $this->appObj->getBodyContent();
+        $this->assertEquals('@route works', $body);
+    }
 }

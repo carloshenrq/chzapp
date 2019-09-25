@@ -72,4 +72,20 @@ class Home extends \CHZApp\Controller
 
         return $this->response($response, $file, []);
     }
+
+	/**
+	 * @route action GET
+	 */
+	public function testRoute($response, $args)
+	{
+        return $response->write('@route works');
+	}
+
+	/**
+	 * @route action GET
+	 */
+	public function testRoute2($response, $args)
+	{
+        return $response->write('@route not works');
+	}
 }
