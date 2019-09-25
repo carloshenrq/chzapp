@@ -37,6 +37,8 @@ use \Psr\Http\Message\ServerRequestInterface;
 use \Psr\Http\Message\ResponseInterface;
 use \CHZApp\Interfaces\IApplication;
 
+use \ReflectionClass;
+
 /**
  * Classe padrão para os controllers da aplicação.
  *
@@ -61,6 +63,12 @@ abstract class Controller extends Component
      * @var array
      */
     private $regexRoutes;
+
+    /**
+     * Array com todas as rotas tratadas.
+     * @var array
+     */
+    private $parsedRoutes;
 
     /**
      * Array com o conteúdo de $_GET
@@ -93,9 +101,54 @@ abstract class Controller extends Component
         $this->customRoutes = [];
         $this->restrictionRoutes = [];
         $this->regexRoutes = [];
+        $this->parsedRoutes = [
+            'GET' => [],
+            'POST' => [],
+            'PUT' => [],
+            'PATCH' => [],
+            'DELETE' => [],
+        ];
+
+        // Trata as rotas com comentários para poder
+        // direcionar as rotas de outras formas.
+        $this->parseDocRoutes();
 
         // Chama o construtor de componentes.
         parent::__construct($application);
+    }
+
+    /**
+     * Realiza o tratamento das rotas que foram comentadas.
+     * 
+     * @return void
+     */
+    private function parseDocRoutes()
+    {
+        $ref = new ReflectionClass($this);
+        $methods = $ref->getMethods();
+
+        foreach ($methods as $method) {
+            $name = $method->getName();
+
+            $doc = $method->getDocComment();
+            if (empty($doc))
+                continue;
+
+            if (preg_match('/\@route\s([^\s]+)\s(GET|POST|PUT|PATCH|DELETE)/i', $doc, $match) == false)
+                continue;
+
+            // Dados de rota e tipo de requisição que serão tratados.
+            $route = strtolower($match[1]);
+            $method = strtoupper($match[2]);
+
+            // Rota já estava antes na lista???
+            // Pula a execução e passa para a próxima
+            if (isset($this->parsedRoutes[$method][$route]) === true)
+                continue;
+
+            // Adiciona na memória a referência do método a ser executado.
+            $this->parsedRoutes[$method][$route] = $name;
+        }
     }
 
     /**
@@ -217,7 +270,7 @@ abstract class Controller extends Component
      *
      * @return ResponseInterface
      */
-    private function callRoute($route, ResponseInterface $response, $args)
+    private function callRoute($route, ResponseInterface $response, $args, $original = null)
     {
         if(!$this->canCallRoute($route, $args))
             return $response->withStatus(404);
@@ -233,6 +286,13 @@ abstract class Controller extends Component
         {
             $closure = \Closure::bind($this->customRoutes[$route], $this);
             return $closure($response, $args);
+        }
+
+        // Verifia a rota se está definida em uma das rotas por comentário
+        // Se estiver, irá invocar ela ao invez da rota padrão...
+        if ($original !== null
+            && isset($this->parsedRoutes[$original->method][$original->route])) {
+            $route = $this->parsedRoutes[$original->method][$original->route];
         }
 
         // Se não houver travas ou restrições, então, retorna a resposta
@@ -373,7 +433,10 @@ abstract class Controller extends Component
         try
         {
             // Faz a chamada da rota.
-            $response = $this->callRoute($action, $response, $args);
+            $response = $this->callRoute($action, $response, $args, (object)[
+                'route' => implode('/', $routeParams),
+                'method' => $request->getMethod()
+            ]);
 
             // Verifica o retorno e devolve as informações
             // Para o gerenciador de erro, caso a página não seja encontrada.
