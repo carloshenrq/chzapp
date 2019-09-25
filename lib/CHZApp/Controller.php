@@ -272,7 +272,7 @@ abstract class Controller extends Component
      */
     private function callRoute($route, ResponseInterface $response, $args, $original = null)
     {
-        if(!$this->canCallRoute($route, $args))
+        if(!$this->canCallRoute($route, $args, $original))
             return $response->withStatus(404);
 
         // Verifica se é uma rota hookada, caso seja, irá preferir a rota de hook a rota
@@ -308,7 +308,7 @@ abstract class Controller extends Component
      *
      * @return bool Verdadeiro se puder.
      */
-    private function canCallRoute($route, $args)
+    private function canCallRoute($route, $args, $original)
     {
         // Verifica se uma rota customizada já existe, se não existir
         // Procura por um método fixo da classe.
@@ -324,7 +324,7 @@ abstract class Controller extends Component
         }
 
         // Se não existir nada, não tem o porque de acessar.
-        return false;
+        return isset($this->parsedRoutes[$original->method][$original->route]);
     }
 
     /**

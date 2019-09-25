@@ -151,6 +151,6 @@ class RouterTest extends TestCase
         $response = $this->appObj->run();
 
         $body = $this->appObj->getBodyContent();
-        $this->assertEquals('Page not found', $body);
+        $this->assertEquals('@route works', $body);
     }
 }
