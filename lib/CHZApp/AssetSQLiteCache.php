@@ -41,7 +41,11 @@ class AssetSQLiteCache extends Component
      */
     private function getConnection()
     {
-        return $this->getApplication()->getSQLiteCache()->getConnection();
+        $sqlite = $this->getApplication()->getSQLiteCache();
+        if ($sqlite === null)
+            return null;
+
+        return $sqlite->getConnection();
     }
 
     /**
@@ -62,6 +66,25 @@ class AssetSQLiteCache extends Component
     public function parseFileFromCache($file, $fileContent, $minify = true, $vars = [], $importPath = __DIR__)
     {
         $pdo = $this->getConnection();
+
+        // Resultado for NULL para o objeto de cache.
+        if ($pdo === null) {
+            $minifyData = $fileContent;
+
+            // Se for um arquivo SCSS então irá compilar o arquivo
+            // E depois devolver em tela.
+            if(preg_match('/\.scss$/', $file))
+                $minifyData = $this->getAssetParser()->scssContent($minifyData, $minify, $vars, $importPath);
+
+            // Se for arquivo javascript
+            if(preg_match('/\.js$/', $file))
+                $minifyData = $this->getAssetParser()->jsMinify($fileContent);
+            else if(preg_match('/\.css$/', $file))
+                $minifyData = $this->getAssetParser()->cssMinify($fileContent);
+
+            return $minifyData;
+        }
+
         $pdo->beginTransaction();
 
         $stmt = $pdo->prepare('

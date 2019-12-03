@@ -171,9 +171,6 @@ abstract class Application extends App implements IApplication
         // Defines the xmlJsonConverter
         $this->xmlJsonConverter = new XmlJsonConverter($this);
 
-        // Define os dados de cache para o banco de dados SQLite
-        $this->sqliteCache = new SQLiteCache($this, []);
-
         // Adição dos middlewares padrões.
         $this->add(new Router($this));
 
@@ -428,6 +425,16 @@ abstract class Application extends App implements IApplication
     public function getMemCache()
     {
         return $this->memcache;
+    }
+
+    /**
+     * Define o objeto de cache com SQLite em memória.
+     * 
+     * @param SQLiteCache $sqlite
+     */
+    public function setSQLiteCache(SQLiteCache $sqlite)
+    {
+        $this->$sqliteCache = $sqlite;
     }
 
     /**
