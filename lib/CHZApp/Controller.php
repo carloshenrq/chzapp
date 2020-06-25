@@ -259,7 +259,7 @@ abstract class Controller extends Component
         if(!is_callable($callback))
             return;
 
-        $this->restrictionRoutes[$route] = $callback;
+        $this->restrictionRoutes[$route][] = $callback;
     }
 
     /**
@@ -319,8 +319,17 @@ abstract class Controller extends Component
             if(!isset($this->restrictionRoutes[$route]))
                 return true;
 
-            $closure = \Closure::bind($this->restrictionRoutes[$route], $this);
-            return $closure($args);
+            $result = true;
+            foreach ($this->restrictionRoutes[$route] as $closure) {
+                $obj = \Closure::bind($closure, $this);
+                $response = $obj($args);
+                if ($response === false) {
+                    $result = false;
+                    break;
+                }
+            }
+
+            return $result;
         }
 
         // Se não existir nada, não tem o porque de acessar.
