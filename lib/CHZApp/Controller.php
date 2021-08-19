@@ -284,7 +284,10 @@ abstract class Controller extends Component
         // E retorna.
         if(isset($this->customRoutes[$route]))
         {
-            $closure = \Closure::bind($this->customRoutes[$route], $this);
+            $closure = $this->customRoutes[$route];
+            if (!is_array($closure))
+                $closure = \Closure::bind($closure, $this);
+
             return $closure($response, $args);
         }
 
@@ -321,7 +324,12 @@ abstract class Controller extends Component
 
             $result = true;
             foreach ($this->restrictionRoutes[$route] as $closure) {
-                $obj = \Closure::bind($closure, $this);
+                if (is_array($closure) && is_callable($obj)) {
+                    $obj = $closure;
+                } else {
+                    $obj = \Closure::bind($closure, $this);
+                }
+
                 $response = $obj($args);
                 if ($response === false) {
                     $result = false;
