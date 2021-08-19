@@ -324,7 +324,7 @@ abstract class Controller extends Component
 
             $result = true;
             foreach ($this->restrictionRoutes[$route] as $closure) {
-                if (is_array($closure) && is_callable($obj)) {
+                if (is_array($closure) && is_callable($closure)) {
                     $obj = $closure;
                 } else {
                     $obj = \Closure::bind($closure, $this);
